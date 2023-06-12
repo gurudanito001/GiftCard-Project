@@ -1,8 +1,11 @@
 import axios from "axios";
 /* import { handleError } from './../error/errorFunctions'; */
 import { getToken, deleteToken, getFingerprint } from "./localStorageService";
+//local base Url
+//const baseUrl = `http://localhost:3000`;
 
-const baseUrl = `http://localhost:3000`;
+// production basr Url
+const baseUrl = `https://gift-card-project.vercel.app`
 
 function setHeaders(extraHeaders: any) {
   let token = getToken();
