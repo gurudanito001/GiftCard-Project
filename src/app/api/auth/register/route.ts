@@ -28,7 +28,7 @@ export async function POST(request: Request) {
       }
     );
     //send email
-    await sendEmail({email: user.email, url: `http://localhost:3000/auth/verifyEmail?token=${token}`})
+    await sendEmail({email: user.email, url: `${process.env.BASE_URL}/auth/verifyEmail?token=${token}`})
     // return new user
     return new NextResponse(JSON.stringify({message: `A confirmation email was sent to your email: ${user.email}`}), {
       status: 201,

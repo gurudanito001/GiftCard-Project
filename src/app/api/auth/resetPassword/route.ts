@@ -23,7 +23,7 @@ export async function POST(request: Request) {
       }
     );
     //send email
-    await sendEmail({email: user.email, url: `http://localhost:3000/auth/changePassword?token=${token}`, message: "reset your password"})
+    await sendEmail({email: user.email, url: `${process.env.BASE_URL}/auth/changePassword?token=${token}`, message: "reset your password"})
 
     return new NextResponse(JSON.stringify({message: `A Reset Password Link was sent to your email: ${user.email}`}), {
       status: 200,
