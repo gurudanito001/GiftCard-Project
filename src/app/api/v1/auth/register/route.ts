@@ -10,7 +10,7 @@ import sendEmail from "@/services/sendEmail";
 export async function POST(request: Request) {
   try {
     const data = await request.json();
-    // encrypt passwrod
+    // encrypt password
     let encryptedPassword;
     if(typeof data.password === "string") encryptedPassword = await bcrypt.hash(data.password, 10);
     if(typeof encryptedPassword === "string") data.password = encryptedPassword;
@@ -18,7 +18,7 @@ export async function POST(request: Request) {
     // create user in database
     const user = await prisma.user.create({
       data,
-    }) as User;
+    }) ;
     // create user token
     const token = jwt.sign(
       { user_id: user.id, email: user.email },

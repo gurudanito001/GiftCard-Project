@@ -17,29 +17,12 @@ const styles = {
 
 const Toast = ({id, message, severity }) => {
   const dispatch = useDispatch();
-  return(
-<>
-    <Alert className='w-100' severity={severity} onClose={()=>dispatch(clearMessage({ severity: severity, key: id }))}>
-      <AlertTitle><span className='text-capitalize'>{severity}</span></AlertTitle>
-      {message}
-    </Alert>
-
-
-
-    {/* <div className={`toast-container3 p-3`}>
-      <div id="liveToast" className={`toast d-inline-block border ${severity === "success" ? "border-success" : "border-danger"} `} role="alert" aria-live="assertive" aria-atomic="true">
-        <div className="toast-header">
-          <strong className={`me-auto ${severity === "success" ? "text-success" : "text-danger"} text-capitalize`}>{severity}</strong>
-          <small>{millisToMinutesAndSeconds( Date.now() - id )} ago</small>
-          <button type="button" className="btn-close" data-bs-dismiss="toast" aria-label="Close" onClick={() => {
-            dispatch(clearMessage({ severity: severity, key: id }))
-          }}></button>
-        </div>
-        <div className="toast-body">
-          {message}
-        </div>
-      </div>
-    </div> */}
+  return (
+    <>
+      <Alert className='w-100' severity={severity} onClose={() => dispatch(clearMessage({ severity: severity, key: id }))}>
+        <AlertTitle><span className='text-capitalize'>{severity}</span></AlertTitle>
+        {message}
+      </Alert>
     </>
   )
 }

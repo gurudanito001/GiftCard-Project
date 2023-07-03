@@ -3,17 +3,18 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  const user = await prisma.user.upsert({
+  /* const user = await prisma.user.upsert({
     where: { email: "admin@admin.com" },
     update: {},
     create: {
-      name: "Admin",
+      firstName: "Admin",
+      lastName: "",
       email: "admin@admin.com",
-      role: "admin",
+      role: "ADMIN",
     },
   });
 
-  console.log({ user });
+  console.log({ user }); */
 }
 
 main()

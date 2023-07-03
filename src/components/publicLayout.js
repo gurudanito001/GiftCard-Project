@@ -31,21 +31,6 @@ const PublicLayout = ({ children }) => {
             <li className="nav-item">
               <a className="nav-link nav-link-lg primary-text" aria-current="page" href="/marketplace">Market Place</a>
             </li>
-            {/* <div className='dropdown-center'>
-              <button className="btn highlight-btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                Market Place
-              </button>
-              <ul className="dropdown-menu dropdown-menu-secondary">
-                <li><Link href={{
-                  pathname: '/marketplace',
-                  query: {actionIndex: 0}
-                }} className="dropdown-item">I want to buy Giftcard</Link></li>
-                <li><Link href={{
-                  pathname: '/marketplace',
-                  query: {actionIndex: 1}
-                }} className="dropdown-item">I want to sell Giftcard</Link></li>
-              </ul>
-            </div> */}
           </ul>
 
 
@@ -91,7 +76,6 @@ const PublicLayout = ({ children }) => {
             </ul>
           </ul>
         </div>
-
       </aside>
       {children}
       <footer className="accent-bg py-5 mt-auto">

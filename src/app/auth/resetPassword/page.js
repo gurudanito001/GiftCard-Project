@@ -1,60 +1,7 @@
-'use client';
 import styles from '../auth.module.css';
-import { AppTextInput } from "../../../components/formComponents";
-import { useState } from "react";
-import { apiPost } from '../../../services/apiService';
-import { CircularProgress } from "@mui/material";
-import { useSelector, useDispatch } from 'react-redux';
-import { setMessage } from '@/store/slices/notificationSlice';
-
+import ResetPasswordForm from './form';
 const ResetPassword = () => {
-  const dispatch = useDispatch();
-  const [formData, setFormData] = useState({
-    email: "",
-  })
-  const [isLoading, setIsLoading] = useState(false)
-
-  const handleChange = (prop) => (event) => {
-    setFormData(prevState => ({
-      ...prevState,
-      [prop]: event.target.value
-    }))
-  }
-
-  const resetPassword = () => {
-    setIsLoading(true)
-    apiPost({ url: `/api/auth/resetPassword`, data: formData })
-      .then(res => {
-        console.log(res)
-        setIsLoading(false)
-        dispatch(
-          setMessage({
-            severity: "success",
-            message: res.message,
-            key: Date.now(),
-          })
-        );
-      })
-      .catch(error => {
-        console.log(error)
-        setIsLoading(false)
-        dispatch(
-          setMessage({
-            severity: "error",
-            message: error.message,
-            key: Date.now(),
-          })
-        );
-      })
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    resetPassword()
-    console.log(formData)
-  }
-
-
+  
   return (
     <div className='vh-100'>
       <div className="d-flex primary-bg h-100 justify-content-center justify-content-lg-start">
@@ -68,17 +15,7 @@ const ResetPassword = () => {
             </div>
             <h2 className={styles.pageTitle}>Reset Password!</h2>
             <p className={styles.pageDescription}>In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc.</p>
-
-            <form className="w-100 d-flex flex-column align-items-center mt-5">
-              <AppTextInput
-                value={formData.email}
-                onChange={handleChange("email")}
-                labelText="Email Address"
-              />
-              <button className="btn app-primary-btn d-flex align-items-center" disabled={isLoading} type="button" onClick={handleSubmit}>
-                {isLoading ? <CircularProgress size={20} color="inherit" /> : "Proceed"}
-              </button>
-            </form>
+            <ResetPasswordForm />
           </div>
         </section>
         <section className="d-none accent-light-bg d-lg-flex justify-content-center col-lg-7">

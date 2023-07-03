@@ -12,11 +12,125 @@ datasource db {
 
 model User {
   id              String    @id @default(uuid())
-  name            String
+  firstName       String
+  lastName        String
+  avater          String?
   email           String    @unique
+  username        String?   @unique
+  showBalance     Boolean   @default(false)
   password        String?    
-  role            String    
+  role            Role      @default(USER)    
   email_confirmed Boolean  @default(false)
+  offers          Offer[]
+  Buyer           Trade[] @relation("Buyer")
+  Seller          Trade[] @relation("Seller")
+  Benefactor      Transaction[] @relation("Benefactor")
+  Beneficiary     Transaction[] @relation("Beneficiary")
+  Sender          Notification[] @relation("Sender")
+  Receiver        Notification[] @relation("Receiver")
+  wallet          Wallet?
+  escrow          Escrow[]
+  bankAccounts    BankAccount[]
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
+}
+
+model Offer {
+  id              String    @id @default(uuid())
+  user            User      @relation(fields: [userId], references: [id]) 
+  userId          String
+  cardName        String    
+  valueInUSD      String
+  price           String    
+  Location        String?
+  trades          Trade[]
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model Trade {
+  id              String    @id @default(uuid())
+  buyer           User      @relation("Buyer", fields: [buyerId], references: [id]) 
+  buyerId         String
+  seller          User      @relation("Seller", fields: [sellerId], references: [id]) 
+  sellerId        String
+  offer           Offer     @relation(fields: [offerId], references: [id]) 
+  offerId         String
+  transaction     Transaction?
+  escrow          Escrow?
+  successful      Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model Transaction {
+  id              String            @id @default(uuid())
+  benefactor      User              @relation("Benefactor", fields: [benefactorId], references: [id]) 
+  benefactorId    String
+  beneficiary     User              @relation("Beneficiary", fields: [beneficiaryId], references: [id]) 
+  beneficiaryId   String
+  amount          String
+  trade           Trade?            @relation(fields: [tradeId], references: [id]) 
+  tradeId         String?           @unique
+  type            TransactionType   @default(CREDIT)
+  category        String
+  successful      Boolean           @default(false)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+}
+
+model BankAccount {
+  id              String    @id @default(uuid())
+  user            User      @relation(fields: [userId], references: [id]) 
+  userId          String
+  bankName        String
+  accountName     String
+  accountNumber   String  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model Notification {
+  id              String    @id @default(uuid())
+  receiver        User      @relation("Receiver", fields: [receiverId], references: [id]) 
+  receiverId      String
+  sender          User?     @relation("Sender", fields: [senderId], references: [id]) 
+  senderId        String
+  viewed          Boolean   @default(false)
+  message         String    
+  url             String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model Wallet {
+  id                String    @id @default(uuid())
+  user              User      @relation(fields: [userId], references: [id]) 
+  userId            String    @unique
+  currency          String    @default("NGN")
+  currentBalance    String    @default("0.00")
+  availableBalance  String    @default("0.00")
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+}
+
+model Escrow {
+  id                String    @id @default(uuid())
+  user              User      @relation(fields: [userId], references: [id]) 
+  userId            String
+  trade             Trade     @relation(fields: [tradeId], references: [id]) 
+  tradeId           String    @unique
+  amount            String
+  fulfilled         Boolean   @default(false)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+enum TransactionType {
+  DEBIT
+  CREDIT
 }

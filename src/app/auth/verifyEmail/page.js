@@ -56,9 +56,10 @@ const VerifyEmail = () => {
         <div className="col col-lg-6 offset-lg-3 d-flex pb-5">
 
           {!emailVerified && isLoading &&
-            <section className="mx-auto" style={{marginTop: "200px"}}>
+            <section className="mx-auto" style={{ marginTop: "200px" }}>
               <h1 className="text-center">Verifying Email ...</h1>
-            </section>}
+            </section>
+          }
 
           {emailVerified &&
             <section className={styles.wrapper}>
@@ -69,7 +70,8 @@ const VerifyEmail = () => {
               <a className="btn app-primary-btn d-flex align-items-center" href="/auth/login" type="button">
                 Login
               </a>
-            </section>}
+            </section>
+          }
         </div>
       </div>
     </main>
