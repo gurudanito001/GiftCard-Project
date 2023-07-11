@@ -5,7 +5,7 @@ import { getToken, deleteToken, getFingerprint } from "./localStorageService";
 //const baseUrl = `http://localhost:3000`;
 
 // production basr Url
-const baseUrl = `https://gift-card-project.vercel.app`
+const baseUrl = `https://gift-card-project.vercel.app/api/v1`
 
 function setHeaders(extraHeaders: any) {
   let token = getToken();

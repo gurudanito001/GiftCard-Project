@@ -24,7 +24,7 @@ const VerifyEmail = () => {
 
   const verifyEmail = () => {
     setIsLoading(true)
-    apiPost({ url: `/api/auth/confirmEmail/${token}` })
+    apiPost({ url: `/auth/confirmEmail/${token}` })
       .then(res => {
         console.log(res)
         setIsLoading(false)

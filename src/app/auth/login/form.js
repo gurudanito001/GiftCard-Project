@@ -26,7 +26,7 @@ const LoginForm = () => {
 
   const registerUser = () => {
     setIsLoading(true)
-    apiPost({ url: `/api/auth/login`, data: formData })
+    apiPost({ url: `/auth/login`, data: formData })
       .then(res => {
         console.log(res)
         setIsLoading(false)

@@ -29,7 +29,7 @@ const ChangePasswordForm = () => {
 
   const changePassword = () => {
     setIsLoading(true)
-    apiPost({ url: `/api/auth/changePassword/${token}`, data: formData })
+    apiPost({ url: `/auth/changePassword/${token}`, data: formData })
       .then(res => {
         console.log(res)
         setIsLoading(false)

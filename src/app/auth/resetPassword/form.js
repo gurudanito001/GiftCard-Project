@@ -22,7 +22,7 @@ const ResetPasswordForm = () => {
 
   const resetPassword = () => {
     setIsLoading(true)
-    apiPost({ url: `/api/auth/resetPassword`, data: formData })
+    apiPost({ url: `/auth/resetPassword`, data: formData })
       .then(res => {
         console.log(res)
         setIsLoading(false)
