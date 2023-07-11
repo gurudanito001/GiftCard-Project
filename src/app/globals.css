@@ -54,6 +54,10 @@ label.Mui-focused{
   color: var(--primary) !important;
   margin-top: 50px !important;
 }
+.table, th, td {
+    text-align: center !important; 
+    font-size: .9rem;  
+ }
 
 .body::before{
     display: block !important;
@@ -63,6 +67,7 @@ label.Mui-focused{
 
 body{
     font-family: 'Montserrat' !important;
+    font-weight: 500 !important;
     color: var(--secondary) !important;
 }
 
@@ -131,6 +136,27 @@ p.span{
     opacity: 0.9 !important;
     color: var(--primary) !important;
     border-color: var(--accent) !important;
+}
+
+textarea:hover, 
+input:hover, 
+textarea:active, 
+input:active, 
+textarea:focus, 
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active,
+select:hover,
+select:active,
+select:focus
+{
+    outline:0px !important;
+    -webkit-appearance:none;
+    box-shadow: none !important;
 }
 
 .highlight-btn{
@@ -227,10 +253,10 @@ p.span{
 
 .sidebar {
     background-color: var(--primary) !important;
-    position: fixed !important;
+    /* position: fixed !important;
     top: 0px !important;
-    left: 0px !important;
-    width: 250px !important;
+    left: 0px !important; */
+    width: 300px !important;
 }
 
 .link{
@@ -256,7 +282,7 @@ p.span{
 }
 
 .main{
-    margin-left: 250px !important;
+    margin-left: 0px !important;
 }
 
 .chat-wrapper-2{
@@ -343,10 +369,6 @@ p.span{
 /********************************************** Mobile design *******************************/
 
 @media screen and (max-width: 991px) {
-    .main{
-        margin-left: 84.375px !important;
-    }
-    
     .card-rate{
         width: 90% !important;
     }
@@ -379,10 +401,6 @@ p.span{
 @media screen and (max-width: 767px) {
     .body::before{
         height: 63px !important;
-    }
-
-    .main{
-        margin-left: 0 !important;
     }
 
     .card-rate{

@@ -6,9 +6,10 @@ import { apiPost } from '../../../services/apiService';
 import { CircularProgress } from "@mui/material";
 import { useSelector, useDispatch } from 'react-redux';
 import { setMessage } from '@/store/slices/notificationSlice';
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
-
+  const router = useRouter();
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     email: "",
@@ -36,6 +37,7 @@ const LoginForm = () => {
             key: Date.now(),
           })
         );
+        router.push("/dashboard")
       })
       .catch(error => {
         console.log(error)

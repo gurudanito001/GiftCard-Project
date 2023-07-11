@@ -4,6 +4,7 @@ import RegisterForm from './form';
 
 const Register = () => {
   return (
+    <main style={{height: "100vh"}} className='d-flex flex-column'>
     <div className='vh-100'>
       <div className="d-flex primary-bg h-100 justify-content-center justify-content-lg-start">
         <section className="d-flex flex-column gap-3 align-items-center align-items-lg-start 
@@ -25,6 +26,7 @@ const Register = () => {
         </section>
       </div>
     </div>
+    </main>
   )
 }
 

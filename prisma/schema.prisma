@@ -41,7 +41,8 @@ model Offer {
   userId          String
   cardName        String    
   valueInUSD      String
-  price           String    
+  price           String 
+  category        OfferCategory @default(MERCHANT)
   Location        String?
   trades          Trade[]
   createdAt       DateTime  @default(now())
@@ -54,11 +55,14 @@ model Trade {
   buyerId         String
   seller          User      @relation("Seller", fields: [sellerId], references: [id]) 
   sellerId        String
+  cardName        String
+  valueInUSD      String
+  price           String  
   offer           Offer     @relation(fields: [offerId], references: [id]) 
   offerId         String
   transaction     Transaction?
   escrow          Escrow?
-  successful      Boolean   @default(false)
+  status          TradeStatus   @default(PENDING)
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 }
@@ -74,7 +78,7 @@ model Transaction {
   tradeId         String?           @unique
   type            TransactionType   @default(CREDIT)
   category        String
-  successful      Boolean           @default(false)
+  status          TransactionStatus @default(PENDING )
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
 }
@@ -121,7 +125,7 @@ model Escrow {
   trade             Trade     @relation(fields: [tradeId], references: [id]) 
   tradeId           String    @unique
   amount            String
-  fulfilled         Boolean   @default(false)
+  status            EscrowStatus   @default(PENDING)
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
 }
@@ -133,4 +137,29 @@ enum Role {
 enum TransactionType {
   DEBIT
   CREDIT
+}
+
+enum TransactionStatus {
+  PENDING
+  FAILED
+  SUCCESSFUL
+}
+
+enum EscrowStatus {
+  PENDING
+  RETURNED
+  DISBURSED
+}
+
+enum TradeStatus {
+  PENDING
+  ACCEPTED
+  SUCCESSFUL
+  DISCONTINUED
+  CANCELLED
+}
+
+enum OfferCategory {
+  MERCHANT 
+  SELLER
 }

@@ -51,27 +51,29 @@ const VerifyEmail = () => {
   }
 
   return (
-    <main className="container-fluid">
-      <div className="row">
-        <div className="col col-lg-6 offset-lg-3 d-flex pb-5">
+    <main style={{ height: "100vh" }} className='d-flex flex-column'>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col col-lg-6 offset-lg-3 d-flex pb-5">
 
-          {!emailVerified && isLoading &&
-            <section className="mx-auto" style={{ marginTop: "200px" }}>
-              <h1 className="text-center">Verifying Email ...</h1>
-            </section>
-          }
+            {!emailVerified && isLoading &&
+              <section className="mx-auto" style={{ marginTop: "200px" }}>
+                <h1 className="text-center">Verifying Email ...</h1>
+              </section>
+            }
 
-          {emailVerified &&
-            <section className={styles.wrapper}>
-              <Image className="visible" src="/images/success-secondary.svg" alt="Success Icon" width={90} height={90} style={{ marginTop: "120px" }} />
-              <h2 className={styles.pageTitle} style={{ marginTop: "30px" }}>Email Verified!</h2>
-              <p className={styles.pageDescription}>In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc.</p>
+            {emailVerified &&
+              <section className={styles.wrapper}>
+                <Image className="visible" src="/images/success-secondary.svg" alt="Success Icon" width={90} height={90} style={{ marginTop: "120px" }} />
+                <h2 className={styles.pageTitle} style={{ marginTop: "30px" }}>Email Verified!</h2>
+                <p className={styles.pageDescription}>In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc.</p>
 
-              <a className="btn app-primary-btn d-flex align-items-center" href="/auth/login" type="button">
-                Login
-              </a>
-            </section>
-          }
+                <a className="btn app-primary-btn d-flex align-items-center" href="/auth/login" type="button">
+                  Login
+                </a>
+              </section>
+            }
+          </div>
         </div>
       </div>
     </main>

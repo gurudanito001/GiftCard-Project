@@ -32,9 +32,6 @@ const PublicLayout = ({ children }) => {
               <a className="nav-link nav-link-lg primary-text" aria-current="page" href="/marketplace">Market Place</a>
             </li>
           </ul>
-
-
-
           <ul className="d-none d-lg-flex navbar-nav gap-2">
             <li>
               <a type="button" className="btn login-btn outline-primary-btn" href="/auth/login">Log In</a>
@@ -77,20 +74,22 @@ const PublicLayout = ({ children }) => {
           </ul>
         </div>
       </aside>
-      {children}
-      <footer className="accent-bg py-5 mt-auto">
-        <div className="container d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3 gap-sm-5">
-          <p className="mb-0 primary-text small order-1 order-sm-0">
-            &copy; 2023 GiftCard. All Rights Reserved
-          </p>
+      <main style={{ height: "100vh" }} className='d-flex flex-column'>
+        {children}
+        <footer className="accent-bg py-5 mt-auto">
+          <div className="container d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3 gap-sm-5">
+            <p className="mb-0 primary-text small order-1 order-sm-0">
+              &copy; 2023 GiftCard. All Rights Reserved
+            </p>
 
-          <div className="d-flex gap-1 order-0 order-sm-1">
-            <a href="https://www.facebook.com"><Image src="/images/brandico_facebook.svg" alt="Facebook Icon" height={24} width={24} /></a>
-            <a href="https://www.twitter.com"><Image src="/images/arcticons_twitter.svg" alt="Twitter Icon" height={24} width={24} /></a>
-            <a href="https://www.instagram.com"><Image src="/images/akar-icons_instagram-fill.svg" alt="Instagram Icon" height={24} width={24} /></a>
+            <div className="d-flex gap-1 order-0 order-sm-1">
+              <a href="https://www.facebook.com"><Image src="/images/brandico_facebook.svg" alt="Facebook Icon" height={24} width={24} /></a>
+              <a href="https://www.twitter.com"><Image src="/images/arcticons_twitter.svg" alt="Twitter Icon" height={24} width={24} /></a>
+              <a href="https://www.instagram.com"><Image src="/images/akar-icons_instagram-fill.svg" alt="Instagram Icon" height={24} width={24} /></a>
+            </div>
           </div>
-        </div>
-      </footer>
+        </footer>
+      </main>
     </>
   )
 }
