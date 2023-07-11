@@ -2,6 +2,7 @@
 
 import {useState} from 'react';
 import { CircularProgress } from '@mui/material';
+import Image from 'next/image';
 
 
 const styles ={
@@ -23,7 +24,8 @@ const OfferDetails = () =>{
             <header className='d-flex align-items-center mb-5'>
                 <h2 className=''>Offer Details</h2>
                 <button type="button" className="btn btn-link px-0 secondary-text fw-bold text-decoration-none d-flex align-items-center gap-1 ms-auto" data-bs-toggle="offcanvas" data-bs-target="#editOffer">
-                    <img className="img-fluid" src="/images/plus-circle.svg" alt="" /> Edit Offer
+                    <Image className='img img-fluid' src="/images/plus-circle.svg" alt='plus-circle-icon' width={20} height={20} />
+                    Edit Offer
                 </button>
             </header>
 

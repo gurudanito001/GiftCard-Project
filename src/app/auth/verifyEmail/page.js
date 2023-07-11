@@ -20,7 +20,7 @@ const VerifyEmail = () => {
     if (token) {
       verifyEmail();
     }
-  }, [])
+  },)
 
   const verifyEmail = () => {
     setIsLoading(true)

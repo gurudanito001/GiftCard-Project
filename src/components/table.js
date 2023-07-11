@@ -259,7 +259,7 @@ export default function EnhancedTable({tableHeadObject, tableDataArray}) {
     );
 
     setVisibleRows(rowsOnMount);
-  }, []);
+  }, [userRows]);
 
   const handleRequestSort = React.useCallback(
     (event, newOrderBy) => {
@@ -276,7 +276,7 @@ export default function EnhancedTable({tableHeadObject, tableDataArray}) {
 
       setVisibleRows(updatedRows);
     },
-    [order, orderBy, page, rowsPerPage],
+    [order, orderBy, page, rowsPerPage, userRows],
   );
 
   const handleSelectAllClick = (event) => {
@@ -327,7 +327,7 @@ export default function EnhancedTable({tableHeadObject, tableDataArray}) {
       const newPaddingHeight = (dense ? 33 : 53) * numEmptyRows;
       setPaddingHeight(newPaddingHeight);
     },
-    [order, orderBy, dense, rowsPerPage],
+    [order, orderBy, dense, rowsPerPage, userRows],
   );
 
   const handleChangeRowsPerPage = React.useCallback(
@@ -348,7 +348,7 @@ export default function EnhancedTable({tableHeadObject, tableDataArray}) {
       // There is no layout jump to handle on the first page.
       setPaddingHeight(0);
     },
-    [order, orderBy],
+    [order, orderBy, userRows],
   );
 
   const handleChangeDense = (event) => {

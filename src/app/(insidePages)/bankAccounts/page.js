@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { CircularProgress } from '@mui/material';
+import Image from 'next/image';
 
 const styles = {
     container: {
@@ -50,7 +51,8 @@ const BankAccounts = () => {
             <header className='d-flex align-items-center mb-5'>
                 <h2 className='m-0'>Bank Accounts</h2>
                 <button type="button" className="btn btn-link px-0 secondary-text fw-bold text-decoration-none d-flex align-items-center gap-1 ms-auto" data-bs-toggle="offcanvas" data-bs-target="#bankAccounts">
-                    <img className="img-fluid" src="/images/plus-circle.svg" alt="" /> Add Bank Account
+                    <Image className='img img-fluid' src="/images/plus-circle.svg" alt='plus-circle' width={20} height={20} />
+                    Add Bank Account
                 </button>
             </header>
             <section className='primary-bg p-3 p-lg-5 d-flex flex-wrap gap-3' style={styles.container}>

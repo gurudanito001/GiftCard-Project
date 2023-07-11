@@ -1,6 +1,7 @@
 "use client"
 import React from 'react';
 import { IconButton } from '@mui/material';
+import Image from 'next/image';
 
 const styles = {
     card: {
@@ -60,7 +61,7 @@ export default function Dashboard() {
                     </div>
                     <div className='primary-bg d-flex flex-column gap-2 recent-transaction rounded-4 p-lg-2' style={styles.transactions}>
                         <div className="d-flex flex-row align-items-start gap-3 primary-bg card border-0 px-3 py-3">
-                            <img className="wallet-icon img-fluid" src="/images/wallet_icon.svg" alt="" />
+                            <Image className='img img-fluid wallet-icon' src="/images/wallet_icon.svg" alt='wallet-icon' width={20} height={20} />
                             <div className="d-flex gap-3 flex-fill">
                                 <div className="d-flex flex-column gap-1">
                                     <p className="mb-0 span">
@@ -73,7 +74,7 @@ export default function Dashboard() {
                         </div>
 
                         <div className="d-flex flex-row align-items-start gap-3 primary-bg card border-0 px-3 py-3 rounded-3">
-                            <img className="wallet-icon img-fluid" src="/images/wallet_icon.svg" alt="" />
+                            <Image className='img img-fluid wallet-icon' src="/images/wallet_icon.svg" alt='wallet-icon' width={20} height={20} />
                             <div className="d-flex gap-3 flex-fill">
                                 <div className="d-flex flex-column gap-1">
                                     <p className="mb-0 span">
@@ -86,7 +87,7 @@ export default function Dashboard() {
                         </div>
 
                         <div className="d-flex flex-row align-items-start gap-3 primary-bg card border-0 px-3 py-3 rounded-3">
-                            <img className="wallet-icon img-fluid" src="/images/wallet_icon.svg" alt="" />
+                            <Image className='img img-fluid wallet-icon' src="/images/wallet_icon.svg" alt='wallet-icon' width={20} height={20} />
                             <div className="d-flex gap-3 flex-fill">
                                 <div className="d-flex flex-column gap-1">
                                     <p className="mb-0 span">
@@ -99,7 +100,7 @@ export default function Dashboard() {
                         </div>
 
                         <div className="d-flex flex-row align-items-start gap-3 primary-bg card border-0 px-3 py-3 rounded-3">
-                            <img className="wallet-icon img-fluid" src="/images/wallet_icon.svg" alt="" />
+                            <Image className='img img-fluid wallet-icon' src="/images/wallet_icon.svg" alt='wallet-icon' width={20} height={20} />
                             <div className="d-flex gap-3 flex-fill">
                                 <div className="d-flex flex-column gap-1">
                                     <p className="mb-0 span">
@@ -120,7 +121,7 @@ export default function Dashboard() {
                     </div>
                     <div className='primary-bg d-flex flex-column gap-2 recent-transaction rounded-4 p-lg-2' style={styles.transactions}>
                         <div className="d-flex flex-row align-items-start gap-3 primary-bg card border-0 px-3 py-3">
-                            <img className="wallet-icon img-fluid" src="/images/wallet_icon.svg" alt="" />
+                            <Image className='img img-fluid wallet-icon' src="/images/wallet_icon.svg" alt='wallet-icon' width={20} height={20} />
                             <div className="d-flex gap-3 flex-fill">
                                 <div className="d-flex flex-column gap-1">
                                     <p className="mb-0 span">
@@ -133,7 +134,7 @@ export default function Dashboard() {
                         </div>
 
                         <div className="d-flex flex-row align-items-start gap-3 primary-bg card border-0 px-3 py-3 rounded-3">
-                            <img className="wallet-icon img-fluid" src="/images/wallet_icon.svg" alt="" />
+                            <Image className='img img-fluid wallet-icon' src="/images/wallet_icon.svg" alt='wallet-icon' width={20} height={20} />
                             <div className="d-flex gap-3 flex-fill">
                                 <div className="d-flex flex-column gap-1">
                                     <p className="mb-0 span">
@@ -146,7 +147,7 @@ export default function Dashboard() {
                         </div>
 
                         <div className="d-flex flex-row align-items-start gap-3 primary-bg card border-0 px-3 py-3 rounded-3">
-                            <img className="wallet-icon img-fluid" src="/images/wallet_icon.svg" alt="" />
+                            <Image className='img img-fluid wallet-icon' src="/images/wallet_icon.svg" alt='wallet-icon' width={20} height={20} />
                             <div className="d-flex gap-3 flex-fill">
                                 <div className="d-flex flex-column gap-1">
                                     <p className="mb-0 span">
@@ -159,7 +160,7 @@ export default function Dashboard() {
                         </div>
 
                         <div className="d-flex flex-row align-items-start gap-3 primary-bg card border-0 px-3 py-3 rounded-3">
-                            <img className="wallet-icon img-fluid" src="/images/wallet_icon.svg" alt="" />
+                            <Image className='img img-fluid wallet-icon' src="/images/wallet_icon.svg" alt='wallet-icon' width={20} height={20} />
                             <div className="d-flex gap-3 flex-fill">
                                 <div className="d-flex flex-column gap-1">
                                     <p className="mb-0 span">
@@ -174,8 +175,6 @@ export default function Dashboard() {
                 </div>
             </section>
         </div>
-
-
 
     )
 }

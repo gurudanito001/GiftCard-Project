@@ -9,6 +9,7 @@ import { useSearchParams } from "next/navigation";
 import { useSelector, useDispatch } from 'react-redux';
 import { setMessage } from '@/store/slices/notificationSlice';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const styles = {
     tableRow: {
@@ -73,7 +74,8 @@ const Offers = () => {
             <header className='d-flex align-items-center mb-5'>
                 <h2 className=''>Your Offers</h2>
                 <button type="button" className="btn btn-link px-0 secondary-text fw-bold text-decoration-none d-flex align-items-center gap-1 ms-auto" data-bs-toggle="offcanvas" data-bs-target="#offers">
-                    <img className="img-fluid" src="/images/plus-circle.svg" alt="" /> Create Offer
+                    <Image className='img img-fluid' src="/images/plus-circle.svg" alt='plus-circle-icon' width={20} height={20} />
+                    Create Offer
                 </button>
             </header>
 
