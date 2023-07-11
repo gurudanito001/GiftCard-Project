@@ -1,6 +1,7 @@
 "use client"
 
 import {useState} from 'react';
+import { CircularProgress } from '@mui/material';
 
 
 const styles ={
@@ -60,7 +61,7 @@ const OfferDetails = () =>{
                             </button>
                         </h2>
                         <div id="flush-collapseOne" className="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                            <div className="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> className. This is the first item's accordion body.</div>
+                            <div className="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> className. This is the first items accordion body.</div>
                         </div>
                     </div>
                 </div>

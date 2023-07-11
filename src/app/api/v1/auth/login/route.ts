@@ -11,9 +11,9 @@ export async function POST(request: Request) {
   try {
     const data: LoginCredentials = await request.json();
     // find user in database
-    const user = await prisma.user.findFirst({
+    const user: any = await prisma.user.findFirst({
       where: {email: data.email}
-    }) as User;
+    });
     if (user && (await bcrypt.compare(data.password as string, user.password as string))) {
       if(!user.email_confirmed){
         return new NextResponse(JSON.stringify({message: "Email Not Verified"}), {

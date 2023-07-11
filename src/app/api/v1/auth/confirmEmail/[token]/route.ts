@@ -25,7 +25,7 @@ export async function POST(
       await prisma.user.update({
         where: { id: user_id },
         data: {...user, email_confirmed: true},
-      }) as User;
+      });
       return new NextResponse(JSON.stringify({message: "Email Confirmation Successful!"}), {
         status: 200,
         headers: { "Content-Type": "application/json" },
