@@ -31,6 +31,7 @@ const Withdraw = ({userData, refreshUserData}) => {
   useEffect(()=>{
     
     fetchBankAccounts()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   
