@@ -1,20 +1,19 @@
 "use client";
 
-import {useState, useEffect} from 'react';
+import * as React from 'react';
 import { apiGet } from '@/services/apiService';
 import Image from 'next/image';
-import { useMutation } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import useDispatchMessage from '@/hooks/useDispatchMessage';
 import { useRouter } from 'next/navigation';
 import formatAsCurrency from "@/services/formatAsCurrency";
+
 import CreateOffer from "./createOffer"
-import { useSelector } from 'react-redux';
-import { CircularProgress } from '@mui/material';
 
 const styles = {
-  tableRow: {
-      cursor: "pointer"
-  }
+    tableRow: {
+        cursor: "pointer"
+    }
 }
 const OfferListItem = ({ id, index, cardName, offerCategory, price, valueInUSD, createdAt }) => {
     const router = useRouter();
@@ -30,61 +29,26 @@ const OfferListItem = ({ id, index, cardName, offerCategory, price, valueInUSD, 
         </tr>
     )
 }
-const Offers = ({}) => {
-    const [data, setData] = useState({
-      page: 0,
-      take: 2,
-      count: "",
-      data: []
-    })
-    const [isLoading, setIsLoading] = useState(false)
-    const [page, setPage] = useState(1)
-    
-
+const Offers = ({ initialData }) => {
     const dispatchMessage = useDispatchMessage();
-    const {userData} = useSelector((state) => state.userData);
 
-    useEffect(()=>{
-        fetchOffers()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [userData, page])
-
-    const fetchOffers = () => {
-      if(userData.id){
-        setIsLoading(true)
-        apiGet({ url: `/offers?userId=${userData.id}&page=${page}&take=${2}` })
-          .then((res) => {
-            console.log(res)
-            dispatchMessage({ message: res.message })
-            setOffersState(res)
-            setIsLoading(false)
-          })
-          .catch(error => {
-            console.log(error.message)
-            dispatchMessage({ severity: "error", message: error.message })
-            setIsLoading(false)
-          })
-      }
-    }
-
-    const setOffersState = (res) =>{
-      if(res.page === data.page + 1 && res.data.length !== 0){
-        setData(prevState => ({
-          page: res.page,
-          take: res.take,
-          count: res.offersCount,
-          data: [...prevState.data, ...res.data]
-        }))
-      }
-    }
-    const setNextPage = () =>{
-      console.log(data, page)
-      setPage( prevState => prevState + 1)
-    }
+    const { data } = useQuery({
+        initialData,
+        queryKey: ["allOffers"],
+        queryFn: () => apiGet({ url: `/offers` })
+            .then((res) => {
+                console.log(res)
+                dispatchMessage({ message: res.message })
+                return res.data
+            })
+            .catch(error => {
+                console.log(error.message)
+                dispatchMessage({severity: "error", message: error.message })
+            })
+    })
 
     const listOffers = () => {
-        console.log(userData.id)
-        return data.data.map((offer, index) => <OfferListItem
+        return data.map((offer, index) => <OfferListItem
             key={offer.id}
             id={offer.id}
             index={index + 1}
@@ -109,7 +73,6 @@ const Offers = ({}) => {
 
             <section className='table-responsive mt-5 p-lg-3 primary-bg'>
                 <table className="table table-hover table-borderless align-middle">
-                    <caption className='p-3'>{data.data.length} of {data.count}</caption>
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -122,12 +85,9 @@ const Offers = ({}) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.data.length > 0 && listOffers()}
+                        {data && listOffers()}
                     </tbody>
                 </table>
-                <button className="btn app-primary-btn d-flex align-items-center px-5" disabled={isLoading} type="button" onClick={setNextPage}>
-                  {isLoading ? <CircularProgress size={20} color="inherit" /> : "Load More Offers"}
-                </button>
             </section>
 
 

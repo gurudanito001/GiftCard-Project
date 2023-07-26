@@ -12,12 +12,13 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const json = await request.json();
+    console.log(json)
 
     const bankAccount = await prisma.bankAccount.create({
       data: json,
     });
 
-    return new NextResponse(JSON.stringify(bankAccount), { 
+    return new NextResponse(JSON.stringify({message: "Bank Account Added Successfully", data: bankAccount}), { 
      status: 201, 
      headers: { "Content-Type": "application/json" },
     });

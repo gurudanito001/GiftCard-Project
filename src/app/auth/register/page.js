@@ -11,9 +11,9 @@ const Register = () => {
             col-11 col-sm-8 col-md-5 py-5 px-4 px-lg-5">
           <div className={styles.wrapper}>
             <div className="navbar-brand">
-              <a className="text-decoration-none dark-text fw-bold fs-3" href="/">
-                Gift<span className="secondary-text">Card</span>
-              </a>
+                <a className="text-decoration-none dark-text fw-bold fs-3" href="/">
+                  Peniga
+                </a>
             </div>
             <h2 className={styles.pageTitle}>Create Your Account!</h2>
             <p className={styles.pageDescription}>In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc.</p>

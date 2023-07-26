@@ -1,16 +1,28 @@
 
 'use client';
 import { AppTextInput, AppPasswordInput } from "../../../components/formComponents";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { apiPost } from '../../../services/apiService';
 import { CircularProgress } from "@mui/material";
 import { useSelector, useDispatch } from 'react-redux';
 import { setMessage } from '@/store/slices/notificationSlice';
 import { useRouter } from "next/navigation";
+import { setUserData } from "../../../store/slices/userDataSlice";
 
 const LoginForm = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const {userData} = useSelector((state) => state.userData);
+
+  useEffect(()=>{
+    let token = localStorage.getItem("token")
+    console.log(token)
+    if(userData.token){
+      router.push("/dashboard")
+
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[userData])
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -24,7 +36,7 @@ const LoginForm = () => {
     }))
   }
 
-  const registerUser = () => {
+  const loginUser = () => {
     setIsLoading(true)
     apiPost({ url: `/auth/login`, data: formData })
       .then(res => {
@@ -37,7 +49,8 @@ const LoginForm = () => {
             key: Date.now(),
           })
         );
-        router.push("/dashboard")
+        localStorage.setItem("token", res.data.token);
+        dispatch(setUserData(res.data));
       })
       .catch(error => {
         console.log(error)
@@ -54,7 +67,7 @@ const LoginForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    registerUser()
+    loginUser()
     console.log(formData)
   }
   return (

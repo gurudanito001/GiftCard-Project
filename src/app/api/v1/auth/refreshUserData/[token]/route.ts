@@ -11,10 +11,13 @@ export async function POST(
     const token = params.token;
     if(process.env.TOKEN_KEY){
       let {user_id, email} = await jwt.verify(token, process.env.TOKEN_KEY) as TokenData;
-      const user = await prisma.user.findUnique({
+      const user: any = await prisma.user.findUnique({
         where: {
           id: user_id,
         },
+        include: {
+          wallet: true
+        }
       });
       if(!user){
         return new NextResponse(JSON.stringify({message: "User Not Found!"}), {
@@ -22,14 +25,19 @@ export async function POST(
           headers: { "Content-Type": "application/json" },
         }); 
       }
-      await prisma.user.update({
-        where: { id: user_id },
-        data: {...user, email_confirmed: true},
-      });
-      await prisma.wallet.create({
-        data: {userId: user_id}
-      })
-      return new NextResponse(JSON.stringify({message: "Email Confirmation Successful!"}), {
+      // Create token
+      const newToken = jwt.sign(
+        { user_id: user.id, email: user.email },
+        process.env.TOKEN_KEY as string,
+        {
+          expiresIn: "2h",
+        }
+      );
+      // add token to user object
+      user.token = token;
+      // return new user
+      delete user.password;
+      return new NextResponse(JSON.stringify({message: "User Data Refreshed", data: user}), {
         status: 200,
         headers: { "Content-Type": "application/json" },
       }); 

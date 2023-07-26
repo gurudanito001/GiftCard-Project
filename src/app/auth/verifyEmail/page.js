@@ -16,11 +16,6 @@ const VerifyEmail = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [emailVerified, setEmailVerified] = useState(false)
 
-  useEffect(() => {
-    if (token) {
-      verifyEmail();
-    }
-  },)
 
   const verifyEmail = () => {
     setIsLoading(true)
@@ -49,6 +44,14 @@ const VerifyEmail = () => {
         );
       })
   }
+  useEffect(() => {
+    if (token) {
+      verifyEmail();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token])
+
+
 
   return (
     <main style={{ height: "100vh" }} className='d-flex flex-column'>

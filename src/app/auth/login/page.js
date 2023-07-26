@@ -13,7 +13,7 @@ const Login = () => {
             <div className={styles.wrapper}>
               <div className="navbar-brand">
                 <a className="text-decoration-none dark-text fw-bold fs-3" href="/">
-                  Gift<span className="secondary-text">Card</span>
+                  Peniga
                 </a>
               </div>
               <h2 className={styles.pageTitle}>Login to Your Account!</h2>

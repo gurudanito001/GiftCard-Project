@@ -7,7 +7,7 @@ const PublicLayout = ({ children }) => {
       <nav className="navbar navbar-expand-lg accent-bg sticky-top">
         <div className="container">
           <a className="navbar-brand text-decoration-none primary-text fw-bold fs-3" href="/">
-            Gift<span className='fs-4'>Card</span>
+            Peniga
           </a>
           <button type="button" className="btn d-block d-lg-none nav-btn" data-bs-toggle="offcanvas"
             data-bs-target="#navmenu" aria-controls="offcanvasExample">
@@ -79,7 +79,7 @@ const PublicLayout = ({ children }) => {
         <footer className="accent-bg py-5 mt-auto">
           <div className="container d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3 gap-sm-5">
             <p className="mb-0 primary-text small order-1 order-sm-0">
-              &copy; 2023 GiftCard. All Rights Reserved
+              &copy; 2023 Peniga. All Rights Reserved
             </p>
 
             <div className="d-flex gap-1 order-0 order-sm-1">

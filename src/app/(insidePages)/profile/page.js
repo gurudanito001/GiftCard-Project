@@ -1,14 +1,21 @@
 "use client";
 import React from 'react';
 import { Avatar } from "@mui/material";
+import { useSelector, useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
+import { clearUserData } from "@/store/slices/userDataSlice";
+import { apiPost } from '@/services/apiService';
+import { setUserData } from "@/store/slices/userDataSlice";
 
 const styles = {
     card: {
-        width: "clamp(350px, 500px, 650px)",
+        width: "clamp(350px, 100%, 650px)",
     }
 }
 
 export default function Profile() {
+    const { userData } = useSelector((state) => state.userData);
+    const dispatch = useDispatch();
     return (
         <div className='py-5 px-3 px-lg-5'>
             <h2 className=' mb-4'>Profile</h2>
@@ -17,10 +24,10 @@ export default function Profile() {
                <div className='d-flex align-items-center primary-bg p-3 rounded-3' style={styles.card}>
                     <Avatar style={{width: "70px", height: "70px"}} />
                     <div className="d-flex flex-column small ms-2">
-                        <span className="text-dark fw-bold"> Daniel Nwokocha</span>
-                        <span className="text-dark small"> danielnwokocha@gmail.com</span>
+                        <span className="text-dark fw-bold"> {userData.firstName} {userData.lastName}</span>
+                        <span className="text-dark small"> {userData.email} </span>
                     </div>
-                    <button className='btn btn-link text-danger ms-auto small text-decoration-none'> Sign Out</button>
+                    <button className='btn btn-link text-danger ms-auto text-decoration-none'> <small className='fw-bold'>Sign Out</small></button>
                </div>
 
                <div className='d-flex align-items-center primary-bg p-3 rounded-3 mt-3' style={styles.card}>

@@ -12,12 +12,11 @@ const RegisterForm = () => {
 
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
-  console.log(searchParams.get("token"));
   const [formData, setFormData] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
-    role: "user"
   })
   const [isLoading, setIsLoading] = useState(false)
 
@@ -64,9 +63,14 @@ const RegisterForm = () => {
   return (
     <form className="w-100 d-flex flex-column align-items-center mt-5">
       <AppTextInput
-        value={formData.name}
-        onChange={handleChange("name")}
-        labelText="Your Full Name"
+        value={formData.firstName}
+        onChange={handleChange("firstName")}
+        labelText="First Name"
+      />
+      <AppTextInput
+        value={formData.lastName}
+        onChange={handleChange("lastName")}
+        labelText="Last Name"
       />
       <AppTextInput
         value={formData.email}

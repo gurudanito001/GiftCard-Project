@@ -12,7 +12,10 @@ export async function POST(request: Request) {
     const data: LoginCredentials = await request.json();
     // find user in database
     const user: any = await prisma.user.findFirst({
-      where: {email: data.email}
+      where: {email: data.email},
+      include: {
+        wallet: true
+      }
     });
     if (user && (await bcrypt.compare(data.password as string, user.password as string))) {
       if(!user.email_confirmed){
@@ -23,7 +26,7 @@ export async function POST(request: Request) {
       }
       // Create token
       const token = jwt.sign(
-        { userId: user.id, email: user.email },
+        { user_id: user.id, email: user.email },
         process.env.TOKEN_KEY as string,
         {
           expiresIn: "2h",
@@ -32,6 +35,7 @@ export async function POST(request: Request) {
       // add token to user object
       user.token = token;
       // return new user
+      delete user.password;
       return new NextResponse(JSON.stringify({message: "Login Successful", data: user}), {
         status: 200,
         headers: { "Content-Type": "application/json" },

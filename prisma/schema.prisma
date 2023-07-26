@@ -43,7 +43,7 @@ model Offer {
   cardName        String    
   valueInUSD      String
   price           String 
-  category        OfferCategory     @default(MERCHANT)
+  offerCategory   String            @default("merchant")
   Location        String?
   trades          Trade[]
   createdAt       DateTime          @default(now())
@@ -79,7 +79,7 @@ model Transaction {
   tradeId         String?           @unique
   type            TransactionType   @default(CREDIT)
   category        String
-  status          TransactionStatus @default(PENDING )
+  status          TransactionStatus @default(PENDING)
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
 }
