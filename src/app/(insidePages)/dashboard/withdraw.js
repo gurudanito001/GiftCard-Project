@@ -12,10 +12,6 @@ const Withdraw = ({userData, refreshUserData}) => {
   })
   const [banksAccounts, setBankAccounts] = useState([])
 
-  useEffect(()=>{
-    fetchBankAccounts()
-  }, [])
-
   const fetchBankAccounts = () => {
     setIsLoading(true)
     apiGet({ url: `/bankAccounts` })
@@ -31,6 +27,13 @@ const Withdraw = ({userData, refreshUserData}) => {
       dispatchMessage({ severity: "error", message: "Could not fetch Bank Accounts" })
     })
   }
+
+  useEffect(()=>{
+    
+    fetchBankAccounts()
+  }, [])
+
+  
 
   const handleChange = (prop) => (event) => {
     setFormData(prevState => ({

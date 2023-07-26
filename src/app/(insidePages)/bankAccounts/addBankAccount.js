@@ -19,7 +19,7 @@ const AddBankAccount = ({refreshBankAccountList}) => {
       ...prevState, 
       userId: userData.id
     }))
-  }, [])
+  }, [userData.id])
 
 
   const handleChange = (prop) => (event) =>{

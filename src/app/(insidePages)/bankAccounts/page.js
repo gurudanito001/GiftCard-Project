@@ -47,6 +47,7 @@ const BankAccounts = () => {
 
     useEffect(() =>{
         fetchBankAccounts()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     const fetchBankAccounts = () => {
