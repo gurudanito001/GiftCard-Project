@@ -118,7 +118,6 @@ p.span{
 .light-grey-bg{
     background-color: var(--light-grey) !important;
 }
-
 .accent-light-bg{
     background-color: var(--accent-light) !important;
 }
@@ -166,6 +165,10 @@ a
     outline:0px !important;
     -webkit-appearance: none;
     box-shadow: none !important;
+}
+
+.nav-link{
+    font-size: .9rem !important;
 }
 
 .highlight-btn{
@@ -328,21 +331,17 @@ a
 }
 
 .hero-section{
-    background: url(/images/cross.svg),url(/images/dots.svg),
-        url(/images/cross-line.svg),url(/images/big-cross.svg) !important;
-    background-repeat: no-repeat !important;
-    background-position: 207px 90px,0 0,219px 624px,100% 165px !important;
-    padding-top: 30px !important;
-    padding-bottom: 37px !important;
+    padding-top: 250px !important;
+    padding-top: 100px !important;
 }
 
 .hero-img{
-    width: 60% !important;
+    width: 100% !important;
 }
 
 .heading{
-    font-size: 60px !important;
-    font-weight: 800 !important;
+    font-size: 50px !important;
+    font-weight: 700 !important;
 }
 
 .small-text{
@@ -413,6 +412,9 @@ a
     .body::before{
         height: 63px !important;
     }
+    .hero-section{
+        padding-top: 0px !important;
+    }
 
     .card-rate{
         width: 100% !important;
@@ -454,9 +456,7 @@ a
         max-width: 350px !important;
     }
 
-    .hero-img{
-        width: 70% !important;
-    }
+    
 
     .chat{
         width: 100% !important;
@@ -478,9 +478,7 @@ a
 }
  
 @media screen and (max-width: 449px) {
-    .hero-img{
-        width: 80% !important;
-    }
+    
 
     .heading{
         font-size: 30px !important;
