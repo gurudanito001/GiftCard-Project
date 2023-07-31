@@ -75,6 +75,10 @@ body{
     box-sizing: border-box;
 }
 
+ul.why-choose-us li {
+    list-style: url('../../public/images/undraw_check.svg'); 
+}
+
 
 .section{
     padding-top: 8rem !important;

@@ -5,23 +5,80 @@ const WhyChooseUs = () => {
 
   return (
     <section id="whyChooseUs" className="d-flex flex-column align-items-center container-fluid gap-4 section">
-      <h2 className="fw-bold">Why Choose Us</h2>
+      <h2 className="lead fs-1 mb-4">Why Choose Us</h2>
 
       <div className="container">
-        <div className="d-flex flex-column flex-lg-row text-white text-start gap-2">
-          <section className="col-12 col-lg py-lg-5">
-            <Image width={100} height={100} alt="Monitor showing charts and a human beside the monitor" className="hero-img img img-fluid" src="/images/why-trust-us.png" />
+        <div className="row mb-5">
+          <section className="col-12 col-lg-5 offset-lg-1 py-lg-5">
+            <Image width={100} height={100} alt="Monitor showing charts and a human beside the monitor" className="hero-img img img-fluid" src="/images/seemless-transactions.svg" />
           </section>
-          <section className="col-12 col-lg pe-lg-5 d-flex flex-column py-5">
-          <h2 className="fw-bold">Why Choose Us</h2>
 
+          <section className="col-12 col-lg-5 pe-lg-5 d-flex flex-column py-5">
+            <div className="d-flex my-auto">
+              <article>
+                <h5 className="mb-4 fw-bold">Seemless Transactions</h5>
+                <ul className="list-unstyled text-secondary">
+                  <li className="mb-2">In-app wallet where you can receive payments for your GiftCards</li>
+                  <li className="mb-2">Fund and withdraw from wallet at any time</li>
+                  <li className="mb-2">Save your bank Accounts for easy withdrawals</li>
+
+                </ul>
+
+                <div className="mt-5 d-flex">
+                  <a type="button" className="btn primary-btn px-5 py-3 fw-bold text-white" href="#">Get Started</a>
+                </div>
+              </article>
+            </div>
           </section>
-          
         </div>
-      </div>
 
-      <div>
-        <a href="./signUp.html" className="btn primary-btn primary-text">Get Started</a>
+
+        <div className="row mb-5">
+          <section className="col-12 col-lg-5 offset-lg-1 pe-lg-5 d-flex flex-column py-5 order-2 order-lg-1">
+            <div className="d-flex my-auto">
+              <article>
+                <h5 className="mb-4 fw-bold">Scam Prevention</h5>
+                <ul className="list-unstyled text-secondary">
+                  <li className="mb-2">Trades are allowed only when buyer has value of Giftcard in wallet.</li>
+                  <li className="mb-2">Value of GiftCard is withheld from buyer&apos;s wallet until transaction has been completed</li>
+                  <li className="mb-2">Fraudulent Accounts are de-activated</li>
+                  <li className="mb-2">Screen records are encouraged for scam prevention</li>
+                </ul>
+
+                <div className="mt-5 d-flex">
+                  <a type="button" className="btn primary-btn px-5 py-3 fw-bold text-white" href="#">Get Started</a>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section className="col-12 col-lg-5 order-1 order-lg-2 py-lg-5">
+            <Image width={100} height={100} alt="Monitor showing charts and a human beside the monitor" className="hero-img img img-fluid" src="/images/scam-protection.svg" />
+          </section>
+        </div>
+
+
+        <div className="row mb-5">
+          <section className="col-12 col-lg-5 offset-lg-1 py-lg-5">
+            <Image width={100} height={100} alt="Monitor showing charts and a human beside the monitor" className="hero-img img img-fluid" src="/images/dispute-settlement.svg" />
+          </section>
+
+          <section className="col-12 col-lg-5 pe-lg-5 d-flex flex-column py-5">
+            <div className="d-flex my-auto">
+              <article>
+                <h5 className="mb-4 fw-bold">Dispute Settlement</h5>
+                <ul className="list-unstyled text-secondary">
+                  <li className="mb-2">In the event of a dispute, a team will be setup to look into the dispute and resolve it within 24hrs</li>
+                  <li className="mb-2">Funds will be paid in favor of person who won the dispute</li>
+                </ul>
+
+                <div className="mt-5 d-flex">
+                  <a type="button" className="btn primary-btn px-5 py-3 fw-bold text-white" href="#">Get Started</a>
+                </div>
+              </article>
+            </div>
+          </section>
+        </div>
       </div>
     </section>
 
