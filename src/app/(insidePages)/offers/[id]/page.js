@@ -19,20 +19,6 @@ const OfferDetails = () =>{
     const dispatchMessage = useDispatchMessage();
     const id = extractIdFromUrl(pathname, "/offers/");
 
-    /* const { data } = useQuery({
-        queryKey: ["allOffers", id],
-        queryFn: () => apiGet({ url: `/offers/${id}` })
-            .then((res) => {
-                console.log(res)
-                dispatchMessage({ message: res.message })
-                return res.data
-            })
-            .catch(error => {
-                console.log(error.message)
-                dispatchMessage({ severity: "error", message: error.message })
-            })
-    }) */
-
     const offerDetailsQuery = useQuery({
         queryKey: ["allOffers", id],
         queryFn: () => apiGet({ url: `/offers/${id}` }).then((res) => res.data)

@@ -150,7 +150,7 @@ const Layout = ({ children }) => {
         </div>
       </nav>
 
-      <main className="w-100 border border-danger d-flex flex-column">
+      <main className="w-100 d-flex flex-column">
         <div className="primary-bg d-flex d-lg-none align-items-center justify-content-between border-bottom py-3 px-4 px-md-5 w-100">
           <div className="primary-bg d-flex gap-2 align-items-center d-lg-none">
             <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"

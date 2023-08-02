@@ -34,8 +34,21 @@ export async function PATCH(
 
   const updated_wallet = await prisma.wallet.update({
     where: { id },
-    data: json,
+    data: {currentBalance: json.currentBalance},
   });
+
+  if(json.userId){
+    const transaction = await prisma.transaction.create({
+      data: {
+        benefactorId: json.userId,
+        beneficiaryId: json.userId,
+        amount: json.amount,
+        type: json.type,
+        category: json.category
+      }
+    })
+  }
+  
 
   if (!updated_wallet) {
     return new NextResponse(JSON.stringify({message: "No wallet with ID found"}), {

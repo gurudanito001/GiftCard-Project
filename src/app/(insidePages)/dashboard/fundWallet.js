@@ -23,8 +23,15 @@ const FundWalletForm = ({userData, refreshUserData}) => {
     let fundAmount = parseFloat(formData.amount);
     let newBalance = prevCurrentBal + fundAmount;
     //return console.log(prevCurrentBal, newBalance)
+    let data = {
+      userId: userData.id,
+      currentBalance: newBalance.toString(),
+      amount: formData.amount,
+      type: "CREDIT",
+      category: "fund wallet"
+    }
     setIsLoading(true)
-    apiPatch({ url: `/wallet/${userData.wallet.id}`, data: {currentBalance: newBalance.toString()} })
+    apiPatch({ url: `/wallet/${userData.wallet.id}`, data })
       .then(res => {
         console.log(res.data)
         refreshUserData()

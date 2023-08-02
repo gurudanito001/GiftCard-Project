@@ -47,9 +47,16 @@ const Withdraw = ({userData, refreshUserData}) => {
     let prevCurrentBal = parseFloat(userData.wallet.currentBalance);
     let fundAmount = parseFloat(formData.amount);
     let newBalance = prevCurrentBal - fundAmount;
+    let data = {
+      userId: userData.id,
+      currentBalance: newBalance.toString(),
+      amount: formData.amount,
+      type: "DEBIT",
+      category: "withdrawal"
+    }
     //return console.log(newBalance)
     setIsLoading(true)
-    apiPatch({ url: `/wallet/${userData.wallet.id}`, data: {currentBalance: newBalance.toString()} })
+    apiPatch({ url: `/wallet/${userData.wallet.id}`, data })
       .then(res => {
         console.log(res.data)
         refreshUserData()

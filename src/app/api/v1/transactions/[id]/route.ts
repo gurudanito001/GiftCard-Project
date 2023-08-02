@@ -10,6 +10,28 @@ export async function GET(
     where: {
       id,
     },
+    include:{
+      benefactor: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          email: true,
+          username: true, 
+          avater: true
+        }
+      },
+      beneficiary: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          email: true,
+          username: true, 
+          avater: true
+        }
+      }
+    }
   });
 
   if (!transaction) {
