@@ -25,8 +25,8 @@ const HeroSection = () => {
         </div>
 
       </section>
-      <div className="d-none d-lg-block">
-        <svg style={{ width: "100%", height: "300px" }} width="500" height="80" viewBox="0 0 500 80" preserveAspectRatio="none">
+      <div className="d-none d-lg-block py-5 accent-bg">
+        <svg style={{ width: "100%", height: "100px", position: "relative", top: "100px" }} width="500" height="80" viewBox="0 0 500 80" preserveAspectRatio="none">
           <path d="M0,0 L0,40 Q250,80 500,40 L500,0 Z" fill="#531eba" />
         </svg>
       </div>
