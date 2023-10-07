@@ -3,7 +3,7 @@ import Link from "next/link";
 // import AvatarClient from "./avater";
 
 const InsideLayout = ({ children, userData, activeLink, userId }) => {
-  console.log(userData)
+  console.log(userData, userId)
   return (
     <div className="d-flex sticky-top" style={{ height: "100vh" }}>
       <nav className="h-100 sidebar d-none d-lg-flex flex-column gap-2 py-3">

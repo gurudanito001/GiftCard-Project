@@ -37,7 +37,7 @@ const OfferListItem = ({userId, id, index, cardName, offerCategory, price, value
 }
 const Offers = async ({searchParams}) => {
     const userId = searchParams?.userId;
-    const {user: userData} = await getUserById(userId);
+    const {user: userData} = await getUserById({id: userId});
     const {offers} = await getOffers({userId})
     
     const listOffers = () => {

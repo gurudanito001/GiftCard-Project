@@ -56,8 +56,8 @@ const TradeItem = ({id, buyer, seller, userId, cardName, valueInUSD, price, stat
 
 export default async function Trades({ searchParams }) {
   const userId = searchParams?.userId;
-  const { user: userData } = await getUserById(userId);
-  const { trades } = await getAllTrades(userId)
+  const { user: userData } = await getUserById({id: userId});
+  const { trades } = await getAllTrades({userId})
 
   return (
     <InsideLayout activeLink={`trades`} userData={userData} userId={userId}>

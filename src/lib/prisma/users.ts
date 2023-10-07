@@ -13,7 +13,7 @@ export async function getUsers (){
   }
 }
 
-export async function getUserById (id: string){
+export async function getUserById ({id}: {id: string}){
   try {
     const user = await prisma.user.findUnique({ 
       where: {id},

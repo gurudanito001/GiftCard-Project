@@ -1,6 +1,6 @@
 import {prisma} from "@/lib/prisma";
 
-export async function getAllTrades (userId: string){
+export async function getAllTrades ({userId}: {userId: string}){
   try {
     const trades = await prisma.trade.findMany({
       where: {
@@ -23,7 +23,7 @@ export async function getAllTrades (userId: string){
   }
 }
 
-export async function getTradeById (id: string){
+export async function getTradeById ({id}: {id: string}){
   try {
     const trade = await prisma.trade.findUnique({ 
       where: {id},

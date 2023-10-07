@@ -58,8 +58,8 @@ const TransactionListItem = ({ id, userId, index, benefactor, beneficiary,  amou
 
 const Transactions = async ({ searchParams }) => {
   const userId = searchParams?.userId;
-  const {user: userData} = await getUserById(userId);
-  const {transactions} = await getTransactions(userId);
+  const {user: userData} = await getUserById({id: userId});
+  const {transactions} = await getTransactions({userId});
     
    
     const listTransactions = () => {

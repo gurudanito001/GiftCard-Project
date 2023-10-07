@@ -42,7 +42,7 @@ export async function getOffersForMarket ({userId, user = false, offerCategory}:
   }
 }
 
-export async function getOfferById (id: string){
+export async function getOfferById ({id}: {id: string}){
   try {
     const offer = await prisma.offer.findUnique({ where: {id}});
     return { offer }

@@ -11,8 +11,8 @@ const styles ={
 }
 const TransactionDetails = async ({params, searchParams}) =>{
     const userId = searchParams?.userId;
-    const {user: userData} = await getUserById(userId);
-    const {transaction} = await getTransactionById(params.id);
+    const {user: userData} = await getUserById({id: userId});
+    const {transaction} = await getTransactionById({id: params.id});
     
 
     const senderReceiverData = (data) =>{

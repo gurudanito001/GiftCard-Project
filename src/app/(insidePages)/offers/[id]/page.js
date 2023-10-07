@@ -13,8 +13,8 @@ const styles ={
 }
 const OfferDetails = async ({params, searchParams}) =>{
     const userId = searchParams?.userId;
-    const {user: userData} = await getUserById(userId);
-    const {offer} = await getOfferById(params.id);
+    const {user: userData} = await getUserById({id: userId});
+    const {offer} = await getOfferById({id: params.id});
     console.log(userData)
     
 

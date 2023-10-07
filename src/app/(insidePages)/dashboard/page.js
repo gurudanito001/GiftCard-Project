@@ -69,11 +69,11 @@ const OfferItem = ({cardName, valueInUSD, price, offerCategory, date, showBorder
 
 export default async function Dashboard({searchParams}) {
     const userId = searchParams?.userId;
-    const {user: userData} = await getUserById(userId);
-    const {transactions} = await getTransactions(userId);
-    const {bankAccounts} = await getBankAccounts(userId);
+    const {user: userData} = await getUserById({id: userId});
+    const {transactions} = await getTransactions({userId});
+    const {bankAccounts} = await getBankAccounts({userId});
     const {offers} = await getOffers({userId})
-    console.log(bankAccounts);
+    console.log(userId, bankAccounts);
     return (
         <InsideLayout activeLink="dashboard" userData={userData} userId={userId}>
             <div className='py-5 px-3 px-lg-5'>

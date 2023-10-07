@@ -12,7 +12,7 @@ const styles = {
 
 export default async function Profile({ searchParams }) {
     const userId = searchParams?.userId;
-    const { user: userData } = await getUserById(userId);
+    const { user: userData } = await getUserById({id: userId});
     return (
         <InsideLayout userData={userData} userId={userId} activeLink="profile">
             <div className='py-5 px-3 px-lg-5'>

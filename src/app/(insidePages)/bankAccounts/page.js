@@ -39,8 +39,8 @@ const Card = ({ defaultCard = false, accountNumber, accountName, bankName}) => {
 
 const BankAccounts = async ({searchParams}) => {
     const userId = searchParams?.userId;
-    const {user: userData} = await getUserById(userId);
-    const {bankAccounts} = await getBankAccounts(userId);
+    const {user: userData} = await getUserById({id: userId});
+    const {bankAccounts} = await getBankAccounts({userId});
 
     const listBankAccounts = () =>{
         return bankAccounts.map( item =>{

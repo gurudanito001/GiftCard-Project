@@ -51,7 +51,7 @@ const OfferItem = ({index, user, cardName, valueInUSD, price, offerCategory, cre
 
 const Market = async ({params, searchParams}) =>{
   const userId = searchParams?.userId;
-  const {user: userData} = await getUserById(userId);
+  const {user: userData} = await getUserById({id: userId});
   const category = params.category;
   const {offers} = await getOffersForMarket({userId: userId, user: true, offerCategory: category });
   console.log(offers)

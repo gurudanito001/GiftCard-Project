@@ -21,8 +21,8 @@ const styles = {
 const TradeDetails = async ({params, searchParams}) => {
     const userId = searchParams?.userId;
     const id = params.id;
-    const { user: userData } = await getUserById(userId);
-    const { trade } = await getTradeById(id);
+    const { user: userData } = await getUserById({id: userId});
+    const { trade } = await getTradeById({id});
     console.log(trade)
 
     const statusStyle = (status) =>{
