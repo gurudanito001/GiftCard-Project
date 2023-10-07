@@ -12,6 +12,21 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const json = await request.json();
+    const existingTrade = await prisma.trade.findFirst({
+      where: {
+        offerId: json.offerId,
+        buyerId: json.buyerId,
+        sellerId: json.sellerId,
+        status: "PENDING"
+      }
+    })
+
+    if(existingTrade){
+      return new NextResponse(JSON.stringify({message: "There is a pending trade between buyer and seller"}), { 
+        status: 400, 
+        headers: { "Content-Type": "application/json" },
+       });
+    }
 
     const trade = await prisma.trade.create({
       data: json,

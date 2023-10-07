@@ -1,12 +1,15 @@
+"use client"
+
 import { CircularProgress } from "@mui/material";
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { apiPost } from "@/services/apiService";
 import useDispatchMessage from "@/hooks/useDispatchMessage";
+import { useRouter } from "next/navigation";
 
-const AddBankAccount = ({refreshBankAccountList}) => {
+const AddBankAccount = ({userId}) => {
   const dispatchMessage = useDispatchMessage();
-  const {userData} = useSelector( state => state.userData )
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     userId: "",
@@ -17,9 +20,9 @@ const AddBankAccount = ({refreshBankAccountList}) => {
   useEffect(()=>{
     setFormData( prevState => ({
       ...prevState, 
-      userId: userData.id
+      userId: userId
     }))
-  }, [userData.id])
+  }, [userId])
 
 
   const handleChange = (prop) => (event) =>{
@@ -36,7 +39,7 @@ const AddBankAccount = ({refreshBankAccountList}) => {
     apiPost({ url: `/bankAccounts`, data: formData })
       .then(res => {
         dispatchMessage({message: res.message})
-        refreshBankAccountList()
+        router.refresh();
         setIsLoading(false);
       })
       .catch(error => {

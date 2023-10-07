@@ -83,7 +83,7 @@ const RegisterForm = () => {
         labelText="Create Your Password"
       />
 
-      <button className="btn app-primary-btn d-flex align-items-center" disabled={isLoading} type="button" onClick={handleSubmit}>
+      <button className="btn app-primary-btn d-flex align-items-center justify-content-center py-3 w-100 fs-6" disabled={isLoading} type="button" onClick={handleSubmit}>
         {isLoading ? <CircularProgress size={20} color="inherit" /> : "Create Account"}
       </button>
       <p className="text-center mt-4">Already have an Account? <a href="/auth/login" className="highlight-text">Login</a></p>

@@ -1,10 +1,13 @@
+"use client"
 import { CircularProgress } from "@mui/material";
 import { useState } from "react";
 import { apiPatch } from '@/services/apiService';
-import useDispatchMessage from '@/hooks/useDispatchMessage'
+import useDispatchMessage from '@/hooks/useDispatchMessage';
+import { useRouter } from "next/navigation";
 
 
-const FundWalletForm = ({userData, refreshUserData}) => {
+const FundWalletForm = ({userData}) => {
+  const router = useRouter();
   const dispatchMessage = useDispatchMessage();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -19,22 +22,25 @@ const FundWalletForm = ({userData, refreshUserData}) => {
   }
 
   const handleSubmit = () =>{
-    let prevCurrentBal = parseFloat(userData.wallet.currentBalance);
+    let prevCurrentBal = parseFloat(userData?.wallet?.currentBalance);
+    let prevAvailableBal = parseFloat(userData?.wallet?.availableBalance);
     let fundAmount = parseFloat(formData.amount);
-    let newBalance = prevCurrentBal + fundAmount;
+    let newCurrentBalance = prevCurrentBal + fundAmount;
+    let newAvailableBalance = prevAvailableBal + fundAmount;
     //return console.log(prevCurrentBal, newBalance)
     let data = {
-      userId: userData.id,
-      currentBalance: newBalance.toString(),
+      userId: userData?.id,
+      currentBalance: newCurrentBalance.toString(),
+      availableBalance: newAvailableBalance.toString(),
       amount: formData.amount,
       type: "CREDIT",
       category: "fund wallet"
     }
     setIsLoading(true)
-    apiPatch({ url: `/wallet/${userData.wallet.id}`, data })
+    apiPatch({ url: `/wallet/${userData?.wallet?.id}`, data })
       .then(res => {
         console.log(res.data)
-        refreshUserData()
+        router.refresh();
         setIsLoading(false)
         dispatchMessage({message: res.message})
       })
@@ -55,7 +61,7 @@ const FundWalletForm = ({userData, refreshUserData}) => {
       <div className="px-4 d-flex flex-column gap-2">
         <div>
           <label htmlFor="cardholder" className="form-label mb-1">Wallet Username</label>
-          <input type="text" className="form-control form-control-sm primary-bg fs-6 py-3" id="cardholder" readOnly defaultValue={`${userData.firstName} ${userData.lastName}`} />
+          <input type="text" className="form-control form-control-sm primary-bg fs-6 py-3" id="cardholder" readOnly defaultValue={`${userData?.firstName} ${userData?.lastName}`} />
         </div>
         <div>
           <label htmlFor="amount" className="form-label mb-1">Amount</label>

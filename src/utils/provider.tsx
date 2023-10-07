@@ -1,6 +1,6 @@
 "use client";
 
-import {useState, useEffect} from "react";
+import { useEffect} from "react";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Provider } from 'react-redux';
@@ -13,13 +13,11 @@ function Providers({ children }: React.PropsWithChildren) {
     import('bootstrap/dist/js/bootstrap');
   }, []); 
 
-  const [client] = useState(
-    new QueryClient({ defaultOptions: { queries: { staleTime: 5000 } } })
-  );
+  const queryClient = new QueryClient()
 
   return (
     <Provider store={Store}>
-      <QueryClientProvider client={client}>
+      <QueryClientProvider client={queryClient}>
         <AlertNotification />
           {children}
         <ReactQueryDevtools initialIsOpen={false} />

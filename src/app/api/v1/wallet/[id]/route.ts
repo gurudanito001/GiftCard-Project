@@ -34,7 +34,7 @@ export async function PATCH(
 
   const updated_wallet = await prisma.wallet.update({
     where: { id },
-    data: {currentBalance: json.currentBalance},
+    data: {currentBalance: json.currentBalance, availableBalance: json.availableBalance},
   });
 
   if(json.userId){

@@ -1,16 +1,14 @@
 "use client"
 import { useEffect, useState } from "react";
 import { CircularProgress } from "@mui/material";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import useDispatchMessage from '@/hooks/useDispatchMessage';
-import { useSelector } from "react-redux";
 import { apiPatch } from '@/services/apiService';
+import { useRouter } from "next/navigation";
 
 const EditOffer = ({offerDetails}) => {
-  console.log(offerDetails)
-  const queryClient = useQueryClient();
+  const router = useRouter();
   const dispatchMessage = useDispatchMessage();
-  const {userData} = useSelector((state) => state.userData);
 
   const [formData, setFormData] = useState({
     userId: "",
@@ -23,13 +21,12 @@ const EditOffer = ({offerDetails}) => {
   useEffect(() =>{
     setFormData( prevState => ({
       ...prevState,
-      userId: userData.id,
+      userId: offerDetails.userId,
       cardName: offerDetails?.cardName || "",
       valueInUSD: offerDetails?.valueInUSD || "",
       price: offerDetails?.price || "",
       offerCategory: offerDetails?.offerCategory || ""
     }))
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [offerDetails])
 
   const handleChange = (prop) => (event) => {
@@ -43,7 +40,7 @@ const EditOffer = ({offerDetails}) => {
     mutationFn: ()=> apiPatch({ url: `/offers/${offerDetails.id}`, data: formData })
     .then(res => {
       dispatchMessage({ message: res.message })
-      queryClient.invalidateQueries(["allOffers", offerDetails.id])
+      router.refresh()
     }).catch(error =>{
       dispatchMessage({severity: "error", message: error.message })
     })

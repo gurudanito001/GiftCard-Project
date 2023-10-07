@@ -1,14 +1,9 @@
-"use client"
 
-import { IconButton, CircularProgress } from '@mui/material';
-import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { useDispatch } from 'react-redux';
-import { setUserData } from '@/store/slices/userDataSlice';
-import { apiPost, apiPatch } from '@/services/apiService';
+// import { IconButton } from '@mui/material';
 import formatAsCurrency from '@/services/formatAsCurrency';
 import FundWalletForm from './fundWallet';
 import Withdraw from './withdraw';
+
 
 const styles = {
   card: {
@@ -17,123 +12,54 @@ const styles = {
   }
 }
 
-const WalletCard = ({ userData }) => {
-  const dispatch = useDispatch();
-  const [currentForm, setCurrentForm] = useState("")
+const WalletCard = ({ userData, bankAccounts }) => {
 
-  const refreshUserData = () => {
-    console.log("gfdhgdfhgfhgfhfhfghgf")
-    const token = localStorage.getItem("token")
-    apiPost({ url: `/auth/refreshUserData/${token}` })
-      .then(res => {
-        console.log(res.data)
-        localStorage.setItem("token", res.data.token);
-        dispatch(setUserData(res.data));
-        return res.data
-      })
-      .catch(error => {
-        console.log(error)
-        logout()
-      })
+  const getAvailableBalance = () =>{
+    let escrows = ""
   }
-
   return (
     <section className=''>
       <div className="card gap-2 primary-bg border-0 rounded-4 p-4" style={styles.card}>
         <div className="d-flex flex-column border-0">
           <p className="mb-0 small text-secondary">Ledger Balance</p>
-          <p className="mb-0 fs-6 small fw-bold text-secondary">₦{formatAsCurrency(userData.wallet.currentBalance)}</p>
+          <small className="mb-0 fs-6 small fw-bold text-secondary">₦{formatAsCurrency(userData?.wallet?.currentBalance)}</small>
         </div>
         <div className="d-flex flex-column border-0">
-          <p className="mb-0">Available Balance</p>
-          <p className="mb-0 fs-5 fw-bold">₦{formatAsCurrency(userData.wallet.currentBalance)}</p>
+          <p className="mb-0 primary-text">Available Balance</p>
+          <p className="mb-0 fs-5 fw-bold primary-text">₦{formatAsCurrency(userData?.wallet?.availableBalance)}</p>
         </div>
         <div className="d-flex align-items-center">
-          <a href="#offCanvasForms" data-bs-toggle="offcanvas" onClick={()=>setCurrentForm("fundWallet")}
-            aria-expanded="false" aria-label="Toggle navigation" className="text-decoration-none text-dark d-flex flex-column align-items-center mx-auto">
-            <IconButton>
-              <i className="fa-solid fa-plus fs-4"></i>
-            </IconButton>
-            <span className="small">Fund Wallet</span>
+          <a href="#fundWalletForm" data-bs-toggle="offcanvas"
+            aria-expanded="false" aria-label="Toggle navigation" className="text-decoration-none primary-text d-flex flex-column align-items-center mx-auto">
+              <i className="fa-solid fa-download fs-4 primary-text"></i>
+            <span className="small fw-bold">Add Funds</span>
           </a>
-          <a href="#offCanvasForms" data-bs-toggle="offcanvas"  onClick={()=>setCurrentForm("sendFunds")}
-            aria-expanded="false" aria-label="Toggle navigation" className="text-decoration-none text-dark d-flex flex-column align-items-center mx-auto">
-            <IconButton>
-              <i className="fa-solid fa-paper-plane fs-4"></i>
-            </IconButton>
-            <span className="small">Send</span>
+          <a href="#offCanvasForms" data-bs-toggle="offcanvas"
+            aria-expanded="false" aria-label="Toggle navigation" className="text-decoration-none primary-text d-flex flex-column align-items-center mx-auto">
+              <i className="fa-solid fa-paper-plane fs-4 primary-text"></i>
+            <span className="small fw-bold">Send</span>
           </a>
-          <a href="#offCanvasForms" data-bs-toggle="offcanvas" onClick={()=>setCurrentForm("withdraw")}
-            aria-expanded="false" aria-label="Toggle navigation" className="text-decoration-none text-dark d-flex flex-column align-items-center mx-auto" >
-            <IconButton>
-              <i className="fa-solid fa-minus"></i>
-            </IconButton>
-            <span className="small">Withdraw</span>
+          <a href="#withdrawForm" data-bs-toggle="offcanvas"
+            aria-expanded="false" aria-label="Toggle navigation" className="text-decoration-none primary-text d-flex flex-column align-items-center mx-auto" >
+              <i className="fa-solid fa-money-bill-transfer fs-4 primary-text"></i>
+            <span className="small fw-bold">Withdraw</span>
           </a>
         </div>
       </div>
 
 
 
-
-
       {/*  Fund wallet */}
-      <div className="offcanvas primary-bg offcanvas-end gap-1" data-bs-scroll="true" id="offCanvasForms" tabIndex="-1">
-        {currentForm === "fundWallet" && <FundWalletForm userData={userData} refreshUserData={refreshUserData} />}
-        {currentForm === "withdraw" && <Withdraw userData={userData} refreshUserData={refreshUserData} />}
-        
+      <div className="offcanvas primary-bg offcanvas-end gap-1" data-bs-scroll="true" id="fundWalletForm" tabIndex="-1">
+        <FundWalletForm userData={userData} />
       </div>
       {/*  Fund wallet */}
 
-
-      {/* <div className="offcanvas primary-bg offcanvas-end gap-1" data-bs-scroll="true" id="withdraw" tabIndex="-1">
-        <div className="offcanvas-header py-5 px-4">
-          <h4 className="mb-0">Withdraw</h4>
-          <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close">
-          </button>
-        </div>
-        <div className="px-4 d-flex flex-column gap-2">
-          <div>
-            <label htmlFor="cardholder" className="form-label mb-1">Wallet Username</label>
-            <input type="text" className="form-control form-control-sm primary-bg fs-6 py-3" id="cardholder" readOnly defaultValue={`${userData.firstName} ${userData.lastName}`} />
-          </div>
-          <div>
-            <label htmlFor="amount" className="form-label mb-1">Amount</label>
-            <input type="text" className="form-control form-control-sm primary-bg fs-6 py-3" id="amount" value={fundWalletForm.currentBalance} onChange={handleChangeFundWallet("currentBalance")} />
-          </div>
-          <div className="d-flex justify-content-center gap-2">
-            <button className="btn app-primary-btn d-flex align-items-center" disabled={isLoadingFundWallet} type="button" onClick={handleSubmitFundWallet}>
-              {isLoadingFundWallet ? <CircularProgress size={20} color="inherit" /> : "Fund Wallet"}
-            </button>
-          </div>
-        </div>
-      </div> */}
-
-        {/* <div id="sendFunds">
-          <div className="offcanvas-header py-5 px-4">
-            <h4 className="mb-0">Send Funds </h4>
-            <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close">
-            </button>
-          </div>
-          <div className="px-4 d-flex flex-column gap-2">
-            <div>
-              <label htmlFor="cardholder" className="form-label mb-1">Wallet Username</label>
-              <input type="text" className="form-control form-control-sm primary-bg fs-6 py-3" id="cardholder" readOnly defaultValue={`${userData.firstName} ${userData.lastName}`} />
-            </div>
-            <div>
-              <label htmlFor="amount" className="form-label mb-1">Amount</label>
-              <input type="text" className="form-control form-control-sm primary-bg fs-6 py-3" id="amount" value={fundWalletForm.currentBalance} onChange={handleChangeFundWallet("currentBalance")} />
-            </div>
-            <div className="d-flex justify-content-center gap-2">
-              <button className="btn app-primary-btn d-flex align-items-center" disabled={isLoadingFundWallet} type="button" onClick={handleSubmitFundWallet}>
-                {isLoadingFundWallet ? <CircularProgress size={20} color="inherit" /> : "Fund Wallet"}
-              </button>
-            </div>
-          </div>
-        </div> */}
-      
-
-
+      {/*  Withdraw */}
+      <div className="offcanvas primary-bg offcanvas-end gap-1" data-bs-scroll="true" id="withdrawForm" tabIndex="-1">
+        <Withdraw userData={userData} bankAccounts={bankAccounts} />
+      </div>
+      {/*  Withdraw */}
     </section>
   )
 }

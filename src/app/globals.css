@@ -25,6 +25,14 @@ p {
     right: 0px;
 }
 
+textarea {
+    font-size: .9rem !important;
+}
+
+.messageOffCanvas{
+    width: 400px !important;
+}
+
 .MuiFormLabel-root{
   background: none !important;
   color: var(--secondary)!important;
@@ -42,17 +50,23 @@ label.Mui-focused{
   opacity: 0.5 !important;
   border-bottom: none !important;
 }
+.modal-backdrop {
+    z-index: 50000 !important;
+}
+
+.modal-content {
+    z-index: 5000001 !important;
+}
 .app-primary-btn{
   font-size: .8rem !important ;
-  height: 48px !important;
-  padding: 0px 100px !important;
+  padding: 30px 100px;
   background: var(--accent) !important;
-  border-radius: 40px !important;
+  border-radius: 40px;
   font-weight: 500 !important;
   line-height: 22px !important;
   text-align: center !important;
   color: var(--primary) !important;
-  margin-top: 50px !important;
+  margin-top: 50px;
 }
 .table, th, td {
     text-align: center !important; 
@@ -73,6 +87,7 @@ body{
 }
 *{
     box-sizing: border-box;
+    font-size: .95rem;
 }
 
 ul.why-choose-us li {
@@ -92,7 +107,7 @@ p.span{
 }
 
 .primary-text{
-    color: var(--primary) !important;
+    color: #444468F2 !important;
 }
 
 .highlight-text{
@@ -121,6 +136,9 @@ p.span{
 
 .light-grey-bg{
     background-color: var(--light-grey) !important;
+}
+.accent-bg{
+    background-color: var(--accent) !important;
 }
 .accent-light-bg{
     background-color: var(--accent-light) !important;

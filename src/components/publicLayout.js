@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const PublicLayout = ({ children }) => {
 
@@ -7,12 +8,12 @@ const PublicLayout = ({ children }) => {
 
       <nav className="navbar navbar-expand-lg accent-bg sticky-top d-flex flex-column">
         <div className="border-bottom d-flex w-100">
-          <a className="ms-auto small pe-3 text-white text-decoration-none" href="https://wa.me/2348186736264" target="_blank"><i className="fa-brands fa-whatsapp fs-6"></i> +234 818 673 6264</a>
+          <Link className="ms-auto small pe-3 text-white text-decoration-none" href="https://wa.me/2348186736264" target="_blank"><i className="fa-brands fa-whatsapp fs-6"></i> +234 818 673 6264</Link>
         </div>
         <div className="container py-2">
-          <a className="navbar-brand text-decoration-none primary-text fw-bold fs-3" href="/">
+          <Link className="navbar-brand text-decoration-none text-light fw-bold fs-3" href="/">
             Peniga
-          </a>
+          </Link>
           <button type="button" className="btn d-block d-lg-none nav-btn" data-bs-toggle="offcanvas"
             data-bs-target="#navmenu" aria-controls="offcanvasExample">
             <span>
@@ -24,26 +25,29 @@ const PublicLayout = ({ children }) => {
           </button>
           <ul className="d-none d-lg-flex navbar-nav gap-2 flex-fill justify-content-center">
             <li className="nav-item">
-              <a className="nav-link primary-text" aria-current="page" href="/#home">Home</a>
+              <a className="nav-link text-light" aria-current="page" href="/#home">Home</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link primary-text" aria-current="page" href="/#ourServices">Our Services</a>
+              <a className="nav-link text-light" aria-current="page" href="/#whyChooseUs">Why Choose Us</a>
             </li>
-            <li className="nav-item">
-              <a className="nav-link primary-text" aria-current="page" href="/#whyChooseUs">Why Choose Us</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link primary-text" aria-current="page" href="/marketplace">Market Place</a>
-            </li>
+            <div className="dropdown">
+              <button className="btn btn-link text-decoration-none text-light dropdown-toggle nav-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Market Place
+              </button>
+              <ul className="dropdown-menu">
+                <li className="small fw-bold"><Link className="dropdown-item" href="/market/merchant">Merchant</Link></li>
+                <li className="small fw-bold"><Link className="dropdown-item" href="/market/seller">Seller</Link></li>
+              </ul>
+            </div>
           </ul>
           <ul className="d-none d-lg-flex navbar-nav gap-2">
             <li>
-              <a type="button" className="btn outline-primary-btn px-4 py-2 fw-bold" href="#">Log In</a>
+              <Link type="button" className="btn outline-primary-btn px-4 py-2 fw-bold" href="/auth/login">Log In</Link>
             </li>
             <li>
-              <a className="btn accent-btn sign-up-btn px-4 py-2 fw-bold"
-                type="button " href="#">Register
-              </a>
+              <Link className="btn accent-btn sign-up-btn px-4 py-2 fw-bold"
+                type="button" href="/auth/register">Register
+              </Link>
             </li>
           </ul>
         </div>
@@ -57,38 +61,41 @@ const PublicLayout = ({ children }) => {
           <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div className="offcanvas-body align-items-center px-4 d-flex flex-column gap-4">
-          <ul className="navbar-nav gap-3">
-             <li className="nav-item">
-              <a className="nav-link primary-text" aria-current="page" href="/#home">Home</a>
+          <ul className="navbar-nav gap-2 w-100">
+            <li className="nav-item">
+              <a className="nav-link text-light" aria-current="page" href="/#home">Home</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link primary-text" aria-current="page" href="/#ourServices">Our Services</a>
+              <a className="nav-link text-light" aria-current="page" href="/#whyChooseUs">Why Choose Us</a>
             </li>
-            <li className="nav-item">
-              <a className="nav-link primary-text" aria-current="page" href="/#whyChooseUs">Why Choose Us</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link primary-text" aria-current="page" href="/marketplace">Market Place</a>
-            </li>
+            <div className="dropdown">
+              <button className="btn btn-link text-decoration-none text-light dropdown-toggle nav-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Market Place
+              </button>
+              <ul className="dropdown-menu">
+                <li className="small fw-bold"><Link className="dropdown-item" href="/market/merchant">Merchant</Link></li>
+                <li className="small fw-bold"><Link className="dropdown-item" href="/market/seller">Seller</Link></li>
+              </ul>
+            </div>
           </ul>
 
-            <ul className="navbar-nav gap-2">
-              <li>
-                <a type="button" className="btn outline-primary-btn px-4 py-2 fw-bold" href="/auth/login">Log In</a>
-              </li>
-              <li>
-                <a className="btn accent-btn sign-up-btn px-4 py-2 fw-bold"
-                  type="button " href="/auth/register">Register
-                </a>
-              </li>
-            </ul>
+          <ul className="list-unstyled d-flex align-items-center gap-2 w-100">
+            <li>
+              <Link type="button" className="btn outline-primary-btn px-4 py-2 fw-bold" href="/auth/login">Log In</Link>
+            </li>
+            <li>
+              <Link className="btn accent-btn sign-up-btn px-4 py-2 fw-bold"
+                type="button " href="/auth/register">Register
+              </Link>
+            </li>
+          </ul>
         </div>
       </aside>
       <main style={{ height: "100vh" }} className='d-flex flex-column'>
         {children}
         <footer className="accent-bg py-5 mt-auto">
           <div className="container d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3 gap-sm-5">
-            <p className="mb-0 primary-text small order-1 order-sm-0">
+            <p className="mb-0 text-light small order-1 order-sm-0">
               &copy; 2023 Peniga. All Rights Reserved
             </p>
 

@@ -1,28 +1,30 @@
 
 'use client';
-import { AppTextInput, AppPasswordInput } from "../../../components/formComponents";
+import { AppTextInput, AppPasswordInput } from "@/components/formComponents";
 import { useEffect, useState } from "react";
-import { apiPost } from '../../../services/apiService';
+import { apiPost } from '@/services/apiService';
 import { CircularProgress } from "@mui/material";
 import { useSelector, useDispatch } from 'react-redux';
 import { setMessage } from '@/store/slices/notificationSlice';
 import { useRouter } from "next/navigation";
-import { setUserData } from "../../../store/slices/userDataSlice";
+import { setUserData } from "@/store/slices/userDataSlice";
+import Link from "next/link";
 
 const LoginForm = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const {userData} = useSelector((state) => state.userData);
 
-  useEffect(()=>{
+  /* useEffect(()=>{
     let token = localStorage.getItem("token")
     console.log(token)
     if(userData.token){
-      router.push("/dashboard")
-
+      router.push(`/dashboard?userId=${userData?.id}`)
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[userData])
+  },[userData]) */
+
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -49,8 +51,9 @@ const LoginForm = () => {
             key: Date.now(),
           })
         );
+        router.push(`/dashboard?userId=${res.data.id}`)
         localStorage.setItem("token", res.data.token);
-        dispatch(setUserData(res.data));
+        //dispatch(setUserData(res.data));
       })
       .catch(error => {
         console.log(error)
@@ -81,11 +84,11 @@ const LoginForm = () => {
         value={formData.password}
         onChange={handleChange("password")}
       />
-      <a href="/auth/resetPassword" className="highlight-text me-auto fs-6">Forgot Password?</a>
-      <button className="btn app-primary-btn d-flex align-items-center" disabled={isLoading} type="button" onClick={handleSubmit}>
+      <Link href="/auth/resetPassword" className="highlight-text me-auto fs-6">Forgot Password?</Link>
+      <button className="btn app-primary-btn d-flex align-items-center justify-content-center py-3 w-100 fs-6" disabled={isLoading} type="button" onClick={handleSubmit}>
         {isLoading ? <CircularProgress size={20} color="inherit" /> : "Login"}
       </button>
-      <p className="text-center mt-4">Don&apos;t have an Account? <a href="/auth/register" className='highlight-text'>Create Account</a></p>
+      <p className="text-center mt-4">Don&apos;t have an Account? <Link href="/auth/register" className='highlight-text'>Create Account</Link></p>
     </form>
   )
 }

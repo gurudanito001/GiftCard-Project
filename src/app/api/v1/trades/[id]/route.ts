@@ -28,15 +28,18 @@ export async function GET(
 export async function PATCH(
   request: Request,
   { params }: { params: { id: string } }
+  
 ) {
+  const { searchParams } = new URL(request.url);
   const id = params.id;
   let json = await request.json();
+
 
   const updated_trade = await prisma.trade.update({
     where: { id },
     data: json,
   });
-
+  
   if (!updated_trade) {
     return new NextResponse(JSON.stringify({message: "No trade with ID found"}), {
       status: 404,

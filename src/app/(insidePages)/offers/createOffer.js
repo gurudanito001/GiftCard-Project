@@ -5,11 +5,13 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useDispatchMessage from '@/hooks/useDispatchMessage';
 import { useSelector } from "react-redux";
 import { apiPost } from "@/services/apiService";
+import { useRouter } from "next/navigation";
 
-const CreateOffer = () => {
+const CreateOffer = ({userId}) => {
   const queryClient = useQueryClient();
+  const router = useRouter();
   const dispatchMessage = useDispatchMessage();
-  const {userData} = useSelector((state) => state.userData);
+  //const {userData} = useSelector((state) => state.userData);
 
   const [formData, setFormData] = useState({
     userId: "",
@@ -22,9 +24,9 @@ const CreateOffer = () => {
   useEffect(() =>{
     setFormData( prevState => ({
       ...prevState,
-      userId: userData.id
+      userId
     }))
-  }, [userData])
+  }, [userId])
 
   const handleChange = (prop) => (event) => {
     setFormData(prevState => ({
@@ -37,7 +39,8 @@ const CreateOffer = () => {
     mutationFn: ()=> apiPost({ url: `/offers`, data: formData })
     .then(res => {
       dispatchMessage({ message: res.message })
-      queryClient.invalidateQueries(["allOffers"])
+      queryClient.invalidateQueries(["allOffers"]);
+      router.refresh()
     }).catch(error =>{
       dispatchMessage({severity: "error", message: error.message })
     })
@@ -87,7 +90,7 @@ const CreateOffer = () => {
           <label htmlFor="price" className="form-label mb-1">Offer Price in ₦</label>
           <input type="text" className="form-control form-control-sm primary-bg fs-6 py-3" value={formData.price} onChange={handleChange("price")} id="price" />
         </div>
-        <button className="btn app-primary-btn d-flex align-items-center" disabled={createOfferMutation.isLoading} type="button" onClick={handleSubmit}>
+        <button className="btn app-primary-btn d-flex align-items-center justify-content-center" disabled={createOfferMutation.isLoading} type="button" onClick={handleSubmit}>
           {createOfferMutation.isLoading ? <CircularProgress size={20} color="inherit" /> : "Create Offer"}
         </button>
       </form></>

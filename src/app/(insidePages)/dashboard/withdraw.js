@@ -1,40 +1,19 @@
+"use client"
 import { CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { apiPatch, apiGet } from '@/services/apiService';
-import useDispatchMessage from '@/hooks/useDispatchMessage'
+import useDispatchMessage from '@/hooks/useDispatchMessage';
+import { useRouter } from "next/navigation";
 
 
-const Withdraw = ({userData, refreshUserData}) => {
+const Withdraw = ({userData, bankAccounts}) => {
+  const router = useRouter();
   const dispatchMessage = useDispatchMessage();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     amount: ""
   })
-  const [banksAccounts, setBankAccounts] = useState([])
-
-  const fetchBankAccounts = () => {
-    setIsLoading(true)
-    apiGet({ url: `/bankAccounts` })
-    .then(res => {
-      console.log(res.data)
-      setBankAccounts(res.data)
-      dispatchMessage({ message: res.message })
-      setIsLoading(false);
-    })
-    .catch(error => {
-      console.log(error)
-      setIsLoading(false);
-      dispatchMessage({ severity: "error", message: "Could not fetch Bank Accounts" })
-    })
-  }
-
-  useEffect(()=>{
-    
-    fetchBankAccounts()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  
+  console.log(bankAccounts);
 
   const handleChange = (prop) => (event) => {
     setFormData(prevState => ({
@@ -44,22 +23,25 @@ const Withdraw = ({userData, refreshUserData}) => {
   }
 
   const handleSubmit = () =>{
-    let prevCurrentBal = parseFloat(userData.wallet.currentBalance);
+    let prevCurrentBal = parseFloat(userData?.wallet?.currentBalance);
+    let prevAvailableBal = parseFloat(userData?.wallet?.availableBalance)
     let fundAmount = parseFloat(formData.amount);
-    let newBalance = prevCurrentBal - fundAmount;
+    let newCurrentBalance = prevCurrentBal - fundAmount;
+    let newAvailableBalance = prevAvailableBal - fundAmount;
     let data = {
-      userId: userData.id,
-      currentBalance: newBalance.toString(),
+      userId: userData?.id,
+      currentBalance: newCurrentBalance.toString(),
+      availableBalance: newAvailableBalance.toString(),
       amount: formData.amount,
       type: "DEBIT",
       category: "withdrawal"
     }
     //return console.log(newBalance)
     setIsLoading(true)
-    apiPatch({ url: `/wallet/${userData.wallet.id}`, data })
+    apiPatch({ url: `/wallet/${userData?.wallet?.id}`, data })
       .then(res => {
         console.log(res.data)
-        refreshUserData()
+        router.refresh();
         setIsLoading(false)
         dispatchMessage({message: res.message})
       })
@@ -71,7 +53,7 @@ const Withdraw = ({userData, refreshUserData}) => {
   }
 
   const listBankOptions = () =>{
-    return banksAccounts.map( item => {
+    return bankAccounts.map( item => {
       return <option className="small" key={item.accountNumber} value={`${item.accountNumber}`}>{`${item.accountNumber} - ${item.bankName} - ${item.accountName}`}</option>
     })
   }
@@ -86,11 +68,11 @@ const Withdraw = ({userData, refreshUserData}) => {
       <div className="px-4 d-flex flex-column gap-2">
         <div>
           <label htmlFor="cardholder" className="form-label mb-1">Wallet Username</label>
-          <input type="text" className="form-control form-control-sm primary-bg fs-6 py-3" id="cardholder" readOnly defaultValue={`${userData.firstName} ${userData.lastName}`} />
+          <input type="text" className="form-control form-control-sm primary-bg fs-6 py-3" id="cardholder" readOnly defaultValue={`${userData?.firstName} ${userData?.lastName}`} />
         </div>
         <div>
           <label htmlFor="amount" className="form-label mb-1">Amount</label>
-          <input type="text" className="form-control form-control-sm primary-bg fs-6 py-3" id="amount" value={formData.amount} onChange={handleChange("amount")} />
+          <input type="text" className="form-control form-control-sm primary-bg fs-6 py-3" id="amount" value={formData?.amount} onChange={handleChange("amount")} />
         </div>
         <div>
           <label htmlFor="bankAccount" className="form-label mb-1">Bank Account</label>

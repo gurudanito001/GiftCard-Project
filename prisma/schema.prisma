@@ -23,6 +23,7 @@ model User {
   role            Role              @default(USER)    
   email_confirmed Boolean           @default(false)
   offers          Offer[]
+  trades          Trade[]
   Buyer           Trade[]           @relation("Buyer")
   Seller          Trade[]           @relation("Seller")
   Benefactor      Transaction[]     @relation("Benefactor")
@@ -32,6 +33,8 @@ model User {
   wallet          Wallet?
   escrow          Escrow[]
   bankAccounts    BankAccount[]
+  sentMessages    Message[]         @relation("Sender")
+  receivedMessages Message[]         @relation("Receiver")
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
 }
@@ -52,6 +55,8 @@ model Offer {
 
 model Trade {
   id              String            @id @default(uuid())
+  user            User              @relation(fields: [userId], references: [id]) 
+  userId          String
   buyer           User              @relation("Buyer", fields: [buyerId], references: [id]) 
   buyerId         String
   seller          User              @relation("Seller", fields: [sellerId], references: [id]) 
@@ -123,12 +128,28 @@ model Escrow {
   id                String          @id @default(uuid())
   user              User            @relation(fields: [userId], references: [id]) 
   userId            String
-  trade             Trade           @relation(fields: [tradeId], references: [id]) 
+  trade             Trade           @relation(fields: [tradeId], references: [id], onDelete: Cascade) 
   tradeId           String          @unique
   amount            String
   status            EscrowStatus   @default(PENDING)
   createdAt         DateTime       @default(now())
   updatedAt         DateTime        @updatedAt
+}
+
+model Message {
+  id          String   @id @default(uuid())
+  sender      User     @relation("Sender", fields: [senderId], references: [id])
+  senderId    String
+  receiver    User     @relation("Receiver", fields: [receiverId], references: [id])
+  receiverId  String
+  resourceId  String?
+  resourceUrl String?
+  message     String?
+  viewed      Boolean? @default(false)
+  extraData   Json?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 enum Role {
@@ -154,10 +175,11 @@ enum EscrowStatus {
 
 enum TradeStatus {
   PENDING
-  ACCEPTED
-  SUCCESSFUL
-  DISCONTINUED
   CANCELLED
+  DECLINED
+  ACCEPTED
+  DISPUTED
+  SUCCESSFUL
 }
 
 enum OfferCategory {
