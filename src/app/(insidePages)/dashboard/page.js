@@ -67,6 +67,8 @@ const OfferItem = ({cardName, valueInUSD, price, offerCategory, date, showBorder
     )
 }
 
+export const dynamic='force-dynamic';
+
 export default async function Dashboard({searchParams}) {
     const userId = searchParams?.userId;
     const {user: userData} = await getUserById({id: userId});
