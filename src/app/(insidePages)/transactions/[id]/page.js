@@ -9,6 +9,9 @@ const styles ={
         width: "clamp(350px, 100%, 900px)"
     }
 }
+
+export const dynamic='force-dynamic';
+
 const TransactionDetails = async ({params, searchParams}) =>{
     const userId = searchParams?.userId;
     const {user: userData} = await getUserById({id: userId});

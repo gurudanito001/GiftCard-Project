@@ -35,6 +35,10 @@ const OfferListItem = ({userId, id, index, cardName, offerCategory, price, value
         
     )
 }
+
+export const dynamic='force-dynamic';
+
+
 const Offers = async ({searchParams}) => {
     const userId = searchParams?.userId;
     const {user: userData} = await getUserById({id: userId});

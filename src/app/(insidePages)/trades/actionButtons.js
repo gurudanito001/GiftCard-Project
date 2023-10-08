@@ -34,8 +34,6 @@ export const CancelButton = ({id}) =>{
       <a className={`btn app-primary-btn bg-danger d-flex px-4 py-2 m-0 rounded-2`} data-bs-toggle="modal" data-bs-target="#cancelTrade">
         {isLoading ? <CircularProgress size={20} /> : "Cancel"}
       </a>
-
-      
     </div>
   )
 }

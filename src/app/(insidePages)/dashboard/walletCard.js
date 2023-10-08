@@ -14,9 +14,7 @@ const styles = {
 
 const WalletCard = ({ userData, bankAccounts }) => {
 
-  const getAvailableBalance = () =>{
-    let escrows = ""
-  }
+
   return (
     <section className=''>
       <div className="card gap-2 primary-bg border-0 rounded-4 p-4" style={styles.card}>

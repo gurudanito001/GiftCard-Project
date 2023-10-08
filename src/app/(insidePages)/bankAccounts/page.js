@@ -36,6 +36,7 @@ const Card = ({ defaultCard = false, accountNumber, accountName, bankName}) => {
     )
 }
 
+export const dynamic='force-dynamic';
 
 const BankAccounts = async ({searchParams}) => {
     const userId = searchParams?.userId;

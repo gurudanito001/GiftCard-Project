@@ -56,6 +56,8 @@ const TransactionListItem = ({ id, userId, index, benefactor, beneficiary,  amou
   )
 }
 
+export const dynamic='force-dynamic';
+
 const Transactions = async ({ searchParams }) => {
   const userId = searchParams?.userId;
   const {user: userData} = await getUserById({id: userId});

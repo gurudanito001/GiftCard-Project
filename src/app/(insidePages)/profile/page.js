@@ -10,6 +10,8 @@ const styles = {
     }
 }
 
+export const dynamic='force-dynamic';
+
 export default async function Profile({ searchParams }) {
     const userId = searchParams?.userId;
     const { user: userData } = await getUserById({id: userId});

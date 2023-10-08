@@ -14,6 +14,8 @@ const styles = {
   }
 }
 
+
+
 const TradeItem = ({id, buyer, seller, userId, cardName, valueInUSD, price, status, date}) => {
   return (
     <tr style={styles.tableRow}>
@@ -53,6 +55,7 @@ const TradeItem = ({id, buyer, seller, userId, cardName, valueInUSD, price, stat
     </tr>
   )
 }
+export const dynamic='force-dynamic';
 
 export default async function Trades({ searchParams }) {
   const userId = searchParams?.userId;

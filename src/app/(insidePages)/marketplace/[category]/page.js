@@ -48,6 +48,7 @@ const OfferItem = ({index, user, cardName, valueInUSD, price, offerCategory, cre
   )
 }
 
+export const dynamic='force-dynamic';
 
 const Market = async ({params, searchParams}) =>{
   const userId = searchParams?.userId;
