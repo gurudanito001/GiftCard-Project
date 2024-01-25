@@ -52,7 +52,7 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const json = await request.json();
-
+    console.log(json)
     const offer = await prisma.offer.create({
       data: json,
     });
@@ -61,6 +61,6 @@ export async function POST(request: Request) {
      headers: { "Content-Type": "application/json" },
     });
   } catch (error: any) {
-    return new NextResponse(error.message, { status: 500 });
+    return new NextResponse(JSON.stringify(error), { status: 500 });
   }
 } 

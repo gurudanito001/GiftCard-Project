@@ -43,6 +43,7 @@ const Offers = async ({searchParams}) => {
     const userId = searchParams?.userId;
     const {user: userData} = await getUserById({id: userId});
     const {offers} = await getOffers({userId})
+    console.log("offers:", offers)
     
     const listOffers = () => {
         return offers.map((offer, index) => <OfferListItem
@@ -84,7 +85,7 @@ const Offers = async ({searchParams}) => {
                 </tr>
               </thead>
               <tbody>
-                {listOffers()}
+                {offers?.length > 0 && listOffers()}
               </tbody>
             </table>
             <button className="btn app-primary-btn d-flex align-items-center px-5" disabled={false} type="button">
@@ -93,8 +94,7 @@ const Offers = async ({searchParams}) => {
           </section>
 
 
-          <div className="offcanvas primary-bg offcanvas-end gap-1" data-bs-scroll="true"
-            id="offers">
+          <div className="offcanvas primary-bg offcanvas-end gap-1" data-bs-scroll="true" id="offers">
             <CreateOffer userId={userId} />
           </div>
         </div>

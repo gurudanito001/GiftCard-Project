@@ -13,7 +13,7 @@ const HeroSection = () => {
                 buy and sell Giftcard from merchants and sellers
               </p>
               <div className="mt-5 mb-auto d-flex">
-                <a type="button" className="btn outline-primary-btn px-5 py-3 fw-bold" href="#">Get Started</a>
+                <a type="button" className="btn outline-primary-btn px-5 py-3 fw-bold" href="/auth/register">Get Started</a>
                 <a type="button" className="btn btn-success px-5 py-3 fw-bold ms-3" href="https://wa.me/2348186736264" target="_blank"><i className="fa-brands fa-whatsapp fs-6"></i> Chat</a>
               </div>
               

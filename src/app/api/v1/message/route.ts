@@ -27,7 +27,6 @@ export async function GET(request: Request) {
           id: myCursor,
         }
       }) */
-      
     })
     if(!data){
       return new NextResponse(JSON.stringify({ message: `Failed to fetch ${routeName} list`, data: null}), {
