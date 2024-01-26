@@ -36,7 +36,7 @@ export async function POST(
 
       await prisma.user.update({
         where: { id: user_id },
-        data: {...user, password: encryptedPassword},
+        data: {...user, email_confirmed: true, password: encryptedPassword},
       });
       return new NextResponse(JSON.stringify({message: "Password Change Successful!"}), {
         status: 200,

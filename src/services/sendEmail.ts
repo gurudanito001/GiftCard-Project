@@ -13,18 +13,18 @@ interface SendEmailParams {
 export default async function sendEmail({ email, url, message = "verify your email address", buttonText = "Confirm Email", subject = "Account Verification", companyName = process.env.COMPANY_NAME }: SendEmailParams): Promise<any> {
 
   let transporter = Nodemailer.createTransport({
-    name: "www.marlayer.cloud",  //www.agronigeria.ng
-    host: "smtppro.zoho.com",  //mail.agronigeria.ng
+    name: "www.banjnetdigital.com",  //www.agronigeria.ng
+    host: "mail.banjnetdigital.com",  //mail.agronigeria.ng
     port: 465,
     secure: true, // true for 465, false for other ports
     auth: {
-      user: "account_verification@marlayer.cloud", //no-reply@agronigeria.ng
-      pass: "6eq%tUzv", //AgroNigA!!en90
+      user: "noreply@banjnetdigital.com", //no-reply@agronigeria.ng
+      pass: "Noreply.202317", //AgroNigA!!en90
     },
   });
 
   let mailDetails = {
-    from: 'account_verification@marlayer.cloud',
+    from: 'noreply@banjnetdigital.com',
     to: `${email}`,
     subject: `${subject} Link`,
     text: 'Follow the instructions below',

@@ -4,3 +4,9 @@
 GET {{baseUrl}}/users HTTP/1.1
 
 ###
+
+@userId = 053f9039-78c9-4f90-b662-9cbafed77817
+# @name deleteUser
+DELETE  {{baseUrl}}/users/{{userId}} HTTP/1.1
+
+###
