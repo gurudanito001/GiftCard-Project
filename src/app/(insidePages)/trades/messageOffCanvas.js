@@ -86,13 +86,13 @@ const MessageOffCanvas = ({ resourceId, userId, receiverId, receiverName}) => {
 
 
   return (
-    <div className="offcanvas offcanvas-end messageOffCanvas" tabIndex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" >
+    <div className="offcanvas offcanvas-end messageOffCanvas" tabIndex="-1" id="messaging" data-bs-backdrop="static" aria-labelledby="offcanvasRightLabel" >
       <div className="offcanvas-header px-3 py-3 border-bottom d-flex justify-content-between align-items-center">
         <div className="d-flex align-items-center gap-2">
           <AvatarClient />
           <div className="d-flex flex-column primary-text">
             <p className="fw-bold mb-0 text-capitalize">{receiverName}</p>
-            <p className="mb-0 small">Last seen at 12:02am</p>
+            {/* <p className="mb-0 small">Last seen at 12:02am</p> */}
           </div>
         </div>
         <div className="d-flex align-items-center ms-auto gap-3">

@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import { getOffersForMarket} from '@/lib/prisma/offers';
+import { getOffersForMarket } from '@/lib/prisma/offers';
 import authStyles from '../../../auth/auth.module.css';
 import formatAsCurrency from "@/services/formatAsCurrency";
 import moment from 'moment';
@@ -11,8 +11,8 @@ import ActionButton from '../actionButton';
 
 
 
-const UserIcon = ()=>{
-  return(
+const UserIcon = () => {
+  return (
     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" className="bi bi-person-circle" viewBox="0 0 16 16">
       <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
       <path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
@@ -20,41 +20,43 @@ const UserIcon = ()=>{
   )
 }
 
-const OfferItem = ({index, user, cardName, valueInUSD, price, offerCategory, createdAt, showBorder=true, offer, userId  }) => {
+const OfferItem = ({ index, user, cardName, rate, minRange, maxRange, offerCategory, createdAt, showBorder = true, offer, userId }) => {
   return (
-      <tr className={`${showBorder && "border-bottom"}`}>
-              <th scope="row" className='text-start primary-text py-3'>{index}</th>
-              <td className='text-start primary-text py-3'>
-                <div className='d-flex m-0 p-0'>
-                  <div className='me-2'><AvatarClient /></div>
-                  <article className='d-flex flex-column'>
-                    <span className='fw-bolder'>{user?.firstName} {user?.lastName} </span>
-                    <span className='small'>{user?.username || user?.email}</span>
-                  </article>
-                  
-                </div>
-              </td>
-              <td className="text-start primary-text py-3">
-                  <p className='m-0 p-0'>
-                      Offer to {offerCategory.toLowerCase() === "merchant" ? "buy" : "sell"}<strong> ${valueInUSD} {cardName.toUpperCase()}</strong> Giftcard for ₦{formatAsCurrency(price)}
-                  </p>
-                  <p className="m-0 p-0 "><strong>Posted:</strong> {moment(createdAt).format("lll")}</p>
-              </td>
-              <td className="text-start mb-0 primary-text py-3">₦{formatAsCurrency(price)}</td>
-              <td className="text-start mb-0 primary-text py-3">
-                <ActionButton userId={userId} offer={offer} />
-              </td>
-      </tr>
+    <tr className={`${showBorder && "border-bottom"}`}>
+      <th scope="row" className='text-start primary-text py-3'>{index}</th>
+      <td className='text-start primary-text py-3'>
+        <div className='d-flex m-0 p-0'>
+          <div className='me-2'><AvatarClient /></div>
+          <article className='d-flex flex-column'>
+            <span className='fw-bolder'>{user?.firstName} {user?.lastName} </span>
+            <span className='small'>{user?.username || user?.email}</span>
+          </article>
+
+        </div>
+      </td>
+      <td className="text-start primary-text py-3">
+        <p className='m-0 p-0'>
+          Offer to {offerCategory.toLowerCase() === "merchant" ? "buy" : "sell"}<strong> {cardName.toUpperCase()}</strong> Giftcard at the rate of ₦{formatAsCurrency(rate)} <br />
+          <span>Min: ${minRange}</span> &nbsp; <span>Max: ${maxRange}</span>
+        </p>
+        <p className="m-0 p-0 "><strong>Posted:</strong> {moment(createdAt).format("lll")}</p>
+      </td>
+      <td className="text-start mb-0 primary-text py-3">₦{formatAsCurrency(rate)}</td>
+      <td className="text-start mb-0 primary-text py-3">
+        <ActionButton userId={userId} offer={offer} />
+      </td>
+    </tr>
   )
 }
 
 export const dynamic='force-dynamic';
 
-const Market = async ({params, searchParams}) =>{
+
+const Market = async ({ params, searchParams }) => {
   const userId = searchParams?.userId;
-  const {user: userData} = await getUserById({id: userId});
+  const { user: userData } = await getUserById({ id: userId });
   const category = params.category;
-  const {offers} = await getOffersForMarket({userId: userId, user: true, offerCategory: category });
+  const { offers } = await getOffersForMarket({ userId: userId, user: true, offerCategory: category });
   console.log(offers)
 
   const listOffers = () => {
@@ -64,9 +66,10 @@ const Market = async ({params, searchParams}) =>{
       user={offer.user}
       index={index + 1}
       cardName={offer.cardName}
-      valueInUSD={offer.valueInUSD}
+      rate={offer.rate}
       offerCategory={offer.offerCategory}
-      price={offer.price}
+      minRange={offer.minRange}
+      maxRange={offer.maxRange}
       createdAt={offer.createdAt}
       showBorder={index !== offers.length - 1}
       offer={offer}
@@ -75,7 +78,7 @@ const Market = async ({params, searchParams}) =>{
     )
   }
 
-  return(
+  return (
     <InsideLayout activeLink={`marketplace/${category}`} userData={userData} userId={userId}>
       <div className='py-5 px-3 px-lg-5'>
         <header>
@@ -90,7 +93,7 @@ const Market = async ({params, searchParams}) =>{
                 <th scope="col" className='py-3 text-start primary-text'>#</th>
                 <th scope="col" className='py-3 text-start text-capitalize primary-text'>{category}</th>
                 <th scope="col" className='py-3 text-start primary-text'>Offer Details</th>
-                <th scope="col" className='py-3 text-start primary-text'>Offer Price in ₦</th>
+                <th scope="col" className='py-3 text-start primary-text'>Rate in ₦</th>
                 <th scope="col" className='py-3 text-start primary-text'>Actions</th>
               </tr>
             </thead>
@@ -102,7 +105,6 @@ const Market = async ({params, searchParams}) =>{
             {/* {isLoading ? <CircularProgress size={20} color="inherit" /> : "Load More Offers"} */}
           </button>
         </section>
-
       </div>
     </InsideLayout>
   )

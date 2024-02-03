@@ -11,6 +11,9 @@ export async function PATCH(
   const trade = await prisma.trade.findUnique({
     where: {
       id
+    },
+    include: {
+      offer: true
     }
   })
   const buyerWallet = await prisma.wallet.findUnique({
@@ -25,8 +28,8 @@ export async function PATCH(
     }); 
   }
   if(buyerWallet){
-    const buyerAvailableBalance = parseFloat(buyerWallet.availableBalance);
-    const tradeAmount = parseFloat(trade.price)
+    const buyerAvailableBalance = buyerWallet.availableBalance;
+    const tradeAmount = trade?.rate * trade?.valueInUSD
     if(buyerAvailableBalance < tradeAmount){
       console.log(buyerWallet, tradeAmount);
       return new NextResponse(JSON.stringify({message: `Buyer has Insufficient funds for this trade`}), {
@@ -39,7 +42,7 @@ export async function PATCH(
         where: {
           userId: trade?.buyerId
         },
-        data: {availableBalance: updatedAvailableBalance.toString()}
+        data: {availableBalance: updatedAvailableBalance}
       })
     }
   }else{
@@ -65,7 +68,7 @@ export async function PATCH(
   await prisma.escrow.create({
     data: {
       userId: updated_trade?.buyerId,
-      amount: updated_trade?.price,
+      amount: updated_trade?.rate * updated_trade?.valueInUSD,
       tradeId: updated_trade?.id
     }
   })

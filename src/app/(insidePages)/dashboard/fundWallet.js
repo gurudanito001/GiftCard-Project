@@ -22,20 +22,21 @@ const FundWalletForm = ({userData}) => {
   }
 
   const handleSubmit = () =>{
-    let prevCurrentBal = parseFloat(userData?.wallet?.currentBalance);
-    let prevAvailableBal = parseFloat(userData?.wallet?.availableBalance);
+    let prevCurrentBal = userData?.wallet?.currentBalance;
+    let prevAvailableBal = userData?.wallet?.availableBalance;
     let fundAmount = parseFloat(formData.amount);
     let newCurrentBalance = prevCurrentBal + fundAmount;
     let newAvailableBalance = prevAvailableBal + fundAmount;
     //return console.log(prevCurrentBal, newBalance)
     let data = {
       userId: userData?.id,
-      currentBalance: newCurrentBalance.toString(),
-      availableBalance: newAvailableBalance.toString(),
-      amount: formData.amount,
+      currentBalance: newCurrentBalance,
+      availableBalance: newAvailableBalance,
+      amount: fundAmount,
       type: "CREDIT",
       category: "fund wallet"
     }
+    
     setIsLoading(true)
     apiPatch({ url: `/wallet/${userData?.wallet?.id}`, data })
       .then(res => {

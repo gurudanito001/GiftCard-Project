@@ -38,15 +38,36 @@ const OfferDetails = async ({params, searchParams}) =>{
                         <p className='mb-0 ms-3 col col-lg-3 text-uppercase fw-bold'>{offer?.cardName}</p>
                     </div>
 
+                    {offer?.valueInUSD &&
                     <div className='row d-flex align-items-center mb-3'>
-                        <h6 className='mb-0 fw-bold col col-lg-3 small'>Value in USD$</h6>
-                        <p className='mb-0 ms-3 col col-lg-3'>{formatAsCurrency(offer?.valueInUSD)}</p>
-                    </div>
+                        <h6 className='mb-0 fw-bold col col-lg-3 small'>Value in $USD</h6>
+                        <p className='mb-0 ms-3 col col-lg-3 text-uppercase fw-bold'>{offer?.valueInUSD}</p>
+                    </div>}
 
+                    {offer?.cardType &&
                     <div className='row d-flex align-items-center mb-3'>
-                        <h6 className='mb-0 fw-bold col col-lg-3 small'>Offer Price in ₦ </h6>
-                        <p className='mb-0 ms-3 col col-lg-3'>{formatAsCurrency(offer?.price)}</p>
-                    </div>
+                        <h6 className='mb-0 fw-bold col col-lg-3 small'>Giftcard Type</h6>
+                        <p className='mb-0 ms-3 col col-lg-3 text-uppercase fw-bold'>{offer?.cardType}</p>
+                    </div>}
+
+                    {offer?.rate &&
+                    <div className='row d-flex align-items-center mb-3'>
+                        <h6 className='mb-0 fw-bold col col-lg-3 small'>Rate in ₦</h6>
+                        <p className='mb-0 ms-3 col col-lg-3'>{formatAsCurrency(offer?.rate)}</p>
+                    </div>}
+
+                    {offer?.minRange && 
+                    <div className='row d-flex align-items-center mb-3'>
+                        <h6 className='mb-0 fw-bold col col-lg-3 small'>Giftcard Min in $USD </h6>
+                        <p className='mb-0 ms-3 col col-lg-3'>{formatAsCurrency(offer?.minRange)}</p>
+                    </div>}
+
+                    {offer?.maxRange && 
+                    <div className='row d-flex align-items-center mb-3'>
+                        <h6 className='mb-0 fw-bold col col-lg-3 small'>Giftcard Max in $USD </h6>
+                        <p className='mb-0 ms-3 col col-lg-3'>{formatAsCurrency(offer?.maxRange)}</p>
+                    </div>}
+
                     <div className='row d-flex align-items-center mb-3'>
                         <h6 className='mb-0 fw-bold col col-lg-3 small'>Offer Category </h6>
                         <p className='mb-0 ms-3 col col-lg-3 text-uppercase'>{offer?.offerCategory}</p>

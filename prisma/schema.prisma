@@ -5,7 +5,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -24,7 +23,7 @@ model User {
   email_confirmed Boolean           @default(false)
   offers          Offer[]
   trades          Trade[]
-  Buyer           Trade[]           @relation("Buyer")
+  Buyer           Trade[]           @relation("Buyer")  //@relation("Sender", fields: [senderId], references: [id], onDelete: Cascade)
   Seller          Trade[]           @relation("Seller")
   Benefactor      Transaction[]     @relation("Benefactor")
   Beneficiary     Transaction[]     @relation("Beneficiary")
@@ -41,34 +40,35 @@ model User {
 
 model Offer {
   id              String            @id @default(uuid())
-  user            User              @relation(fields: [userId], references: [id]) 
+  user            User              @relation(fields: [userId], references: [id], onDelete: Cascade) 
   userId          String
   cardName        String    
-  valueInUSD      String?
-  //price           String? 
-  rate            String?
-  minRange        String?
-  maxRange        String?
-  cardType        CardType? 
+  valueInUSD      Int? // seller detail only
+  rate            Float
+  minRange        Int? // buyer detail only
+  maxRange        Int? // buyer detail only
+  cardType        String? 
   offerCategory   String            @default("merchant")
   Location        String?
   trades          Trade[]
+  status          OfferStatus       @default(PENDING)
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
 }
 
 model Trade {
   id              String            @id @default(uuid())
-  user            User              @relation(fields: [userId], references: [id]) 
+  user            User              @relation(fields: [userId], references: [id], onDelete: Cascade) 
   userId          String
-  buyer           User              @relation("Buyer", fields: [buyerId], references: [id]) 
+  buyer           User              @relation("Buyer", fields: [buyerId], references: [id],  onDelete: Cascade) 
   buyerId         String
-  seller          User              @relation("Seller", fields: [sellerId], references: [id]) 
+  seller          User              @relation("Seller", fields: [sellerId], references: [id],  onDelete: Cascade) 
   sellerId        String
   cardName        String
-  valueInUSD      String
-  price           String  
-  offer           Offer             @relation(fields: [offerId], references: [id]) 
+  valueInUSD      Int
+  rate            Float  
+  cardType        String
+  offer           Offer             @relation(fields: [offerId], references: [id],  onDelete: Cascade) 
   offerId         String
   transaction     Transaction?
   escrow          Escrow?
@@ -79,11 +79,11 @@ model Trade {
 
 model Transaction {
   id              String            @id @default(uuid())
-  benefactor      User              @relation("Benefactor", fields: [benefactorId], references: [id]) 
+  benefactor      User              @relation("Benefactor", fields: [benefactorId], references: [id],  onDelete: Cascade) 
   benefactorId    String
-  beneficiary     User              @relation("Beneficiary", fields: [beneficiaryId], references: [id]) 
+  beneficiary     User              @relation("Beneficiary", fields: [beneficiaryId], references: [id],  onDelete: Cascade) 
   beneficiaryId   String
-  amount          String
+  amount          Float
   trade           Trade?            @relation(fields: [tradeId], references: [id]) 
   tradeId         String?           @unique
   type            TransactionType   @default(CREDIT)
@@ -95,7 +95,7 @@ model Transaction {
 
 model BankAccount {
   id              String            @id @default(uuid())
-  user            User              @relation(fields: [userId], references: [id]) 
+  user            User              @relation(fields: [userId], references: [id],  onDelete: Cascade) 
   userId          String
   bankName        String
   accountName     String
@@ -106,9 +106,9 @@ model BankAccount {
 
 model Notification {
   id              String            @id @default(uuid())
-  receiver        User              @relation("Receiver", fields: [receiverId], references: [id]) 
+  receiver        User              @relation("Receiver", fields: [receiverId], references: [id],  onDelete: Cascade) 
   receiverId      String
-  sender          User?             @relation("Sender", fields: [senderId], references: [id]) 
+  sender          User?             @relation("Sender", fields: [senderId], references: [id],  onDelete: Cascade) 
   senderId        String
   viewed          Boolean           @default(false)
   message         String    
@@ -119,22 +119,22 @@ model Notification {
 
 model Wallet {
   id                String          @id @default(uuid())
-  user              User            @relation(fields: [userId], references: [id]) 
+  user              User            @relation(fields: [userId], references: [id],  onDelete: Cascade) 
   userId            String          @unique
   currency          String          @default("NGN")
-  currentBalance    String          @default("0.00")
-  availableBalance  String          @default("0.00")
+  currentBalance    Float          @default(0.00)
+  availableBalance  Float          @default(0.00)
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
 }
 
 model Escrow {
   id                String          @id @default(uuid())
-  user              User            @relation(fields: [userId], references: [id]) 
+  user              User            @relation(fields: [userId], references: [id],  onDelete: Cascade) 
   userId            String
   trade             Trade           @relation(fields: [tradeId], references: [id], onDelete: Cascade) 
   tradeId           String          @unique
-  amount            String
+  amount            Float
   status            EscrowStatus   @default(PENDING)
   createdAt         DateTime       @default(now())
   updatedAt         DateTime        @updatedAt
@@ -142,9 +142,9 @@ model Escrow {
 
 model Message {
   id          String   @id @default(uuid())
-  sender      User     @relation("Sender", fields: [senderId], references: [id])
+  sender      User     @relation("Sender", fields: [senderId], references: [id],  onDelete: Cascade)
   senderId    String
-  receiver    User     @relation("Receiver", fields: [receiverId], references: [id])
+  receiver    User     @relation("Receiver", fields: [receiverId], references: [id],  onDelete: Cascade)
   receiverId  String
   resourceId  String?
   resourceUrl String?
@@ -191,7 +191,7 @@ enum OfferCategory {
   SELLER
 }
 
-enum CardType {
-  PHYSICAL
-  CODE
+enum OfferStatus {
+  PENDING 
+  CLOSED
 }

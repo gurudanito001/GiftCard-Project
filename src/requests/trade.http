@@ -28,7 +28,7 @@ Content-Type: "application/json"
 GET {{baseUrl}}/branch HTTP/1.1
 
 ###
-@tradeId = f3b3e9b7-f969-4e2a-8bc3-63c99d4dcb1a
+@tradeId = 05e97f36-d7a2-4804-8838-becdf96899c5
 
 # @name getTrade
 GET {{baseUrl}}/trades/{{tradeId}} HTTP/1.1

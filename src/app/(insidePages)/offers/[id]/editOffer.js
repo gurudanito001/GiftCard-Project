@@ -1,20 +1,36 @@
 "use client"
 import { useEffect, useState } from "react";
 import { CircularProgress } from "@mui/material";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useDispatchMessage from '@/hooks/useDispatchMessage';
 import { apiPatch } from '@/services/apiService';
 import { useRouter } from "next/navigation";
+import * as ListofGiftCardsJson from "@/lib/listOfGiftcardProviders.json";
+import AppAutoComplete from "@/components/autocomplete";
 
 const EditOffer = ({offerDetails}) => {
+  const queryClient = useQueryClient();
   const router = useRouter();
   const dispatchMessage = useDispatchMessage();
+
+  const listOfGiftCards = () =>{
+    return ListofGiftCardsJson.data.map( (item, index) =>{
+      return {
+        id: item?.website + index,
+        label: item?.name,
+      }
+    })
+  }
+
 
   const [formData, setFormData] = useState({
     userId: "",
     cardName: "",
-    valueInUSD: "",
-    price: "",
+    valueInUSD: null,
+    rate: null,
+    minRange: null,
+    maxRange: null,
+    cardType: "",
     offerCategory: ""
   })
 
@@ -23,13 +39,49 @@ const EditOffer = ({offerDetails}) => {
       ...prevState,
       userId: offerDetails.userId,
       cardName: offerDetails?.cardName || "",
-      valueInUSD: offerDetails?.valueInUSD || "",
-      price: offerDetails?.price || "",
+      valueInUSD: offerDetails?.valueInUSD || null,
+      rate: offerDetails?.rate || null,
+      minRange: offerDetails?.minRange || null,
+      maxRange: offerDetails?.maxRange || null,
+      cardType: offerDetails?.cardType || "",
       offerCategory: offerDetails?.offerCategory || ""
     }))
   }, [offerDetails])
 
   const handleChange = (prop) => (event) => {
+    const onlyNumbersRegex = new RegExp("^[0-9]*$");
+    const onlyNumberInputList = ["valueInUSD", "minRange", "maxRange", "rate"]
+    if((onlyNumberInputList.includes(prop)) ){
+      if(!onlyNumbersRegex.exec(event.target.value)){
+        return;
+      }else{
+        if(event.target.value === ""){
+          setFormData(prevState => ({
+            ...prevState,
+            [prop]: event.target.value
+          }))
+          return;
+        }else{
+          setFormData(prevState => ({
+            ...prevState,
+            [prop]: prop === "rate" ? parseFloat(event.target.value) : parseInt(event.target.value)
+          }))
+          return;
+        }
+        
+      }
+    }
+    if(prop === "offerCategory"){
+      setFormData(prevState => ({
+        ...prevState,
+        cardName: "",
+        valueInUSD: null,
+        rate: null,
+        minRange: null,
+        maxRange: null,
+        cardType: "",
+      }))
+    }
     setFormData(prevState => ({
       ...prevState,
       [prop]: event.target.value
@@ -48,7 +100,7 @@ const EditOffer = ({offerDetails}) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(formData)
+    //return console.log(formData)
     editOfferMutation.mutate()
   }
 
@@ -58,35 +110,60 @@ const EditOffer = ({offerDetails}) => {
       <form className="d-flex flex-column gap-3 px-4">
         <div>
           <label htmlFor="giftCardAmount" className="form-label mb-1">You want to</label>
-          <select className="form-select form-control form-control-sm primary-bg fs-6 py-3" value={formData.offerCategory} onChange={handleChange("offerCategory")}  aria-label="Default select example">
+          <select className="form-select form-control form-control-sm primary-bg fs-6" value={formData.offerCategory} onChange={handleChange("offerCategory")}  aria-label="Default select example">
+            <option value="">Select Option</option>
             <option value="merchant">Buy Giftcard</option>
             <option value="seller">Sell Giftcard</option>
           </select>
         </div>
+
         <div>
-          <label htmlFor="cardName" className="form-label mb-1">Choose Giftcard Type</label>
-          <select className="form-select form-control form-control-sm primary-bg fs-6 py-3" value={formData.cardName} onChange={handleChange("cardName")} aria-label="Default select example">
-            <option value="">Select Giftcard</option>
-            <option value="visa">Visa Giftcard</option>
-            <option value="vanilla">Vanilla Giftcard</option>
-            <option value="walmart">Walmart Giftcard</option>
-            <option value="target">Target Giftcard</option>
-            <option value="ebay">Ebay Giftcard</option>
-            <option value="Amazon">Amazon Giftcard</option>
-          </select>
+          <label htmlFor="customerSearch" className="form-label">Select Giftcard (<span className='fst-italic text-warning'>required</span>)</label>
+          <AppAutoComplete options={listOfGiftCards()} initialValue={formData?.cardName} handleClickOption={(cardName) => {setFormData( prevState =>({
+            ...prevState,
+            cardName
+          }))}} placeholder="Giftcard Type" />
         </div>
+
+        {formData.offerCategory === "seller" &&
+          <>
+            <div>
+              <label htmlFor="cardType" className="form-label mb-1">Card Type</label>
+              <select className="form-select form-control form-control-sm primary-bg fs-6" value={formData.cardType} onChange={handleChange("cardType")} aria-label="Default select example">
+                <option value="">Select Giftcard</option>
+                <option value="physical">Physical</option>
+                <option value="code">Code</option>
+              </select>
+            </div>
+
+            <div>
+              <label htmlFor="valueInUSD" className="form-label mb-1">Value in $USD</label>
+              <input type="text" className="form-control form-control-sm primary-bg fs-6" value={formData.valueInUSD} onChange={handleChange("valueInUSD")} id="valueInUSD" />
+            </div>
+          </>
+        }
+
         <div>
-          <label htmlFor="valueInUSD" className="form-label mb-1">Value in USD$</label>
-          <input type="text" className="form-control form-control-sm primary-bg fs-6 py-3" value={formData.valueInUSD} onChange={handleChange("valueInUSD")} id="valueInUSD" />
+          <label htmlFor="rate" className="form-label mb-1">Rate in ₦</label>
+          <input type="text" className="form-control form-control-sm primary-bg fs-6" value={formData.rate} onChange={handleChange("rate")} id="rate" />
         </div>
-        <div>
-          <label htmlFor="price" className="form-label mb-1">Offer Price in ₦</label>
-          <input type="text" className="form-control form-control-sm primary-bg fs-6 py-3" value={formData.price} onChange={handleChange("price")} id="price" />
+
+        {formData.offerCategory === "merchant" &&
+          <div>
+            <label htmlFor="price" className="form-label mb-1">Giftcard Amount Range</label>
+            <div className="d-flex">
+              <input type="text" className="form-control form-control-sm primary-bg fs-6" placeholder="min range in $" value={formData.minRange} onChange={handleChange("minRange")} id="minRange" />
+              <input type="text" className="form-control form-control-sm primary-bg fs-6 ms-2"  placeholder="max range in $" value={formData.maxRange} onChange={handleChange("maxRange")} id="maxRange" />
+            </div>
         </div>
-        <button className="btn app-primary-btn d-flex align-items-center justify-content-center" disabled={editOfferMutation.isLoading} type="button" onClick={handleSubmit}>
-          {editOfferMutation.isLoading ? <CircularProgress size={20} color="inherit" /> : "Save"}
+        }
+        
+        <button className="btn app-primary-btn d-flex align-items-center justify-content-center py-2" disabled={editOfferMutation.isLoading} type="button" onClick={handleSubmit}>
+          {editOfferMutation.isLoading ? <CircularProgress size={20} color="inherit" /> : "Update Offer"}
         </button>
-      </form></>
+      </form>
+      
+    </>
   )
 }
 

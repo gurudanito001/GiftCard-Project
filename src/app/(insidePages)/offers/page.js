@@ -19,21 +19,21 @@ const styles = {
       cursor: "pointer"
   }
 }
-const OfferListItem = ({userId, id, index, cardName, offerCategory, price, valueInUSD, createdAt }) => {
-    /* const router = useRouter(); */
-    return (
-        <tr style={styles.tableRow}/*  onClick={() => router.push(`/offers/${id}`)} */>
-          <th scope="row" className='py-3 primary-text text-start'>{index}</th>
-          <td className='py-3 fw-bold text-uppercase text-start primary-text'>{cardName}</td>
-          <td className='py-3 primary-text text-start'>{formatAsCurrency(valueInUSD)}</td>
-          <td className='py-3 primary-text text-start'>{formatAsCurrency(price)}</td>
-          <td className='py-3 text-uppercase primary-text text-start'>{offerCategory}</td>
-          <td className='py-3 primary-text text-start'>{new Date(createdAt).toDateString()}</td>
-          <td className='py-3 text-start'><Link className='text-decoration-none small secondary-text w-100 text-start' href={`/offers/${id}?userId=${userId}`}> View 
-          <i className="fa-solid fa-angle-right ms-1" style={{fontSize: "11px"}}></i> </Link> </td>
-        </tr>
-        
-    )
+const OfferListItem = ({userId, id, index, cardName, offerCategory, rate, minRange, maxRange, status, createdAt }) => {
+  /* const router = useRouter(); */
+  return (
+    <tr style={styles.tableRow}/*  onClick={() => router.push(`/offers/${id}`)} */>
+      <th scope="row" className='py-3 primary-text text-start'>{index}</th>
+      <td className='py-3 fw-bold text-uppercase text-start primary-text'>{cardName}</td>
+      <td className='py-3 primary-text text-start'>{formatAsCurrency(rate)}</td>
+      <td className='py-3 primary-text text-start'>{formatAsCurrency(minRange)} --- {formatAsCurrency(maxRange)}</td>
+      <td className='py-3 text-uppercase primary-text text-start'>{offerCategory}</td>
+      <td className='py-3 text-uppercase primary-text text-start'>{status}</td>
+      <td className='py-3 primary-text text-start'>{new Date(createdAt).toDateString()}</td>
+      <td className='py-3 text-start'><Link className='text-decoration-none small secondary-text w-100 text-start' href={`/offers/${id}?userId=${userId}`}> View 
+      <i className="fa-solid fa-angle-right ms-1" style={{fontSize: "11px"}}></i> </Link> </td>
+    </tr>
+  )
 }
 
 export const dynamic='force-dynamic';
@@ -52,9 +52,11 @@ const Offers = async ({searchParams}) => {
             userId={userId}
             index={index + 1}
             cardName={offer.cardName}
-            valueInUSD={offer.valueInUSD}
+            rate={offer.rate}
+            minRange={offer.minRange}
+            maxRange={offer.maxRange}
             offerCategory={offer.offerCategory}
-            price={offer.price}
+            status={offer.status}
             createdAt={offer.createdAt}
         />
         )
@@ -77,9 +79,10 @@ const Offers = async ({searchParams}) => {
                 <tr>
                   <th scope="col" className='py-3 primary-text text-start'>#</th>
                   <th scope="col" className='py-3 primary-text text-start'>Card Name</th>
-                  <th scope="col" className='py-3 primary-text text-start'>Value in $USD</th>
-                  <th scope="col" className='py-3 primary-text text-start'>Offer Price in ₦</th>
+                  <th scope="col" className='py-3 primary-text text-start'>Rate in ₦</th>
+                  <th scope="col" className='py-3 primary-text text-start'>Giftcard Range in $USD</th>
                   <th scope="col" className='py-3 primary-text text-start'>Category</th>
+                  <th scope="col" className='py-3 primary-text text-start'>Status</th>
                   <th scope="col" className='py-3 primary-text text-start'>Date Created</th>
                   <th scope='col' className='py-3 primary-text text-start'>Actions</th>
                 </tr>

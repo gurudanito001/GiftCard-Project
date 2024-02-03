@@ -6,6 +6,8 @@ import useDispatchMessage from '@/hooks/useDispatchMessage';
 import { useSelector } from "react-redux";
 import { apiPost } from "@/services/apiService";
 import { useRouter } from "next/navigation";
+import * as ListofGiftCardsJson from "@/lib/listOfGiftcardProviders.json";
+import AppAutoComplete from "@/components/autocomplete";
 
 const CreateOffer = ({userId}) => {
   const queryClient = useQueryClient();
@@ -13,14 +15,22 @@ const CreateOffer = ({userId}) => {
   const dispatchMessage = useDispatchMessage();
   //const {userData} = useSelector((state) => state.userData);
 
+  const listOfGiftCards = () =>{
+    return ListofGiftCardsJson.data.map( (item, index) =>{
+      return {
+        id: item?.website + index,
+        label: item?.name,
+      }
+    })
+  }
+
   const [formData, setFormData] = useState({
     userId: "",
     cardName: "",
-    valueInUSD: "",
-    // price: "",
-    rate: "",
-    minRange: "",
-    maxRange: "",
+    valueInUSD: null,
+    rate: null,
+    minRange: null,
+    maxRange: null,
     cardType: "",
     offerCategory: ""
   })
@@ -34,19 +44,35 @@ const CreateOffer = ({userId}) => {
 
   const handleChange = (prop) => (event) => {
     const onlyNumbersRegex = new RegExp("^[0-9]*$");
-    const onlyNumberInputList = ["valueInUSD", "price", "minRange", "maxRange", "rate"]
-    if((onlyNumberInputList.includes(prop)) && !onlyNumbersRegex.exec(event.target.value)){
-      return;
+    const onlyNumberInputList = ["valueInUSD", "minRange", "maxRange", "rate"]
+    if((onlyNumberInputList.includes(prop)) ){
+      if(!onlyNumbersRegex.exec(event.target.value)){
+        return;
+      }else{
+        if(event.target.value === ""){
+          setFormData(prevState => ({
+            ...prevState,
+            [prop]: event.target.value
+          }))
+          return;
+        }else{
+          setFormData(prevState => ({
+            ...prevState,
+            [prop]: prop === "rate" ? parseFloat(event.target.value) : parseInt(event.target.value)
+          }))
+          return;
+        }
+        
+      }
     }
     if(prop === "offerCategory"){
       setFormData(prevState => ({
         ...prevState,
         cardName: "",
-        valueInUSD: "",
-        //price: "",
-        rate: "",
-        minRange: "",
-        maxRange: "",
+        valueInUSD: null,
+        rate: null,
+        minRange: null,
+        maxRange: null,
         cardType: "",
       }))
     }
@@ -70,7 +96,7 @@ const CreateOffer = ({userId}) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    return console.log(formData)
+    //return console.log(formData)
     createOfferMutation.mutate()
   }
 
@@ -94,19 +120,13 @@ const CreateOffer = ({userId}) => {
         </div>
 
         <div>
-          <label htmlFor="cardName" className="form-label mb-1">Choose Giftcard Type</label>
-          <select className="form-select form-control form-control-sm primary-bg fs-6" value={formData.cardName} onChange={handleChange("cardName")} aria-label="Default select example">
-            <option value="">Select Giftcard</option>
-            <option value="visa">Visa Giftcard</option>
-            <option value="vanilla">Vanilla Giftcard</option>
-            <option value="walmart">Walmart Giftcard</option>
-            <option value="target">Target Giftcard</option>
-            <option value="ebay">Ebay Giftcard</option>
-            <option value="amazon">Amazon Giftcard</option>
-          </select>
+          <label htmlFor="customerSearch" className="form-label">Select Giftcard (<span className='fst-italic text-warning'>required</span>)</label>
+          <AppAutoComplete options={listOfGiftCards()} handleClickOption={(cardName) => {setFormData( prevState =>({
+            ...prevState,
+            cardName
+          }))}} placeholder="Giftcard Type" />
         </div>
-        {
-          formData.offerCategory === "seller" &&
+        {formData.offerCategory === "seller" &&
           <>
             <div>
               <label htmlFor="cardType" className="form-label mb-1">Card Type</label>
@@ -123,12 +143,13 @@ const CreateOffer = ({userId}) => {
             </div>
           </>
         }
+
         <div>
-          <label htmlFor="rate" className="form-label mb-1">Rate</label>
+          <label htmlFor="rate" className="form-label mb-1">Rate in ₦</label>
           <input type="text" className="form-control form-control-sm primary-bg fs-6" value={formData.rate} onChange={handleChange("rate")} id="rate" />
         </div>
-        {
-          formData.offerCategory === "merchant" &&
+
+        {formData.offerCategory === "merchant" &&
           <div>
             <label htmlFor="price" className="form-label mb-1">Giftcard Amount Range</label>
             <div className="d-flex">
@@ -138,10 +159,12 @@ const CreateOffer = ({userId}) => {
         </div>
         }
         
-        <button className="btn app-primary-btn d-flex align-items-center justify-content-center" disabled={createOfferMutation.isLoading} type="button" onClick={handleSubmit}>
+        <button className="btn app-primary-btn d-flex align-items-center justify-content-center py-2" disabled={createOfferMutation.isLoading} type="button" onClick={handleSubmit}>
           {createOfferMutation.isLoading ? <CircularProgress size={20} color="inherit" /> : "Create Offer"}
         </button>
-      </form></>
+      </form>
+      
+    </>
   )
 }
 

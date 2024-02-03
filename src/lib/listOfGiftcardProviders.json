@@ -1,0 +1,866 @@
+
+{
+  "data": [
+    {
+      "name": "Amazon",
+      "industry": "Retail",
+      "website": "https://www.amazon.com/gift-cards"
+    },
+    {
+      "name": "iTunes",
+      "industry": "Entertainment",
+      "website": "https://www.apple.com/itunes/gifts/"
+    },
+    {
+      "name": "Google Play",
+      "industry": "Technology",
+      "website": "https://play.google.com/store/gift"
+    },
+    {
+      "name": "Starbucks",
+      "industry": "Food & Beverage",
+      "website": "https://www.starbucks.com/card"
+    },
+    {
+      "name": "Walmart",
+      "industry": "Retail",
+      "website": "https://www.walmart.com/cp/gift-cards/96894"
+    },
+    {
+      "name": "Target",
+      "industry": "Retail",
+      "website": "https://www.target.com/c/gift-cards/-/N-5xsxu"
+    },
+    {
+      "name": "Netflix",
+      "industry": "Entertainment",
+      "website": "https://www.netflix.com/gift-cards"
+    },
+    {
+      "name": "Spotify",
+      "industry": "Entertainment",
+      "website": "https://www.spotify.com/us/gift-card/"
+    },
+    {
+      "name": "Best Buy",
+      "industry": "Retail",
+      "website": "https://www.bestbuy.com/site/electronics/gift-cards/cat09000.c?id=cat09000"
+    },
+    {
+      "name": "Apple Store",
+      "industry": "Technology",
+      "website": "https://www.apple.com/shop/gift-cards"
+    },
+    {
+      "name": "Home Depot",
+      "industry": "Home Improvement",
+      "website": "https://www.homedepot.com/c/Gift_Cards"
+    },
+    {
+      "name": "Lowe's",
+      "industry": "Home Improvement",
+      "website": "https://www.lowes.com/c/Gift-cards"
+    },
+    {
+      "name": "Uber",
+      "industry": "Transportation",
+      "website": "https://www.uber.com/gift-cards/"
+    },
+    {
+      "name": "Airbnb",
+      "industry": "Hospitality",
+      "website": "https://www.airbnb.com/gift/cards"
+    },
+    {
+      "name": "Visa",
+      "industry": "Financial Services",
+      "website": "https://www.visa.com/giftcards/"
+    },
+    {
+      "name": "Mastercard",
+      "industry": "Financial Services",
+      "website": "https://www.mastercard.us/en-us/consumers/find-card-products/gift-cards.html"
+    },
+    {
+      "name": "American Express",
+      "industry": "Financial Services",
+      "website": "https://www.americanexpress.com/gift-cards/"
+    },
+    {
+      "name": "Costco",
+      "industry": "Retail",
+      "website": "https://www.costco.com/gift-cards.html"
+    },
+    {
+      "name": "Chick-fil-A",
+      "industry": "Food & Beverage",
+      "website": "https://www.chick-fil-a.com/gift-cards"
+    },
+    {
+      "name": "Subway",
+      "industry": "Food & Beverage",
+      "website": "https://www.subway.com/en-US/Cards"
+    },
+    {
+      "name": "McDonald's",
+      "industry": "Food & Beverage",
+      "website": "https://www.mcdonalds.com/us/en-us/gift-cards.html"
+    },
+    {
+      "name": "GameStop",
+      "industry": "Retail",
+      "website": "https://www.gamestop.com/gift-cards"
+    },
+    {
+      "name": "Disney Store",
+      "industry": "Entertainment",
+      "website": "https://www.shopdisney.com/gift-cards/"
+    },
+    {
+      "name": "PlayStation Store",
+      "industry": "Entertainment",
+      "website": "https://store.playstation.com/en-us/category/3d4e8c50-18b0-4431-a2f1-98b258fc94c3"
+    },
+    {
+      "name": "Xbox",
+      "industry": "Entertainment",
+      "website": "https://www.xbox.com/en-US/games/gift-cards"
+    },
+    {
+      "name": "Nike",
+      "industry": "Apparel",
+      "website": "https://www.nike.com/gift-cards"
+    },
+    {
+      "name": "Sephora",
+      "industry": "Beauty",
+      "website": "https://www.sephora.com/beauty/giftcards"
+    },
+    {
+      "name": "Shell",
+      "industry": "Automotive",
+      "website": "https://www.shell.us/motorist/shell-gift-card.html"
+    },
+    {
+      "name": "Starbucks",
+      "industry": "Food & Beverage",
+      "website": "https://www.starbucks.com/card"
+    },
+    {
+      "name": "Target",
+      "industry": "Retail",
+      "website": "https://www.target.com/c/gift-cards/-/N-5xsxu"
+    },
+    {
+      "name": "TJ Maxx",
+      "industry": "Retail",
+      "website": "https://tjmaxx.tjx.com/store/giftCards.jsp"
+    },
+    {
+      "name": "Cinemark",
+      "industry": "Entertainment",
+      "website": "https://www.cinemark.com/gift-cards"
+    },
+    {
+      "name": "Fandango",
+      "industry": "Entertainment",
+      "website": "https://www.fandango.com/giftcards"
+    },
+    {
+      "name": "Domino's Pizza",
+      "industry": "Food & Beverage",
+      "website": "https://www.dominos.com/en/pages/giftcard/"
+    },
+    {
+      "name": "Chipotle",
+      "industry": "Food & Beverage",
+      "website": "https://www.chipotle.com/gift-cards"
+    },
+    {
+      "name": "Panera Bread",
+      "industry": "Food & Beverage",
+      "website": "https://www.panerabread.com/en-us/mypanera/rewards.html"
+    },
+    {
+      "name": "Olive Garden",
+      "industry": "Food & Beverage",
+      "website": "https://www.olivegarden.com/gift-cards"
+    },
+    {
+      "name": "Red Lobster",
+      "industry": "Food & Beverage",
+      "website": "https://www.redlobster.com/gift-cards"
+    },
+    {
+      "name": "Burger King",
+      "industry": "Food & Beverage",
+      "website": "https://www.bk.com/gift-cards"
+    },
+    {
+      "name": "Sephora",
+      "industry": "Beauty",
+      "website": "https://www.sephora.com/beauty/giftcards"
+    },
+    {
+      "name": "Ulta Beauty",
+      "industry": "Beauty",
+      "website": "https://www.ulta.com/gift-cards"
+    },
+    {
+      "name": "Bath & Body Works",
+      "industry": "Beauty",
+      "website": "https://www.bathandbodyworks.com/giftcards"
+    },
+    {
+      "name": "Bed Bath & Beyond",
+      "industry": "Home Goods",
+      "website": "https://www.bedbathandbeyond.com/store/giftcards"
+    },
+    {
+      "name": "Wayfair",
+      "industry": "Home Goods",
+      "website": "https://www.wayfair.com/gift-ideas/pdp/egift-card-t1019476814.html"
+    },
+    {
+      "name": "Lululemon",
+      "industry": "Apparel",
+      "website": "https://www.lululemon.com/gift-cards"
+    },
+    {
+      "name": "Macy's",
+      "industry": "Retail",
+      "website": "https://www.macys.com/shop/gift-cards?id=60899"
+    },
+    {
+      "name": "Gap",
+      "industry": "Apparel",
+      "website": "https://www.gap.com/products/gift-card.jsp"
+    },
+    {
+      "name": "Old Navy",
+      "industry": "Apparel",
+      "website": "https://oldnavy.gap.com/products/gift-card.jsp"
+    },
+    {
+      "name": "Banana Republic",
+      "industry": "Apparel",
+      "website": "https://bananarepublic.gap.com/products/gift-card.jsp"
+    },
+    {
+      "name": "American Eagle",
+      "industry": "Apparel",
+      "website": "https://www.ae.com/us/en/c/gift-cards"
+    },
+    {
+      "name": "Kohl's",
+      "industry": "Retail",
+      "website": "https://www.kohls.com/sale-event/gift-cards.jsp"
+    },
+    {
+      "name": "H&M",
+      "industry": "Apparel",
+      "website": "https://www2.hm.com/en_us/gift-card.html"
+    },
+    {
+      "name": "Starbucks",
+      "industry": "Food & Beverage",
+      "website": "https://www.starbucks.com/card"
+    },
+    {
+      "name": "Disney+",
+      "industry": "Entertainment",
+      "website": "https://www.disneyplus.com/gift"
+    },
+    {
+      "name": "Hulu",
+      "industry": "Entertainment",
+      "website": "https://www.hulu.com/gift"
+    },
+    {
+      "name": "Twitch",
+      "industry": "Entertainment",
+      "website": "https://www.twitch.tv/gift"
+    },
+    {
+      "name": "PlayStation Network",
+      "industry": "Entertainment",
+      "website": "https://store.playstation.com/en-us/category/3d4e8c50-18b0-4431-a2f1-98b258fc94c3"
+    },
+    {
+      "name": "Xbox Live",
+      "industry": "Entertainment",
+      "website": "https://www.xbox.com/en-US/live/gift-cards"
+    },
+    {
+      "name": "Nintendo eShop",
+      "industry": "Entertainment",
+      "website": "https://www.nintendo.com/giftcards"
+    },
+    {
+      "name": "Adidas",
+      "industry": "Apparel",
+      "website": "https://www.adidas.com/us/gift-card"
+    },
+    {
+      "name": "Pandora",
+      "industry": "Jewelry",
+      "website": "https://www.pandora.net/en-us/products/gift-cards"
+    },
+    {
+      "name": "Dunkin'",
+      "industry": "Food & Beverage",
+      "website": "https://www.dunkindonuts.com/en/dd-cards/gift-cards"
+    },
+    {
+      "name": "Chili's",
+      "industry": "Food & Beverage",
+      "website": "https://www.chilis.com/gift-cards"
+    },
+    {
+      "name": "Texas Roadhouse",
+      "industry": "Food & Beverage",
+      "website": "https://www.texasroadhouse.com/gift-cards"
+    },
+    {
+      "name": "Red Robin",
+      "industry": "Food & Beverage",
+      "website": "https://www.redrobin.com/gift-cards.html"
+    },
+    {
+      "name": "Outback Steakhouse",
+      "industry": "Food & Beverage",
+      "website": "https://www.outback.com/gift-cards"
+    },
+    {
+      "name": "Regal Cinemas",
+      "industry": "Entertainment",
+      "website": "https://www.regmovies.com/gift-cards"
+    },
+    {
+      "name": "AMC Theatres",
+      "industry": "Entertainment",
+      "website": "https://www.amctheatres.com/gift-cards"
+    },
+    {
+      "name": "Best Western",
+      "industry": "Hospitality",
+      "website": "https://www.bestwestern.com/en_US/gift-cards.html"
+    },
+    {
+      "name": "Marriott",
+      "industry": "Hospitality",
+      "website": "https://gifts.marriott.com/"
+    },
+    {
+      "name": "Hilton",
+      "industry": "Hospitality",
+      "website": "https://www.hilton.com/en/gift-cards/"
+    },
+    {
+      "name": "Starwood",
+      "industry": "Hospitality",
+      "website": "https://www.starwoodhotels.com/preferredguest/account/starpoints/redeem/giftcard.html"
+    },
+    {
+      "name": "Nike",
+      "industry": "Apparel",
+      "website": "https://www.nike.com/gift-cards"
+    },
+    {
+      "name": "Under Armour",
+      "industry": "Apparel",
+      "website": "https://www.underarmour.com/en-us/gift-cards"
+    },
+    {
+      "name": "Cabela's",
+      "industry": "Retail",
+      "website": "https://www.basspro.com/shop/en/gift-cards"
+    },
+    {
+      "name": "Bass Pro Shops",
+      "industry": "Retail",
+      "website": "https://www.basspro.com/shop/en/gift-cards"
+    },
+    {
+      "name": "Dick's Sporting Goods",
+      "industry": "Retail",
+      "website": "https://www.dickssportinggoods.com/f/gift-cards"
+    },
+    {
+      "name": "REI",
+      "industry": "Retail",
+      "website": "https://www.rei.com/gift-cards.html"
+    },
+    {
+      "name": "Fandango",
+      "industry": "Entertainment",
+      "website": "https://www.fandango.com/giftcards"
+    },
+    {
+      "name": "AMC Theatres",
+      "industry": "Entertainment",
+      "website": "https://www.amctheatres.com/gift-cards"
+    },
+    {
+      "name": "Redbox",
+      "industry": "Entertainment",
+      "website": "https://www.redbox.com/gifts"
+    },
+    {
+      "name": "Krispy Kreme",
+      "industry": "Food & Beverage",
+      "website": "https://www.krispykreme.com/gift-cards"
+    },
+    {
+      "name": "Papa John's",
+      "industry": "Food & Beverage",
+      "website": "https://www.papajohns.com/gift-cards/"
+    },
+    {
+      "name": "Starbucks",
+      "industry": "Food & Beverage",
+      "website": "https://www.starbucks.com/card"
+    },
+    {
+      "name": "Panera Bread",
+      "industry": "Food & Beverage",
+      "website": "https://www.panerabread.com/en-us/mypanera/rewards.html"
+    },
+    {
+      "name": "Cracker Barrel",
+      "industry": "Food & Beverage",
+      "website": "https://www.crackerbarrel.com/gift-cards"
+    },
+    {
+      "name": "Barnes & Noble",
+      "industry": "Retail",
+      "website": "https://www.barnesandnoble.com/h/gift-cards"
+    },
+    {
+      "name": "GameStop",
+      "industry": "Retail",
+      "website": "https://www.gamestop.com/gift-cards"
+    },
+    {
+      "name": "Staples",
+      "industry": "Retail",
+      "website": "https://www.staples.com/gift-cards/cat_CL166502"
+    },
+    {
+      "name": "Office Depot",
+      "industry": "Retail",
+      "website": "https://www.officedepot.com/a/content/customer-service/giftcards/"
+    },
+    {
+      "name": "Burger King",
+      "industry": "Food & Beverage",
+      "website": "https://www.bk.com/gift-cards"
+    },
+    {
+      "name": "Taco Bell",
+      "industry": "Food & Beverage",
+      "website": "https://www.tacobell.com/gift-cards"
+    },
+    {
+      "name": "Applebee's",
+      "industry": "Food & Beverage",
+      "website": "https://www.applebees.com/en/gift-cards"
+    },
+    {
+      "name": "Chili's",
+      "industry": "Food & Beverage",
+      "website": "https://www.chilis.com/gift-cards"
+    },
+    {
+      "name": "Cheesecake Factory",
+      "industry": "Food & Beverage",
+      "website": "https://www.thecheesecakefactory.com/gift-cards/"
+    },
+    {
+      "name": "Olive Garden",
+      "industry": "Food & Beverage",
+      "website": "https://www.olivegarden.com/gift-cards"
+    },
+    {
+      "name": "Red Lobster",
+      "industry": "Food & Beverage",
+      "website": "https://www.redlobster.com/gift-cards"
+    },
+    {
+      "name": "Domino's Pizza",
+      "industry": "Food & Beverage",
+      "website": "https://www.dominos.com/en/pages/giftcard/"
+    },
+    {
+      "name": "Papa Murphy's",
+      "industry": "Food & Beverage",
+      "website": "https://www.papamurphys.com/gift-cards/"
+    },
+    {
+      "name": "Apple Store",
+      "industry": "Technology",
+      "website": "https://www.apple.com/shop/gift-cards"
+    },
+    {
+      "name": "Microsoft Store",
+      "industry": "Technology",
+      "website": "https://www.microsoft.com/en-us/store/b/gift-cards"
+    },
+    {
+      "name": "Sony",
+      "industry": "Technology",
+      "website": "https://www.sony.com/en-us/electronics/gift-cards"
+    },
+    {
+      "name": "GameStop",
+      "industry": "Retail",
+      "website": "https://www.gamestop.com/gift-cards"
+    },
+    {
+      "name": "Barnes & Noble",
+      "industry": "Retail",
+      "website": "https://www.barnesandnoble.com/h/gift-cards"
+    },
+    {
+      "name": "Petco",
+      "industry": "Retail",
+      "website": "https://www.petco.com/shop/en/petcostore/category/petco-gift-cards"
+    },
+    {
+      "name": "PetSmart",
+      "industry": "Retail",
+      "website": "https://www.petsmart.com/gift-cards/"
+    },
+    {
+      "name": "Macy's",
+      "industry": "Retail",
+      "website": "https://www.macys.com/shop/gift-cards?id=60899"
+    },
+    {
+      "name": "Nordstrom",
+      "industry": "Retail",
+      "website": "https://www.nordstrom.com/browse/gift-cards"
+    },
+    {
+      "name": "Saks Fifth Avenue",
+      "industry": "Retail",
+      "website": "https://www.saksfifthavenue.com/Entry.jsp"
+    },
+    {
+      "name": "Best Buy",
+      "industry": "Retail",
+      "website": "https://www.bestbuy.com/site/electronics/gift-cards/cat09000.c?id=cat09000"
+    },
+    {
+      "name": "Lowe's",
+      "industry": "Home Improvement",
+      "website": "https://www.lowes.com/c/Gift-cards"
+    },
+    {
+      "name": "Ace Hardware",
+      "industry": "Home Improvement",
+      "website": "https://www.acehardware.com/shop/en/ace-gift-cards"
+    },
+    {
+      "name": "Bed Bath & Beyond",
+      "industry": "Home Goods",
+      "website": "https://www.bedbathandbeyond.com/store/giftcards"
+    },
+    {
+      "name": "Wayfair",
+      "industry": "Home Goods",
+      "website": "https://www.wayfair.com/gift-ideas/pdp/egift-card-t1019476814.html"
+    },
+    {
+      "name": "IKEA",
+      "industry": "Home Goods",
+      "website": "https://www.ikea.com/us/en/customer-service/gift-cards/"
+    },
+    {
+      "name": "Pottery Barn",
+      "industry": "Home Goods",
+      "website": "https://www.potterybarn.com/customer-service/gift-cards.html"
+    },
+    {
+      "name": "Williams Sonoma",
+      "industry": "Home Goods",
+      "website": "https://www.williams-sonoma.com/shop/gift-card/"
+    },
+    {
+      "name": "Etsy",
+      "industry": "Retail",
+      "website": "https://www.etsy.com/giftcards"
+    },
+    {
+      "name": "Wayfair",
+      "industry": "Home Goods",
+      "website": "https://www.wayfair.com/gift-ideas/pdp/egift-card-t1019476814.html"
+    },
+    {
+      "name": "Lululemon",
+      "industry": "Apparel",
+      "website": "https://www.lululemon.com/gift-cards"
+    },
+    {
+      "name": "Dick's Sporting Goods",
+      "industry": "Retail",
+      "website": "https://www.dickssportinggoods.com/f/gift-cards"
+    },
+    {
+      "name": "REI",
+      "industry": "Retail",
+      "website": "https://www.rei.com/gift-cards.html"
+    },
+    {
+      "name": "Foot Locker",
+      "industry": "Apparel",
+      "website": "https://www.footlocker.com/gift-cards.html"
+    },
+    {
+      "name": "H&M",
+      "industry": "Apparel",
+      "website": "https://www2.hm.com/en_us/gift-card.html"
+    },
+    {
+      "name": "Forever 21",
+      "industry": "Apparel",
+      "website": "https://www.forever21.com/us/shop/catalog/category/f21/promo-gift-cards"
+    },
+    {
+      "name": "American Eagle",
+      "industry": "Apparel",
+      "website": "https://www.ae.com/us/en/c/gift-cards"
+    },
+    {
+      "name": "Urban Outfitters",
+      "industry": "Apparel",
+      "website": "https://www.urbanoutfitters.com/gift-cards"
+    },
+    {
+      "name": "Hot Topic",
+      "industry": "Apparel",
+      "website": "https://www.hottopic.com/gift-cards.html"
+    },
+    {
+      "name": "Abercrombie & Fitch",
+      "industry": "Apparel",
+      "website": "https://www.abercrombie.com/shop/us/giftcards"
+    },
+    {
+      "name": "Hollister",
+      "industry": "Apparel",
+      "website": "https://www.hollisterco.com/shop/us/giftcards"
+    },
+    {
+      "name": "American Eagle",
+      "industry": "Apparel",
+      "website": "https://www.ae.com/us/en/c/gift-cards"
+    },
+    {
+      "name": "Victoria's Secret",
+      "industry": "Apparel",
+      "website": "https://www.victoriassecret.com/us/gifts/gift-cards"
+    },
+    {
+      "name": "Bath & Body Works",
+      "industry": "Beauty",
+      "website": "https://www.bathandbodyworks.com/giftcards"
+    },
+    {
+      "name": "Ulta Beauty",
+      "industry": "Beauty",
+      "website": "https://www.ulta.com/gift-cards"
+    },
+    {
+      "name": "Sephora",
+      "industry": "Beauty",
+      "website": "https://www.sephora.com/beauty/giftcards"
+    },
+    {
+      "name": "MAC Cosmetics",
+      "industry": "Beauty",
+      "website": "https://www.maccosmetics.com/giftcards"
+    },
+    {
+      "name": "The Body Shop",
+      "industry": "Beauty",
+      "website": "https://www.thebodyshop.com/en-us/gift-cards"
+    },
+    {
+      "name": "Yankee Candle",
+      "industry": "Home Goods",
+      "website": "https://www.yankeecandle.com/gift-cards"
+    },
+    {
+      "name": "Bed Bath & Beyond",
+      "industry": "Home Goods",
+      "website": "https://www.bedbathandbeyond.com/store/giftcards"
+    },
+    {
+      "name": "Bass Pro Shops",
+      "industry": "Retail",
+      "website": "https://www.basspro.com/shop/en/gift-cards"
+    },
+    {
+      "name": "Cabela's",
+      "industry": "Retail",
+      "website": "https://www.basspro.com/shop/en/gift-cards"
+    },
+    {
+      "name": "West Elm",
+      "industry": "Home Goods",
+      "website": "https://www.westelm.com/gift-cards/"
+    },
+    {
+      "name": "Crate & Barrel",
+      "industry": "Home Goods",
+      "website": "https://www.crateandbarrel.com/gift-cards"
+    },
+    {
+      "name": "Pottery Barn",
+      "industry": "Home Goods",
+      "website": "https://www.potterybarn.com/customer-service/gift-cards.html"
+    },
+    {
+      "name": "Williams Sonoma",
+      "industry": "Home Goods",
+      "website": "https://www.williams-sonoma.com/shop/gift-card/"
+    },
+    {
+      "name": "Lowe's",
+      "industry": "Home Improvement",
+      "website": "https://www.lowes.com/c/Gift-cards"
+    },
+    {
+      "name": "Ace Hardware",
+      "industry": "Home Improvement",
+      "website": "https://www.acehardware.com/shop/en/ace-gift-cards"
+    },
+    {
+      "name": "Home Depot",
+      "industry": "Home Improvement",
+      "website": "https://www.homedepot.com/c/Gift_Cards"
+    },
+    {
+      "name": "IKEA",
+      "industry": "Home Goods",
+      "website": "https://www.ikea.com/us/en/customer-service/gift-cards/"
+    },
+    {
+      "name": "Sears",
+      "industry": "Retail",
+      "website": "https://www.sears.com/en_us/dap/gift-cards.html"
+    },
+    {
+      "name": "JCPenney",
+      "industry": "Retail",
+      "website": "https://www.jcpenney.com/g/gift-cards/N-bwo3vD1nopjn"
+    },
+    {
+      "name": "Kohl's",
+      "industry": "Retail",
+      "website": "https://www.kohls.com/sale-event/gift-cards.jsp"
+    },
+    {
+      "name": "TJ Maxx",
+      "industry": "Retail",
+      "website": "https://tjmaxx.tjx.com/store/giftCards.jsp"
+    },
+    {
+      "name": "Marshalls",
+      "industry": "Retail",
+      "website": "https://www.marshalls.com/us/store/jump/topic/gift-cards/1400047p"
+    },
+    {
+      "name": "Ross",
+      "industry": "Retail",
+      "website": "https://www.rossstores.com/gift-cards"
+    },
+    {
+      "name": "Gap",
+      "industry": "Apparel",
+      "website": "https://www.gap.com/products/gift-card.jsp"
+    },
+    {
+      "name": "Old Navy",
+      "industry": "Apparel",
+      "website": "https://oldnavy.gap.com/products/gift-card.jsp"
+    },
+    {
+      "name": "Banana Republic",
+      "industry": "Apparel",
+      "website": "https://bananarepublic.gap.com/products/gift-card.jsp"
+    },
+    {
+      "name": "Abercrombie & Fitch",
+      "industry": "Apparel",
+      "website": "https://www.abercrombie.com/shop/us/giftcards"
+    },
+    {
+      "name": "Hollister",
+      "industry": "Apparel",
+      "website": "https://www.hollisterco.com/shop/us/giftcards"
+    },
+    {
+      "name": "American Eagle",
+      "industry": "Apparel",
+      "website": "https://www.ae.com/us/en/c/gift-cards"
+    },
+    {
+      "name": "Aeropostale",
+      "industry": "Apparel",
+      "website": "https://www.aeropostale.com/us/aeropostale/giftcards"
+    },
+    {
+      "name": "Forever 21",
+      "industry": "Apparel",
+      "website": "https://www.forever21.com/us/shop/catalog/category/f21/promo-gift-cards"
+    },
+    {
+      "name": "Urban Outfitters",
+      "industry": "Apparel",
+      "website": "https://www.urbanoutfitters.com/gift-cards"
+    },
+    {
+      "name": "American Eagle",
+      "industry": "Apparel",
+      "website": "https://www.ae.com/us/en/c/gift-cards"
+    },
+    {
+      "name": "Hot Topic",
+      "industry": "Apparel",
+      "website": "https://www.hottopic.com/gift-cards.html"
+    },
+    {
+      "name": "Victoria's Secret",
+      "industry": "Apparel",
+      "website": "https://www.victoriassecret.com/us/gifts/gift-cards"
+    },
+    {
+      "name": "Forever 21",
+      "industry": "Apparel",
+      "website": "https://www.forever21.com/us/shop/catalog/category/f21/promo-gift-cards"
+    },
+    {
+      "name": "American Eagle",
+      "industry": "Apparel",
+      "website": "https://www.ae.com/us/en/c/gift-cards"
+    },
+    {
+      "name": "H&M",
+      "industry": "Apparel",
+      "website": "https://www2.hm.com/en_us/gift-card.html"
+    },
+    {
+      "name": "Forever 21",
+      "industry": "Apparel",
+      "website": "https://www.forever21.com/us/shop/catalog/category/f21/promo-gift-cards"
+    },
+    {
+      "name": "Zara",
+      "industry": "Apparel",
+      "website": "https://www.zara.com/us/en/gift-card-c1390034.html"
+    }
+  ]
+}
+

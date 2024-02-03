@@ -16,7 +16,7 @@ const styles = {
 
 
 
-const TradeItem = ({id, buyer, seller, userId, cardName, valueInUSD, price, status, date}) => {
+const TradeItem = ({id, buyer, seller, userId, valueInUSD, rate, offer, status, date}) => {
   return (
     <tr style={styles.tableRow}>
       <th scope="row" className='py-3 text-start'>1</th>
@@ -46,12 +46,15 @@ const TradeItem = ({id, buyer, seller, userId, cardName, valueInUSD, price, stat
           </article>
         </div>
       </td>
-      <td className='py-3 text-start primary-text'>{`$${valueInUSD} ${cardName.toUpperCase()}`}</td>
-      <td className='py-3 primary-text text-start'>₦{formatAsCurrency(price)}</td>
+      <td className='py-3 text-start primary-text'>{`${valueInUSD && `$${valueInUSD}`} ${offer?.cardName.toUpperCase()}`}</td>
+      <td className='py-3 primary-text text-start'>₦{formatAsCurrency(rate)}</td>
       <td className='py-3 text-uppercase primary-text text-start'>{status}</td>
       <td className='py-3 primary-text text-start'>{new Date(date).toDateString()}</td>
-      <td className='py-3 text-start'><Link className='text-decoration-none small secondary-text w-100 text-start' href={`/trades/${id}?userId=${userId}`}> View 
-      <i className="fa-solid fa-angle-right ms-1" style={{fontSize: "11px"}}></i> </Link> </td>
+      <td className='py-3 text-start'>
+        <Link className='text-decoration-none small secondary-text w-100 text-start' href={`/trades/${id}?userId=${userId}`}> View 
+          <i className="fa-solid fa-angle-right ms-1" style={{fontSize: "11px"}}></i> 
+        </Link> 
+      </td>
     </tr>
   )
 }
@@ -78,7 +81,7 @@ export default async function Trades({ searchParams }) {
                 <th scope="col" className='py-3 text-start primary-text'>Buyer</th>
                 <th scope="col" className='py-3 text-start primary-text'>Seller</th>
                 <th scope="col" className='py-3 text-start primary-text'>Card Name</th>
-                <th scope="col" className='py-3 text-start primary-text'>Offer Price</th>
+                <th scope="col" className='py-3 text-start primary-text'>Rate</th>
                 <th scope="col" className='py-3 text-start primary-text'>Status</th>
                 <th scope="col" className='py-3 text-start primary-text'>Date Created</th>
                 <th scope='col' className='py-3 text-start primary-text'>Actions</th>
@@ -86,7 +89,18 @@ export default async function Trades({ searchParams }) {
             </thead>
             <tbody>
               {trades?.map((item, index) => {
-                return <TradeItem key={item.id} id={item.id} buyer={item.buyer} seller={item.seller} userId={userId} cardName={item.cardName} valueInUSD={item.valueInUSD} price={item.price} status={item.status} date={item.createdAt} />
+                return <TradeItem 
+                  key={item.id} 
+                  id={item.id} 
+                  buyer={item.buyer} 
+                  seller={item.seller} 
+                  userId={userId} 
+                  valueInUSD={item?.valueInUSD}
+                  rate={item?.rate}
+                  offer={item.offer} 
+                  status={item.status} 
+                  date={item.createdAt} 
+                />
               })}
             </tbody>
           </table>

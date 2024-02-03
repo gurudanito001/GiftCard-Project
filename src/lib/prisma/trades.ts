@@ -11,7 +11,8 @@ export async function getAllTrades ({userId}: {userId: string}){
       },
       include: {
         buyer: true,
-        seller: true
+        seller: true,
+        offer: true
       },
       orderBy: {
         createdAt: "desc"

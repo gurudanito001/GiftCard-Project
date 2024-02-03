@@ -23,16 +23,19 @@ const Withdraw = ({userData, bankAccounts}) => {
   }
 
   const handleSubmit = () =>{
-    let prevCurrentBal = parseFloat(userData?.wallet?.currentBalance);
-    let prevAvailableBal = parseFloat(userData?.wallet?.availableBalance)
+    if(parseFloat(formData.amount) > userData?.wallet?.availableBalance){
+      return dispatchMessage({severity: "error", message: "Insufficient balance!"})
+    }
+    let prevCurrentBal = userData?.wallet?.currentBalance;
+    let prevAvailableBal = userData?.wallet?.availableBalance;
     let fundAmount = parseFloat(formData.amount);
     let newCurrentBalance = prevCurrentBal - fundAmount;
     let newAvailableBalance = prevAvailableBal - fundAmount;
     let data = {
       userId: userData?.id,
-      currentBalance: newCurrentBalance.toString(),
-      availableBalance: newAvailableBalance.toString(),
-      amount: formData.amount,
+      currentBalance: newCurrentBalance,
+      availableBalance: newAvailableBalance,
+      amount: fundAmount,
       type: "DEBIT",
       category: "withdrawal"
     }

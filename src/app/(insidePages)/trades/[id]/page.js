@@ -78,18 +78,33 @@ const TradeDetails = async ({params, searchParams}) => {
                     </div>
 
                     <div className='row d-flex align-items-center mb-3'>
-                        <h6 className='mb-0 fw-bold col-5 col-lg-3 small'>Offer Price </h6>
-                        <p className='mb-0 col'> ₦{formatAsCurrency(trade?.price)}</p>
+                        <h6 className='mb-0 fw-bold col-5 col-lg-3 small'>Card Name</h6>
+                        <p className='mb-0 col text-uppercase'>{trade?.cardName}</p>
+                    </div>
+
+                    <div className='row d-flex align-items-center mb-3'>
+                        <h6 className='mb-0 fw-bold col-5 col-lg-3 small'>Card Type</h6>
+                        <p className='mb-0 col text-uppercase'>{trade?.cardType}</p>
+                    </div>
+
+                    <div className='row d-flex align-items-center mb-3'>
+                        <h6 className='mb-0 fw-bold col-5 col-lg-3 small'>Value In $USD</h6>
+                        <p className='mb-0 col text-uppercase'>{trade?.valueInUSD}</p>
+                    </div>
+
+                    <div className='row d-flex align-items-center mb-3'>
+                        <h6 className='mb-0 fw-bold col-5 col-lg-3 small'>Rate </h6>
+                        <p className='mb-0 col'> ₦{formatAsCurrency(trade?.rate)}</p>
+                    </div>
+
+                    <div className='row d-flex align-items-center mb-3'>
+                        <h6 className='mb-0 fw-bold col-5 col-lg-3 small'>You will {userId === trade?.buyerId ? "be charged" : "receive"} </h6>
+                        <p className='mb-0 col'> ₦{formatAsCurrency(trade?.rate * trade?.valueInUSD)}</p>
                     </div>
 
                     <div className='row d-flex align-items-center mb-3'>
                         <h6 className='mb-0 fw-bold col-5 col-lg-3 small'>Status</h6>
                         <p className={`mb-0 col ${statusStyle(trade?.status)}`}>{trade?.status}</p>
-                    </div>
-
-                    <div className='row d-flex align-items-center mb-3'>
-                        <h6 className='mb-0 fw-bold col-5 col-lg-3 small'>Card Name</h6>
-                        <p className='mb-0 col text-uppercase'>${formatAsCurrency(trade?.valueInUSD)} {trade?.cardName}</p>
                     </div>
 
                     <div className='row d-flex align-items-center mb-3'>
@@ -131,7 +146,7 @@ const TradeDetails = async ({params, searchParams}) => {
                             {
                                 trade?.status === "ACCEPTED" &&
                                 <>
-                                    <button className="btn app-primary-btn py-2 mt-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Start Messaging</button>
+                                    <button className="btn app-primary-btn py-2 mt-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#messaging" aria-controls="offcanvasRight">Start Messaging</button>
 
                                     <MessageOffCanvas userId={userId} resourceId={id} receiverId={trade?.buyerId === userId ? trade?.sellerId : trade?.buyerId} receiverName={trade?.buyerId === userId ? trade?.seller.firstName : trade?.buyer.firstName} />
                                 </>
