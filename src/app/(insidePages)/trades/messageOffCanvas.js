@@ -74,6 +74,12 @@ const MessageOffCanvas = ({ resourceId, userId, receiverId, receiverName}) => {
     }))
   }
 
+  const handleSubmit = () =>{
+    if(commentData?.message.trim()){
+      commentMutation.mutate()
+    }
+  }
+
   useEffect(()=>{
     setCommentData( prevState =>({
       ...prevState,
@@ -108,7 +114,7 @@ const MessageOffCanvas = ({ resourceId, userId, receiverId, receiverName}) => {
         <div className="d-flex align-items-center gap-2 mt-auto pt-3 px-2 border-top">
           <textarea rows={3} value={commentData.message} onChange={handleChangeComment} className='form-control w-100 small' placeholder='Write message.......'></textarea>
           <div className="d-flex align-items-center">
-            <IconButton disabled={commentMutation.isLoading} onClick={commentMutation.mutate}>
+            <IconButton disabled={commentMutation.isLoading} onClick={handleSubmit}>
               <img className="img img-fluid" width={35} src="/images/send_message.svg" alt="" />
             </IconButton>
           </div>

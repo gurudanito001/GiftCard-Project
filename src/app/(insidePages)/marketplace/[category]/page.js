@@ -8,6 +8,7 @@ import InsideLayout from "@/components/insideLayout";
 import { getUserById } from '@/lib/prisma/users';
 import AvatarClient from "@/components/avater";
 import ActionButton from '../actionButton';
+import FilterOffers from '../filterOffers';
 
 
 
@@ -20,7 +21,7 @@ const UserIcon = () => {
   )
 }
 
-const OfferItem = ({ index, user, cardName, rate, minRange, maxRange, offerCategory, createdAt, showBorder = true, offer, userId }) => {
+const OfferItem = ({ index, user, cardName, cardType, rate, minRange, maxRange, valueInUSD, offerCategory, createdAt, showBorder = true, offer, userId }) => {
   return (
     <tr className={`${showBorder && "border-bottom"}`}>
       <th scope="row" className='text-start primary-text py-3'>{index}</th>
@@ -37,7 +38,13 @@ const OfferItem = ({ index, user, cardName, rate, minRange, maxRange, offerCateg
       <td className="text-start primary-text py-3">
         <p className='m-0 p-0'>
           Offer to {offerCategory.toLowerCase() === "merchant" ? "buy" : "sell"}<strong> {cardName.toUpperCase()}</strong> Giftcard at the rate of ₦{formatAsCurrency(rate)} <br />
-          <span>Min: ${minRange}</span> &nbsp; <span>Max: ${maxRange}</span>
+          {offerCategory === "merchant" ?
+            <><span>Min: ${minRange}</span> &nbsp; <span>Max: ${maxRange}</span> </>:
+            <>
+              <span>Giftcard Value:</span> &nbsp; <strong>{valueInUSD}</strong>  
+              <span className='ms-4'>Giftcard Type:</span> &nbsp; <strong className='text-capitalize'>{cardType}</strong> 
+            </>
+          }
         </p>
         <p className="m-0 p-0 "><strong>Posted:</strong> {moment(createdAt).format("lll")}</p>
       </td>
@@ -54,22 +61,28 @@ export const dynamic='force-dynamic';
 
 const Market = async ({ params, searchParams }) => {
   const userId = searchParams?.userId;
+  const {cardName, valueInUSD, rate, cardType, minRange, maxRange} = searchParams;
   const { user: userData } = await getUserById({ id: userId });
   const category = params.category;
-  const { offers } = await getOffersForMarket({ userId: userId, user: true, offerCategory: category });
+  const getfilterData = () =>{
+
+  }
+  const { offers } = await getOffersForMarket({ userId: userId, user: true, offerCategory: category, filterData: {cardName, valueInUSD: parseInt(valueInUSD), rate: parseFloat(rate), cardType, minRange: parseInt(minRange), maxRange: parseInt(maxRange)} });
   console.log(offers)
 
   const listOffers = () => {
-    return offers.map((offer, index) => <OfferItem
+    return offers?.map((offer, index) => <OfferItem
       key={offer.id}
       id={offer.id}
       user={offer.user}
       index={index + 1}
       cardName={offer.cardName}
+      cardType={offer.cardType}
       rate={offer.rate}
       offerCategory={offer.offerCategory}
       minRange={offer.minRange}
       maxRange={offer.maxRange}
+      valueInUSD={offer?.valueInUSD}
       createdAt={offer.createdAt}
       showBorder={index !== offers.length - 1}
       offer={offer}
@@ -85,9 +98,12 @@ const Market = async ({ params, searchParams }) => {
           <h2 className='mb-4'>{category.toLowerCase().includes("merchant") ? "Merchant" : "Seller"} MarketPlace</h2>
         </header>
 
-        <section className='table-responsive mt-5 p-lg-3 primary-bg'>
+        <div className='d-flex mb-2'>
+          <button className='ms-auto btn btn-link border border-primary' data-bs-toggle="offcanvas" data-bs-target="#filterOffers"><i className="fa-solid fa-arrow-down-wide-short"></i></button>
+        </div>
+        <section className='table-responsive p-lg-3 primary-bg'>
           <table className="table table-hover table-borderless justify-content-start">
-            <caption className='p-3'>Count: {offers.length}</caption>
+            <caption className='p-3'>Count: {offers?.length}</caption>
             <thead className='border-bottom'>
               <tr>
                 <th scope="col" className='py-3 text-start primary-text'>#</th>
@@ -105,6 +121,10 @@ const Market = async ({ params, searchParams }) => {
             {/* {isLoading ? <CircularProgress size={20} color="inherit" /> : "Load More Offers"} */}
           </button>
         </section>
+      </div>
+
+      <div className="offcanvas primary-bg offcanvas-end gap-1" data-bs-scroll="true" data-bs-backdrop="static" id="filterOffers">
+        <FilterOffers userId={userId} offerCategory={category}  />
       </div>
     </InsideLayout>
   )

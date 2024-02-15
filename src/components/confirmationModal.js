@@ -34,6 +34,7 @@ export default function ConfirmationModal({tradeId, btnName, btnStyles, title, m
   const [isLoadingCancel, setIsLoadingCancel] = useState(false);
   const [isLoadingDecline, setIsLoadingDecline] = useState(false);
   const [isLoadingAccept, setIsLoadingAccept] = useState(false);
+  const [isLoadingComplete, setIsLoadingComplete] = useState(false);
 
   const cancelTrade = () =>{
     setIsLoadingCancel(true);
@@ -83,6 +84,22 @@ export default function ConfirmationModal({tradeId, btnName, btnStyles, title, m
       })
   }
 
+  const completeTrade = () =>{
+    setIsLoadingComplete(true);
+    apiPatch({ url: `/trades/completeTrade/${tradeId}`})
+      .then(res => {
+        console.log(res.data)
+        setIsLoadingComplete(false)
+        dispatchMessage({ message: `Trade has been completed. Seller will now receive payment` })
+        router.refresh()
+      })
+      .catch(error => {
+        setIsLoadingComplete(false)
+        console.log(error)
+        dispatchMessage({ severity: "error", message: error.message })
+      })
+  }
+
   const handleSubmit = () =>{
     if(action === "cancel"){
       return cancelTrade();
@@ -90,6 +107,8 @@ export default function ConfirmationModal({tradeId, btnName, btnStyles, title, m
       return declineTrade();
     }else if( action === "accept"){
       return acceptTrade();
+    }else if( action === "complete"){
+      return completeTrade();
     }else{
       return
     }
@@ -101,6 +120,8 @@ export default function ConfirmationModal({tradeId, btnName, btnStyles, title, m
       return isLoadingDecline;
     }else if( action === "accept"){
       return isLoadingAccept;
+    }else if( action === "complete"){
+      return isLoadingComplete;
     }else{
       return false
     }
@@ -108,7 +129,7 @@ export default function ConfirmationModal({tradeId, btnName, btnStyles, title, m
 
   return (
     <div>
-      <Button variant="contained" sx={btnStyles} color={btnColor} onClick={handleOpen}>{btnName}</Button>
+      <Button variant="contained" sx={btnStyles} color={btnColor} onClick={handleOpen}><small>{btnName}</small></Button>
       <Modal
         open={open}
         onClose={handleClose}

@@ -42,7 +42,7 @@ const TradeDetails = async ({params, searchParams}) => {
     return (
         <InsideLayout activeLink={`trades`} userData={userData} userId={userId}>
             <div className='py-5 px-3 px-lg-5'>
-                <header className='d-flex align-items-center mb-5'>
+                <header className='d-flex align-items-center'>
                     <h2 className=''>Trade Details</h2>
                 </header>
 
@@ -130,23 +130,26 @@ const TradeDetails = async ({params, searchParams}) => {
                     <div className='row d-flex flex-row align-items-center mb-3'>
                         <h6 className='mb-0 fw-bold col-5 col-lg-3 small'>Actions</h6>
                         <div className='mt-4 d-flex align-items-center'>
-                            {
-                                trade?.userId !== userId && (trade?.status === "PENDING") &&
-                                <>
-                                    <ConfirmationModal tradeId={id} action="accept" btnName="Accept Trade" btnColor='success' title="Accept Trade" message="Are you sure you want to accept this trade?" />
-                                    <ConfirmationModal tradeId={id} action="decline" btnName="Decline Trade" btnStyles={{ml: 3}} btnColor='error' title="Decline Trade" message="Are you sure you want to decline this trade?" />
-                                </>
+                            {trade?.userId !== userId && (trade?.status === "PENDING") &&
+                             <ConfirmationModal tradeId={id} action="accept" btnName="Accept Trade" btnStyles={{mr: 3}} btnColor='success' title="Accept Trade" message="Are you sure you want to accept this trade?" />
+                            }
+
+                            {trade?.userId !== userId && (trade?.status === "PENDING") &&
+                                <ConfirmationModal tradeId={id} action="decline" btnName="Decline Trade" btnStyles={{mr: 3}} btnColor='error' title="Decline Trade" message="Are you sure you want to decline this trade?" />
+                            }
+
+                            {(trade?.sellerId === userId && (trade?.status !== "CANCELLED" && trade?.status !== "SUCCESSFUL")) &&
+                                <ConfirmationModal btnStyles={{mr: 3}} tradeId={id} action="cancel" btnName="Cancel Trade" btnColor='warning' title="Cancel Trade" message="Are you sure you want to cancel this trade?" />
+                            }
+
+                            {(trade?.buyerId === userId && trade?.status === "ACCEPTED") &&
+                                <ConfirmationModal btnStyles={{mr: 3}} tradeId={id} action="complete" btnName="Complete Trade" btnColor='primary' title="Complete Trade" message="Are you sure you have confirmed the card? \n The payment will be remitted to seller after you confirm trade" />
                             }
 
                             {
-                                trade?.userId === userId && (trade?.status === "PENDING") &&
-                                <ConfirmationModal tradeId={id} action="cancel" btnName="Cancel Trade" btnColor='error' title="Cancel Trade" message="Are you sure you want to cancel this trade?" />
-                            }
-
-                            {
-                                trade?.status === "ACCEPTED" &&
+                                trade?.status === "ACCEPTED" && 
                                 <>
-                                    <button className="btn app-primary-btn py-2 mt-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#messaging" aria-controls="offcanvasRight">Start Messaging</button>
+                                    <button className="btn app-primary-btn py-2 ms-4 mt-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#messaging" aria-controls="offcanvasRight">Start Messaging</button>
 
                                     <MessageOffCanvas userId={userId} resourceId={id} receiverId={trade?.buyerId === userId ? trade?.sellerId : trade?.buyerId} receiverName={trade?.buyerId === userId ? trade?.seller.firstName : trade?.buyer.firstName} />
                                 </>

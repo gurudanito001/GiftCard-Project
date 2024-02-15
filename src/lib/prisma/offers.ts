@@ -20,17 +20,51 @@ export async function getOffers ({userId, user = false, offerCategory}: {userId:
   }
 }
 
-export async function getOffersForMarket ({userId, user = false, offerCategory}: {userId: string, user: boolean, offerCategory: string}){
+type filterDataSchema = {
+  cardName: string
+  cardType: string
+  valueInUSD: number
+  rate: number
+  minRange: number
+  maxRange: number
+}
+
+type getOffersForMarketProps = {
+  userId: string, 
+  user: boolean, 
+  offerCategory: string, 
+  filterData: filterDataSchema
+}
+export async function getOffersForMarket (props: getOffersForMarketProps){
+  console.log(props?.filterData?.valueInUSD)
   try {
     const offers = await prisma.offer.findMany({ 
       where: {
         NOT: {
-          ...(userId && {userId}),
+          ...(props?.userId && {userId: props?.userId}),
+          status: "COMPLETED"
         },
-        ...(offerCategory && {offerCategory})
+        ...(props?.filterData?.cardName && {cardName: props?.filterData?.cardName}),
+        ...(props?.filterData?.cardType && {cardType: props?.filterData?.cardType}),
+        ...(props?.filterData?.rate && {
+          rate: {gte: props?.filterData?.rate}
+        }),
+        ...(props?.filterData?.valueInUSD && {
+            AND: {
+              minRange: {lte: props?.filterData?.valueInUSD}, 
+              maxRange: {gte: props?.filterData?.valueInUSD}, 
+            }
+        }),
+        valueInUSD: {
+          ...(props?.filterData?.maxRange) && {lte: props?.filterData?.maxRange},
+          ...(props?.filterData?.minRange) && {gte: props?.filterData?.minRange},
+        }, 
+
+
+        ...(props?.offerCategory && {offerCategory: props?.offerCategory})
       },
       include: {
-        ...(user && {user})
+        ...(props?.user && {user: props?.user})
       },
       orderBy: {
         createdAt: "desc"

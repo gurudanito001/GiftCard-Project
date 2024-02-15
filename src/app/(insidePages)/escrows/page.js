@@ -1,132 +1,108 @@
-"use client";
 
 import * as React from 'react';
-import { AppTextInput, AppPasswordInput } from "../../../components/formComponents";
-import { useState } from "react";
-import { apiPost } from '../../../services/apiService';
-import { CircularProgress } from "@mui/material";
-import { useSearchParams } from "next/navigation";
-import { useSelector, useDispatch } from 'react-redux';
-import { setMessage } from '@/store/slices/notificationSlice';
-import { useRouter } from 'next/navigation';
-import {Avatar} from '@mui/material';
+import { Avatar } from '@mui/material';
+import { getAllEscrows } from '@/lib/prisma/escrows';
+import { getUserById } from '@/lib/prisma/users';
+import InsideLayout from "@/components/insideLayout";
+import AvatarClient from '@/components/avater';
+import formatAsCurrency from '@/services/formatAsCurrency';
+import Link from 'next/link';
 
 const styles = {
-    tableRow: {
-        cursor: "pointer"
-    }
+  tableRow: {
+    cursor: "pointer"
+  }
 }
 
-export default function Escrows () {
-    const router = useRouter();
-    const dispatch = useDispatch();
-    const searchParams = useSearchParams();
-    console.log(searchParams.get("token"));
-    const [formData, setFormData] = useState({
-      name: "",
-      email: "",
-      password: "",
-      role: "user"
-    })
-    const [isLoading, setIsLoading] = useState(false)
-  
-    const handleChange = (prop) => (event) => {
-      setFormData(prevState => ({
-        ...prevState,
-        [prop]: event.target.value
-      }))
-    }
-  
-    const registerUser = () => {
-      setIsLoading(true)
-      apiPost({ url: `/api/auth/register`, data: formData })
-        .then(res => {
-          console.log(res)
-          setIsLoading(false)
-          dispatch(
-            setMessage({
-              severity: "success",
-              message: res.message,
-              key: Date.now(),
-            })
-          );
-        })
-        .catch(error => {
-          console.log(error)
-          setIsLoading(false)
-          dispatch(
-            setMessage({
-              severity: "error",
-              message: error.message,
-              key: Date.now(),
-            })
-          );
-        })
-    }
-  
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      registerUser()
-      console.log(formData)
-    }
-  
-    return (
-        <div className='py-5 px-3 px-lg-5'>
-            <header className='d-flex align-items-center mb-5'>
-                <h2 className=''>Your Escrows</h2>
-            </header>
 
 
-            <section className='table-responsive mt-5 p-lg-3 primary-bg'>
-                <table className="table table-hover table-borderless align-middle primary-bg">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Amount in ₦</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Date</th>
-                            <th scope='col'><i className="fa-solid fa-angle-right ms-auto invisible"></i>  </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr style={styles.tableRow} onClick={() => router.push("/escrows/id")}>
-                            <th scope="row" className='py-3'>1</th>
-                            <td className='py-3'>100 000</td>
-                            <td className='py-3'>PENDING</td>
-                            <td className='py-3'>{new Date().toDateString()}</td>
-                            <td scope='col'><i className="fa-solid fa-angle-right ms-auto"></i>  </td>
-                        </tr>
-                        <tr style={styles.tableRow} onClick={()=>router.push("/escrows/id")}>
-                            <th scope="row" className='py-3'>2</th>
-                            <td className='py-3'>100 000</td>
-                            <td className='py-3'>PENDING</td>
-                            <td className='py-3'>{new Date().toDateString()}</td>
-                            <td scope='col'><i className="fa-solid fa-angle-right ms-auto"></i>  </td>
-                        </tr>
-                        <tr style={styles.tableRow} onClick={()=>router.push("/escrows/id")}>
-                            <th scope="row" className='py-3'>3</th>
-                            <td className='py-3'>100 000</td>
-                            <td className='py-3'>PENDING</td>
-                            <td className='py-3'>{new Date().toDateString()}</td>
-                            <td scope='col'><i className="fa-solid fa-angle-right ms-auto"></i>  </td>
-                        </tr>
-                        <tr style={styles.tableRow} onClick={()=>router.push("/escrows/id")}>
-                            <th scope="row" className='py-3'>4</th>
-                            <td className='py-3'>100 000</td>
-                            <td className='py-3'>PENDING</td>
-                            <td className='py-3'>{new Date().toDateString()}</td>
-                            <td scope='col'><i className="fa-solid fa-angle-right ms-auto"></i>  </td>
-                        </tr>
-                        <tr style={styles.tableRow} onClick={()=>router.push("/escrows/id")}>
-                            <th scope="row" className='py-3'>5</th>
-                            <td className='py-3'>100 000</td>
-                            <td className='py-3'>PENDING</td>
-                            <td className='py-3'>{new Date().toDateString()}</td>
-                            <td scope='col'><i className="fa-solid fa-angle-right ms-auto"></i>  </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
+const EscrowItem = ({id, buyer, seller, userId, amount, status, date}) => {
+  return (
+    <tr style={styles.tableRow}>
+      <th scope="row" className='py-3 text-start'>1</th>
+      <td className='text-start primary-text py-3'>
+        <div className='d-flex m-0 p-0'>
+          <article className='d-flex flex-column justify-content-center'>
+            {buyer.id === userId ?
+              <span>You</span> :
+              <>
+                <span className='fw-bolder'>{buyer?.firstName} {buyer?.lastName} </span>
+                <span className='small'>{buyer?.username || buyer?.email}</span>
+              </>
+            }
+          </article>
         </div>
-    )
+      </td>
+      <td className='text-start primary-text py-3'>
+        <div className='d-flex m-0 p-0'>
+          <article className='d-flex flex-column justify-content-center'>
+            {seller.id === userId ?
+              <span>You</span> :
+              <>
+                <span className='fw-bolder'>{seller?.firstName} {seller?.lastName} </span>
+                <span className='small'>{seller?.username || seller?.email}</span>
+              </>
+            }
+          </article>
+        </div>
+      </td>
+      <td className='py-3 primary-text text-start'>₦{formatAsCurrency(amount)}</td>
+      <td className='py-3 text-uppercase primary-text text-start'>{status}</td>
+      <td className='py-3 primary-text text-start'>{new Date(date).toDateString()}</td>
+      <td className='py-3 text-start'>
+        <Link className='text-decoration-none small secondary-text w-100 text-start' href={`/escrows/${id}?userId=${userId}`}> View 
+          <i className="fa-solid fa-angle-right ms-1" style={{fontSize: "11px"}}></i> 
+        </Link> 
+      </td>
+    </tr>
+  )
+}
+export const dynamic='force-dynamic';
+
+export default async function Escrows({ searchParams }) {
+  const userId = searchParams?.userId;
+  const { user: userData } = await getUserById({id: userId});
+  const { escrows } = await getAllEscrows({userId});
+
+  return (
+    <InsideLayout activeLink={`escrows`} userData={userData} userId={userId}>
+      <div className='py-5 px-3 px-lg-5'>
+        <header className='d-flex align-items-center mb-5'>
+          <h2 className=''>Your Escrows</h2>
+        </header>
+
+
+        <section className='table-responsive mt-5 p-lg-3 primary-bg'>
+          <table className="table table-hover table-borderless align-middle primary-bg">
+            <thead className='border-bottom'>
+              <tr>
+                <th scope="col" className='py-3 text-start primary-text'>#</th>
+                <th scope="col" className='py-3 text-start primary-text'>Buyer</th>
+                <th scope="col" className='py-3 text-start primary-text'>Seller</th>
+                <th scope="col" className='py-3 text-start primary-text'>Amount</th>
+                <th scope="col" className='py-3 text-start primary-text'>Status</th>
+                <th scope="col" className='py-3 text-start primary-text'>Date Created</th>
+                <th scope='col' className='py-3 text-start primary-text'>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {escrows?.map((item, index) => {
+                return <EscrowItem 
+                  key={item.id} 
+                  id={item.id} 
+                  buyer={item.trade.buyer} 
+                  seller={item.trade.seller} 
+                  userId={userId} 
+                  amount={item?.amount}
+                  status={item.status} 
+                  date={item.createdAt} 
+                />
+              })}
+            </tbody>
+          </table>
+        </section>
+      </div>
+    </InsideLayout>
+    
+  )
 }

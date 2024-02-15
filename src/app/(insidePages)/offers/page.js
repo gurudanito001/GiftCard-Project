@@ -97,7 +97,7 @@ const Offers = async ({searchParams}) => {
           </section>
 
 
-          <div className="offcanvas primary-bg offcanvas-end gap-1" data-bs-scroll="true" id="offers">
+          <div className="offcanvas primary-bg offcanvas-end gap-1" data-bs-scroll="true" data-bs-backdrop="static" id="offers">
             <CreateOffer userId={userId} />
           </div>
         </div>

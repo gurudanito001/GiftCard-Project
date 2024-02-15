@@ -80,14 +80,9 @@ label.Mui-focused{
 }
 
 body{
-    font-family: 'Montserrat' !important;
-    font-size: .9rem;
-    font-weight: 500 !important;
+    font-family: 'Poppins' !important;
+    font-size: .8rem !important;
     color: var(--secondary) !important;
-}
-*{
-    box-sizing: border-box;
-    font-size: .95rem;
 }
 
 ul.why-choose-us li {

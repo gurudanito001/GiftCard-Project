@@ -5,6 +5,7 @@ import { apiPost } from '../../../services/apiService';
 import { CircularProgress } from "@mui/material";
 import { useSelector, useDispatch } from 'react-redux';
 import { setMessage } from '@/store/slices/notificationSlice';
+import Link from "next/link";
 
 const ResetPasswordForm = () => {
   const dispatch = useDispatch();
@@ -60,6 +61,8 @@ const ResetPasswordForm = () => {
         onChange={handleChange("email")}
         labelText="Email Address"
       />
+      <Link href="/auth/login" className="highlight-text me-auto fs-6">Login</Link>
+
       <button className="btn app-primary-btn d-flex align-items-center" disabled={isLoading} type="button" onClick={handleSubmit}>
         {isLoading ? <CircularProgress size={20} color="inherit" /> : "Proceed"}
       </button>

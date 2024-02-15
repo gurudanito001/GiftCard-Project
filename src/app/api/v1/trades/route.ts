@@ -32,7 +32,7 @@ export async function POST(request: Request) {
     let offer = await prisma.offer.findUnique({
       where: {id: json?.offerId},
       include: {
-        user: true
+        user: true,
       }
     })
     const user = await prisma.user.findUnique({
@@ -42,12 +42,11 @@ export async function POST(request: Request) {
     const trade = await prisma.trade.create({
       data: json,
     });
-    console.log(trade, "let us see")
     if(user){
       await sendEmail({email: user?.email, url: `${process.env.BASE_URL}/trades/${trade?.id}?userId=${user?.id}`, subject: "Trade Request", template: TradeRequestNotificationTemplate})
     }
 
-    return new NextResponse(JSON.stringify(trade), { 
+    return new NextResponse(JSON.stringify({ message: "Trade Created Successfully", data: trade}), { 
      status: 201, 
      headers: { "Content-Type": "application/json" },
     });

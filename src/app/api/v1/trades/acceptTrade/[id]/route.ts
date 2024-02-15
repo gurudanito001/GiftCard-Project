@@ -73,9 +73,6 @@ export async function PATCH(
     }
   })
 
-  
-
-
   return new NextResponse(JSON.stringify({ message: "Trade updated successfully", data: updated_trade}), {
     status: 200,
     headers: { "Content-Type": "application/json" },

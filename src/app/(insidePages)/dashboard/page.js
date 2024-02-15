@@ -28,11 +28,11 @@ const DebitIcon = () =>{
   </svg>
 }
 
-const TransactionItem = ({category, amount, date, type, showBorder=true }) => {
+const TransactionItem = ({category, amount, date, type, showBorder=true, beneficiaryId, userId }) => {
     return (
         <div className={`d-flex align-items-center primary-bg ${showBorder && "border-bottom"} gap-3 p-2`}>
             <div>
-                {type === "CREDIT" ? <CreditIcon /> : <DebitIcon /> }
+                {beneficiaryId === userId ? <CreditIcon /> : <DebitIcon /> }
             </div>
             
             <div className="d-flex align-items-center w-100">
@@ -48,7 +48,7 @@ const TransactionItem = ({category, amount, date, type, showBorder=true }) => {
     )
 }
 
-const OfferItem = ({cardName, valueInUSD, price, offerCategory, date, showBorder=true }) => {
+const OfferItem = ({cardName, valueInUSD, price, offerCategory, date, showBorder=true, minRange, maxRange, rate }) => {
     return (
         <div className={`d-flex align-items-center primary-bg ${showBorder && "border-bottom"} gap-3 p-2`}>
             <div className="d-flex align-items-center w-100">
@@ -57,11 +57,11 @@ const OfferItem = ({cardName, valueInUSD, price, offerCategory, date, showBorder
                        {offerCategory}
                     </p>
                     <p className='m-0 p-0'>
-                        {offerCategory.toLowerCase() === "merchant" ? "Buying" : "Selling"} ${valueInUSD} <strong>{cardName.toUpperCase()}</strong> Giftcard for ₦{formatAsCurrency(price)}
+                        {offerCategory.toLowerCase() === "merchant" ? `Buying between $${minRange} and $${maxRange}` : `Selling $${valueInUSD}`}  <strong>{cardName.toUpperCase()}</strong> Giftcard at the rate of ₦{formatAsCurrency(rate)}
                     </p>
                     <small className="mb-0">{moment(date).format("lll")}</small>
                 </div>
-                <p className="mb-0 ms-auto">₦{formatAsCurrency(price)}</p>
+                {/* <p className="mb-0 ms-auto">₦{formatAsCurrency(price)}</p> */}
             </div>
         </div>
     )
@@ -90,7 +90,7 @@ export default async function Dashboard({searchParams}) {
                         </div>
                         <div className='primary-bg d-flex flex-column gap-1 recent-transaction rounded-4 p-lg-3' style={styles.transactions}>
                             {transactions?.map( (item, index) =>{
-                                return <TransactionItem key={item.id} category={item.category} amount={item.amount} date={item.createdAt} type={item.type} showBorder={index !== transactions.length - 1} />
+                                return <TransactionItem key={item.id} category={item.category} amount={item.amount} date={item.createdAt} type={item.type} showBorder={index !== transactions.length - 1} beneficiaryId={item?.beneficiaryId} userId={userId} />
                             })}
                         </div>
                     </div>
@@ -102,7 +102,7 @@ export default async function Dashboard({searchParams}) {
                         </div>
                         <div className='primary-bg d-flex flex-column gap-1 recent-transaction rounded-4 p-lg-3' style={styles.transactions}>
                             {offers?.map((item, index) => {
-                                return <OfferItem key={item.id} cardName={item.cardName} valueInUSD={item.valueInUSD} price={item.price} offerCategory={item.offerCategory} date={item.createdAt} showBorder={index !== offers.length - 1} />
+                                return <OfferItem key={item.id} cardName={item.cardName} valueInUSD={item.valueInUSD} price={item.price} offerCategory={item.offerCategory} date={item.createdAt} showBorder={index !== offers.length - 1} minRange={item?.minRange} maxRange={item?.maxRange} rate={item?.rate} />
                             })}
                         </div>
                     </div>

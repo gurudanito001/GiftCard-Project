@@ -15,6 +15,7 @@ import formatAsCurrency from "@/services/formatAsCurrency";
 
 const InitiateTrade = ({userId, offer}) =>{
   const dispatchMessage = useDispatchMessage();
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -85,7 +86,8 @@ const InitiateTrade = ({userId, offer}) =>{
     mutationFn: ()=> apiPost({ url: `/trades`, data: formData })
     .then(res => {
       console.log(res.data)
-      dispatchMessage({message: `Trade Request Sent to ${offer?.offerCategory}`})
+      dispatchMessage({message: `Trade Request Sent to ${offer?.offerCategory}`});
+      router.push(`/trades/${res?.data?.id}?userId=${userId}`);
     }).catch(error =>{
       console.log(error)
       dispatchMessage({severity: "error", message: error.message })
@@ -101,24 +103,24 @@ const InitiateTrade = ({userId, offer}) =>{
   return (
     <>
 
-      <div className="offcanvas-header py-5 px-4">
+      <div className="offcanvas-header py-4 px-3">
         <h4 className="mb-0">Initiate Trade</h4>
         <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" >
         </button>
       </div>
 
-      <section className="px-4 mb-3">
+      <section className="px-3 mb-3">
 
         <div className="d-flex align-items-center mb-3">
-          <h6 className="w-25 small mb-0 fw-bold">Card</h6>
+          <small className="w-25 small mb-0">Card</small>
           <strong> {offer?.cardName.toUpperCase()}</strong>
         </div>
 
         <div className="d-flex align-items-center mb-3">
-          <h6 className="w-25 small mb-0 fw-bold">Buyer</h6>
+          <small className="w-25 small mb-0">Buyer</small>
           {offer?.offerCategory === "merchant" &&
             <div className='d-flex m-0 p-0'>
-              <div className='me-2'><AvatarClient /></div>
+              {/* <div className='me-2'><AvatarClient /></div> */}
               <article className='d-flex flex-column'>
                 <span className='fw-bolder'>{offer?.user?.firstName} {offer?.user?.lastName} </span>
                 <span className='small'>{offer?.user?.username || offer?.user?.email}</span>
@@ -133,10 +135,10 @@ const InitiateTrade = ({userId, offer}) =>{
 
 
         <div className="d-flex align-items-center mb-3">
-          <h6 className="w-25 small mb-0 fw-bold">Seller:</h6>
+          <small className="w-25 small mb-0">Seller:</small>
           {offer?.offerCategory === "seller" &&
             <div className='d-flex m-0 p-0'>
-              <div className='me-2'><AvatarClient /></div>
+              {/* <div className='me-2'><AvatarClient /></div> */}
               <article className='d-flex flex-column'>
                 <span className='fw-bolder'>{offer?.user?.firstName} {offer?.user?.lastName} </span>
                 <span className='small'>{offer?.user?.username || offer?.user?.email}</span>
@@ -151,20 +153,20 @@ const InitiateTrade = ({userId, offer}) =>{
 
         {offer?.valueInUSD && 
         <div className="d-flex align-items-center mb-3">
-          <h6 className="w-25 small mb-0 fw-bold">Value In $</h6>
-          <strong> {offer?.valueInUSD}</strong>
+          <small className="w-25 small mb-0">Card Value</small>
+          <strong> ${offer?.valueInUSD}</strong>
         </div>}
 
         {offer?.cardType &&
         <div className="d-flex align-items-center mb-3">
-          <h6 className="w-25 small mb-0 fw-bold">Card Type</h6>
+          <small className="w-25 small mb-0 ">Card Type</small>
           <strong> {offer?.cardType}</strong>
         </div>}
 
         <hr />
       </section>
 
-      <form className="d-flex flex-column gap-3 px-4">
+      <form className="d-flex flex-column gap-3 px-3">
         
         {!offer?.cardType &&
           <div>
@@ -183,13 +185,13 @@ const InitiateTrade = ({userId, offer}) =>{
           </div>}
 
           <div className="d-flex">
-            <h6 className="w-50">Rate:</h6>
-            <span> ₦{formatAsCurrency(offer?.rate)}</span>
+            <small className="w-50">Rate</small>
+            <span className="fw-bold"> ₦{formatAsCurrency(offer?.rate)}</span>
           </div>
 
           <div className="d-flex">
-            <h6 className="w-50">You will get: </h6>
-            <span>{formData?.valueInUSD && `₦${formatAsCurrency(formData?.rate * formData?.valueInUSD)}`}</span>
+            <small className="w-50">You will {offer?.offerCategory === "seller" ? "pay": "get"} </small>
+            <span className="fw-bold">{formData?.valueInUSD && `₦${formatAsCurrency(formData?.rate * formData?.valueInUSD)}`}</span>
           </div>
 
           <button className="btn app-primary-btn d-flex align-items-center justify-content-center py-2" disabled={createTradeMutation.isLoading} type="button" onClick={handleSubmit}>
