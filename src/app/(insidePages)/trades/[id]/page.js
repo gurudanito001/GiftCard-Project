@@ -2,14 +2,9 @@
 import { getTradeById } from '@/lib/prisma/trades';
 import { getUserById } from '@/lib/prisma/users';
 import InsideLayout from "@/components/insideLayout";
-import AvatarClient from '@/components/avater';
 import formatAsCurrency from '@/services/formatAsCurrency';
-import Link from 'next/link';
-import {CancelButton, DeclineButton, AcceptButton} from "../actionButtons";
 import ConfirmationModal from '@/components/confirmationModal';
-import AppButton from "@/components/button";
 import MessageOffCanvas from "../messageOffCanvas";
-import { setInterval } from 'timers/promises';
 import RefreshTradeOnInterval from './refreshTradeOnInterval';
 
 

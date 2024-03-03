@@ -1,5 +1,4 @@
 import { prisma } from "@/lib/prisma";
-import { tree } from "next/dist/build/templates/app-page";
 import { NextResponse } from "next/server";
 
 export async function PATCH(

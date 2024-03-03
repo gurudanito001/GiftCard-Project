@@ -1,6 +1,5 @@
 "use client"
 import AvatarClient from '@/components/avater';
-import moment from "moment";
 import useGetMessages from "@/hooks/useGetMessages";
 import { apiPost, apiPatch } from '@/services/apiService';
 import { useMutation } from '@tanstack/react-query';

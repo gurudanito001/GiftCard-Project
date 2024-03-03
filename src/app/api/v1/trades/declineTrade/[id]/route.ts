@@ -1,5 +1,4 @@
 import { prisma } from "@/lib/prisma";
-import { tree } from "next/dist/build/templates/app-page";
 import { NextResponse } from "next/server";
 import sendEmail from "@/services/sendEmail";
 import {TradeRequestAcceptanceTemplate} from "@/services/sendEmail"
