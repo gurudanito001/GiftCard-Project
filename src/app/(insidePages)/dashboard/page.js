@@ -32,7 +32,7 @@ const TransactionItem = ({category, amount, date, type, showBorder=true, benefic
     return (
         <div className={`d-flex align-items-center primary-bg ${showBorder && "border-bottom"} gap-3 p-2`}>
             <div>
-                {beneficiaryId === userId ? <CreditIcon /> : <DebitIcon /> }
+                {beneficiaryId === userId && type !== "DEBIT" ? <CreditIcon /> : <DebitIcon /> }
             </div>
             
             <div className="d-flex align-items-center w-100">

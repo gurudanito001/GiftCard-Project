@@ -38,12 +38,16 @@ type getOffersForMarketProps = {
 export async function getOffersForMarket (props: getOffersForMarketProps){
   console.log(props?.filterData?.valueInUSD)
   try {
+    console.log(props?.userId)
     const offers = await prisma.offer.findMany({ 
       where: {
         NOT: {
-          ...(props?.userId && {userId: props?.userId}),
-          status: "COMPLETED"
+          OR: [
+            {userId: props?.userId},
+            {status: "COMPLETED"}
+          ]
         },
+        
         ...(props?.filterData?.cardName && {cardName: props?.filterData?.cardName}),
         ...(props?.filterData?.cardType && {cardType: props?.filterData?.cardType}),
         ...(props?.filterData?.rate && {

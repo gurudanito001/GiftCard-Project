@@ -68,6 +68,8 @@ model Trade {
   valueInUSD      Int
   rate            Float  
   cardType        String
+  giftCardSent    Boolean?          @default(false)
+  timeSent        DateTime?
   offer           Offer             @relation(fields: [offerId], references: [id],  onDelete: Cascade) 
   offerId         String
   transaction     Transaction?
@@ -142,14 +144,15 @@ model Escrow {
 
 model Message {
   id          String   @id @default(uuid())
-  sender      User     @relation("Sender", fields: [senderId], references: [id],  onDelete: Cascade)
-  senderId    String
-  receiver    User     @relation("Receiver", fields: [receiverId], references: [id],  onDelete: Cascade)
-  receiverId  String
+  sender      User?     @relation("Sender", fields: [senderId], references: [id],  onDelete: Cascade)
+  senderId    String?
+  receiver    User?     @relation("Receiver", fields: [receiverId], references: [id],  onDelete: Cascade)
+  receiverId  String?
   resourceId  String?
   resourceUrl String?
   message     String?
   viewed      Boolean? @default(false)
+  appMessage  Boolean  @default(false) 
   extraData   Json?
   isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())

@@ -1,5 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import sendEmail from "@/services/sendEmail";
+import {TradeRequestCancellationTemplate} from "@/services/sendEmail"
 
 export async function PATCH(
   request: Request,
@@ -11,6 +13,9 @@ export async function PATCH(
   const trade = await prisma.trade.findUnique({
     where: {
       id
+    },
+    include: {
+      buyer: true
     }
   })
   /* if(trade?.status !== "PENDING"){
@@ -51,6 +56,12 @@ export async function PATCH(
       })
     }
   }
+
+  
+  // notify buyer that trade has been cancelled
+    if(trade?.buyer?.email){
+      await sendEmail({email: trade?.buyer?.email, url: `${process.env.BASE_URL}/trades/${trade?.id}?userId=${trade?.buyer?.id}`, subject: "Trade Cancellation", template: TradeRequestCancellationTemplate})
+    }
 
   return new NextResponse(JSON.stringify({ message: "Trade updated successfully", data: updated_trade}), {
     status: 200,

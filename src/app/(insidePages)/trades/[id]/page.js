@@ -9,6 +9,8 @@ import {CancelButton, DeclineButton, AcceptButton} from "../actionButtons";
 import ConfirmationModal from '@/components/confirmationModal';
 import AppButton from "@/components/button";
 import MessageOffCanvas from "../messageOffCanvas";
+import { setInterval } from 'timers/promises';
+import RefreshTradeOnInterval from './refreshTradeOnInterval';
 
 
 
@@ -39,9 +41,11 @@ const TradeDetails = async ({params, searchParams}) => {
     }
 
 
+
     return (
         <InsideLayout activeLink={`trades`} userData={userData} userId={userId}>
             <div className='py-5 px-3 px-lg-5'>
+                <RefreshTradeOnInterval />
                 <header className='d-flex align-items-center'>
                     <h2 className=''>Trade Details</h2>
                 </header>
@@ -151,7 +155,7 @@ const TradeDetails = async ({params, searchParams}) => {
                                 <>
                                     <button className="btn app-primary-btn py-2 ms-4 mt-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#messaging" aria-controls="offcanvasRight">Start Messaging</button>
 
-                                    <MessageOffCanvas userId={userId} resourceId={id} receiverId={trade?.buyerId === userId ? trade?.sellerId : trade?.buyerId} receiverName={trade?.buyerId === userId ? trade?.seller.firstName : trade?.buyer.firstName} />
+                                    <MessageOffCanvas trade={trade} userId={userId} resourceId={id} receiverId={trade?.buyerId === userId ? trade?.sellerId : trade?.buyerId} receiverName={trade?.buyerId === userId ? trade?.seller.firstName : trade?.buyer.firstName} />
                                 </>
                             } 
                         </div>

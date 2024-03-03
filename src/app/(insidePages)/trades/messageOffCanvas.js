@@ -2,12 +2,14 @@
 import AvatarClient from '@/components/avater';
 import moment from "moment";
 import useGetMessages from "@/hooks/useGetMessages";
-import { apiPost } from '@/services/apiService';
+import { apiPost, apiPatch } from '@/services/apiService';
 import { useMutation } from '@tanstack/react-query';
 import { useState, useEffect } from 'react';
 import useDispatchMessage from '@/hooks/useDispatchMessage';
 import { usePathname } from 'next/navigation';
 import { IconButton } from '@mui/material';
+import {CircularProgress} from '@mui/material';
+import ConfirmCardTimer from "./confirmCardTimer";
 
 
 
@@ -33,11 +35,12 @@ const styles = {
 } */
 
 
-const MessageOffCanvas = ({ resourceId, userId, receiverId, receiverName}) => {
+const MessageOffCanvas = ({trade, resourceId, userId, receiverId, receiverName}) => {
 
   const {listMessages, refetch} = useGetMessages(resourceId, userId);
   const dispatchMessage = useDispatchMessage();
   const pathName = usePathname();
+  const [isLoading, setIsLoading] = useState(false);
   
   const [commentData, setCommentData] = useState({
     senderId: "",
@@ -67,6 +70,7 @@ const MessageOffCanvas = ({ resourceId, userId, receiverId, receiverName}) => {
       }),
   })
 
+
   const handleChangeComment =  (event) => {
     setCommentData(prevState => ({
       ...prevState,
@@ -78,6 +82,20 @@ const MessageOffCanvas = ({ resourceId, userId, receiverId, receiverName}) => {
     if(commentData?.message.trim()){
       commentMutation.mutate()
     }
+  }
+
+  const handleSentCode = () =>{
+    setIsLoading(true);
+    apiPatch({ url: `/trades/haveSentGiftcard/${trade?.id}` })
+      .then(res => {
+        setIsLoading(false)
+        refetch()
+      })
+      .catch(error => {
+        setIsLoading(false)
+        console.log(error)
+        dispatchMessage({ severity: "error", message: error.message })
+      })
   }
 
   useEffect(()=>{
@@ -102,7 +120,23 @@ const MessageOffCanvas = ({ resourceId, userId, receiverId, receiverName}) => {
           </div>
         </div>
         <div className="d-flex align-items-center ms-auto gap-3">
-          <i className="fa fa-ellipsis-vertical me-2"></i>
+          {/* <i className="fa fa-ellipsis-vertical me-2"></i> */}
+          {trade?.timeSent && <ConfirmCardTimer timeCodeSent={trade?.timeSent} />}
+          <div className="btn-group">
+            <button type="button" className="btn btn-outline-secondary rounded" data-bs-toggle="dropdown" aria-expanded="false">
+              {isLoading ? <CircularProgress size={15} /> : <i className="fa fa-ellipsis-vertical"></i>}
+            </button>
+            <ul className="dropdown-menu py-0">
+              {trade?.sellerId === userId &&
+                <li className='bg-success-subtle text-dark'>
+                  <a className="dropdown-item p-3" onClick={handleSentCode}>
+                    I have sent GiftCard
+                    <i className="fa-solid fa-circle-check ms-3" style={{ color: "#136c25" }}></i>
+                  </a>
+                </li>
+              }
+            </ul>
+          </div>
           <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
       </div>

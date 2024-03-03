@@ -13,7 +13,6 @@ const Withdraw = ({userData, bankAccounts}) => {
   const [formData, setFormData] = useState({
     amount: ""
   })
-  console.log(bankAccounts);
 
   const handleChange = (prop) => (event) => {
     setFormData(prevState => ({

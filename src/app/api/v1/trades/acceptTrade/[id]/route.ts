@@ -1,5 +1,9 @@
 import { prisma } from "@/lib/prisma";
+import { tree } from "next/dist/build/templates/app-page";
 import { NextResponse } from "next/server";
+import sendEmail from "@/services/sendEmail";
+import {TradeRequestAcceptanceTemplate} from "@/services/sendEmail"
+
 
 export async function PATCH(
   request: Request,
@@ -13,6 +17,8 @@ export async function PATCH(
       id
     },
     include: {
+      buyer: true,
+      seller: true,
       offer: true
     }
   })
@@ -72,6 +78,18 @@ export async function PATCH(
       tradeId: updated_trade?.id
     }
   })
+
+  // notify user that trade has been accepted
+  let userToNotify;
+  if(trade?.buyerId === trade?.offer?.userId){
+    userToNotify = trade?.seller
+  }else{
+    userToNotify = trade?.buyer
+  }
+
+  if(userToNotify){
+    await sendEmail({email: userToNotify?.email, url: `${process.env.BASE_URL}/trades/${trade?.id}?userId=${userToNotify?.id}`, subject: "Trade Request Acceptance", template: TradeRequestAcceptanceTemplate})
+  }
 
   return new NextResponse(JSON.stringify({ message: "Trade updated successfully", data: updated_trade}), {
     status: 200,

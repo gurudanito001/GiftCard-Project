@@ -44,8 +44,10 @@ const VerifyEmail = () => {
         );
       })
   }
+
   useEffect(() => {
     if (token) {
+      console.log("verifying email")
       verifyEmail();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps

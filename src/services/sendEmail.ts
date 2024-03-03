@@ -54,7 +54,7 @@ const confirmEmailTemplate = (url: string) =>{
       </a>
       <p style="line-height: 1.3rem;">
       Thanks <br />
-      <em>The Marlayer Cloud Services Team</em>
+      <em>Peniga</em>
       </p>
   </div>
   `
@@ -74,7 +74,67 @@ export const TradeRequestNotificationTemplate = (url: string) =>{
       </a>
       <p style="line-height: 1.3rem;">
       Thanks <br />
-      <em>The Marlayer Cloud Services Team</em>
+      <em>Peniga</em>
+      </p>
+  </div>
+  `
+}
+
+export const TradeRequestAcceptanceTemplate = (url: string) =>{
+  return `
+  <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center;">
+      <h1>${process.env.COMPANY_NAME}</h1>
+      <p> Your trade request has been accepted</p>
+      <p>Click on the button below to view trade</p>
+      <a
+      href="${url}"
+      target="_blank"
+      style="display: block; width: 250px; border-radius: 25px; border: 1px solid #1942D8; background: #1942D8; color: white; margin: 30px auto; text-align: center; padding: 15px 0px">
+        View Trade
+      </a>
+      <p style="line-height: 1.3rem;">
+      Thanks <br />
+      <em>Peniga</em>
+      </p>
+  </div>
+  `
+}
+
+export const TradeRequestDeclineTemplate = (url: string) =>{
+  return `
+  <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center;">
+      <h1>${process.env.COMPANY_NAME}</h1>
+      <p> Your trade request has been declined</p>
+      <p>Click on the button below to view trade</p>
+      <a
+      href="${url}"
+      target="_blank"
+      style="display: block; width: 250px; border-radius: 25px; border: 1px solid #1942D8; background: #1942D8; color: white; margin: 30px auto; text-align: center; padding: 15px 0px">
+        View Trade
+      </a>
+      <p style="line-height: 1.3rem;">
+      Thanks <br />
+      <em>Peniga</em>
+      </p>
+  </div>
+  `
+}
+
+export const TradeRequestCancellationTemplate = (url: string) =>{
+  return `
+  <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center;">
+      <h1>${process.env.COMPANY_NAME}</h1>
+      <p> Your trade has been cancelled by seller</p>
+      <p>Click on the button below to view trade</p>
+      <a
+      href="${url}"
+      target="_blank"
+      style="display: block; width: 250px; border-radius: 25px; border: 1px solid #1942D8; background: #1942D8; color: white; margin: 30px auto; text-align: center; padding: 15px 0px">
+        View Trade
+      </a>
+      <p style="line-height: 1.3rem;">
+      Thanks <br />
+      <em>Peniga</em>
       </p>
   </div>
   `

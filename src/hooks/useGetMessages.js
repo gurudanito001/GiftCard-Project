@@ -14,10 +14,20 @@ const styles = {
   }
 }
 
-const MessageItem = ({message, sender, date, userId }) =>{
+const getMessageStyles = (senderId, userId, appMessage) =>{
+  if(appMessage){
+    return "bg-success-subtle mx-auto rounded-2 w-100 text-dark px-3"
+  }else if(senderId === userId){
+    return "accent-bg ms-auto rounded-start rounded-top text-white"
+  }else{
+    return "secondary-bg me-auto rounded-end rounded-top text-white"
+  }
+}
+
+const MessageItem = ({message, sender, date, userId, appMessage}) =>{
   return (
-    <li style={styles.item} className={`${sender?.id === userId ? "accent-bg ms-auto rounded-start rounded-top" : "secondary-bg me-auto rounded-end rounded-top"} p-2 text-white my-2`}>
-      {message}
+    <li style={styles.item} className={`${getMessageStyles(sender?.id, userId, appMessage)} p-2 my-2`}>
+      <span className="d-flex align-items-center"> { appMessage && <i className="fa-solid fa-circle-check me-1 fs-6" style={{ color: "#136c25" }}></i>} {message}</span>
       <span className="d-flex">
         <span className='ms-auto' style={{fontSize: '9px'}}>{moment(date).format('lll')}</span>
       </span>
@@ -46,7 +56,7 @@ const useGetMessages = (id, userId) =>{
     if(messageQuery?.data){
       return messageQuery.data.map( item =>{
         return (
-          <MessageItem key={item.id} message={item.message} sender={item.sender} date={item.createdAt} userId={userId} />
+          <MessageItem key={item.id} message={item.message} sender={item.sender} date={item.createdAt} userId={userId} appMessage={item?.appMessage} />
         )
       })
     }
