@@ -1,14 +1,7 @@
 
-//import {useState, useEffect} from 'react';
-//import { apiGet } from '@/services/apiService';
 import Image from 'next/image';
-//import { useMutation } from '@tanstack/react-query';
-//import useDispatchMessage from '@/hooks/useDispatchMessage';
-//import { useRouter } from 'next/navigation';
 import formatAsCurrency from "@/services/formatAsCurrency";
-import CreateOffer from "./createOffer"
-//import { useSelector } from 'react-redux';
-// import { CircularProgress } from '@mui/material';
+import CreateOffer from "./createOffer";
 import InsideLayout from "@/components/insideLayout";
 import { getUserById } from '@/lib/prisma/users';
 import { getOffers} from '@/lib/prisma/offers';
@@ -20,9 +13,8 @@ const styles = {
   }
 }
 const OfferListItem = ({userId, id, index, cardName, offerCategory, rate, minRange, maxRange, status, createdAt }) => {
-  /* const router = useRouter(); */
   return (
-    <tr style={styles.tableRow}/*  onClick={() => router.push(`/offers/${id}`)} */>
+    <tr style={styles.tableRow}>
       <th scope="row" className='py-3 primary-text text-start'>{index}</th>
       <td className='py-3 fw-bold text-uppercase text-start primary-text'>{cardName}</td>
       <td className='py-3 primary-text text-start'>{formatAsCurrency(rate)}</td>

@@ -392,6 +392,10 @@ a
     outline: none !important;
 }
 
+.offcanvas{
+    min-width: 400px !important;
+}
+
 
 /********************************************** Mobile design *******************************/
 

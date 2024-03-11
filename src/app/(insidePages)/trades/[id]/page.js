@@ -6,7 +6,7 @@ import formatAsCurrency from '@/services/formatAsCurrency';
 import ConfirmationModal from '@/components/confirmationModal';
 import MessageOffCanvas from "../messageOffCanvas";
 import RefreshTradeOnInterval from './refreshTradeOnInterval';
-
+import CreateDispute from "@/app/(insidePages)/disputes/createDispute"
 
 
 
@@ -34,7 +34,6 @@ const TradeDetails = async ({params, searchParams}) => {
         }
         return className
     }
-
 
 
     return (
@@ -153,6 +152,13 @@ const TradeDetails = async ({params, searchParams}) => {
                                     <MessageOffCanvas trade={trade} userId={userId} resourceId={id} receiverId={trade?.buyerId === userId ? trade?.sellerId : trade?.buyerId} receiverName={trade?.buyerId === userId ? trade?.seller.firstName : trade?.buyer.firstName} />
                                 </>
                             } 
+                            <button type="button" className="btn btn-link px-0 secondary-text fw-bold text-decoration-none d-flex align-items-center gap-1 ms-auto" data-bs-toggle="offcanvas" data-bs-target={`#dispute-${trade?.id}`}>
+                                Open Dispute
+                            </button>
+
+                            <div className="offcanvas primary-bg offcanvas-end gap-1" data-bs-scroll="true" data-bs-backdrop="static" id={`dispute-${trade?.id}`}>
+                                <CreateDispute userId={userId} tradeId={trade?.id} />
+                            </div>
                         </div>
                     </div>
                 </section>

@@ -31,6 +31,7 @@ model User {
   Receiver        Notification[]    @relation("Receiver")
   wallet          Wallet?
   escrow          Escrow[]
+  dispute         Dispute[]
   bankAccounts    BankAccount[]
   sentMessages    Message[]         @relation("Sender")
   receivedMessages Message[]         @relation("Receiver")
@@ -74,6 +75,7 @@ model Trade {
   offerId         String
   transaction     Transaction?
   escrow          Escrow?
+  dispute         Dispute?
   status          TradeStatus       @default(PENDING)
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
@@ -139,6 +141,19 @@ model Escrow {
   amount            Float
   status            EscrowStatus   @default(PENDING)
   createdAt         DateTime       @default(now())
+  updatedAt         DateTime        @updatedAt
+}
+
+model Dispute {
+  id                String          @id @default(uuid())
+  user              User            @relation(fields: [userId], references: [id],  onDelete: Cascade) 
+  userId            String
+  trade             Trade           @relation(fields: [tradeId], references: [id], onDelete: Cascade) 
+  tradeId           String          @unique
+  reason            String
+  mediaProof        String   
+  mediaProofType    String
+  createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
 }
 

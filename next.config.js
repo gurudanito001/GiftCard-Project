@@ -9,9 +9,9 @@ const nextConfig = {
       },
     ],
   },
-  experimental: {
+  /* experimental: {
     appDir: true
-  },
+  }, */
   async headers() {
     return [
       {

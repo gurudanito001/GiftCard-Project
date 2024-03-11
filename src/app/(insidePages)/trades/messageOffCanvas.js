@@ -3,12 +3,13 @@ import AvatarClient from '@/components/avater';
 import useGetMessages from "@/hooks/useGetMessages";
 import { apiPost, apiPatch } from '@/services/apiService';
 import { useMutation } from '@tanstack/react-query';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import useDispatchMessage from '@/hooks/useDispatchMessage';
 import { usePathname } from 'next/navigation';
-import { IconButton } from '@mui/material';
+import { Icon, IconButton } from '@mui/material';
 import {CircularProgress} from '@mui/material';
 import ConfirmCardTimer from "./confirmCardTimer";
+import { Modal, ClickAwayListener } from "@mui/material";
 
 
 
@@ -40,6 +41,32 @@ const MessageOffCanvas = ({trade, resourceId, userId, receiverId, receiverName})
   const dispatchMessage = useDispatchMessage();
   const pathName = usePathname();
   const [isLoading, setIsLoading] = useState(false);
+
+  const [fileUrl, setFileUrl] = useState("");
+  const [isSendingFile, setIsSendingFile] = useState(false);
+  const inputFileRef = useRef(null);
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = (imageUrl) => {
+    setModalImage(imageUrl)
+    setOpen(true);
+  }
+  const handleClose = () => {
+    setModalImage("")
+    setOpen(false);
+  }
+  const [modalImage, setModalImage] = useState("")
+
+  const createFileUrl = () => {
+    const file = inputFileRef.current.files[0];
+    console.log(file)
+    if (file) {
+      setFileUrl(URL.createObjectURL(file));
+      console.log(URL.createObjectURL(file))
+    } else {
+      setFileUrl("")
+    }
+  }
   
   const [commentData, setCommentData] = useState({
     senderId: "",
@@ -57,7 +84,7 @@ const MessageOffCanvas = ({trade, resourceId, userId, receiverId, receiverName})
   }
   
   const commentMutation = useMutation({
-    mutationFn: () => apiPost({ url: "/message", data: commentData })
+    mutationFn: (data) => apiPost({ url: "/message", data })
       .then(res => {
         clearComment();
         console.log(res.data)
@@ -77,11 +104,48 @@ const MessageOffCanvas = ({trade, resourceId, userId, receiverId, receiverName})
     }))
   }
 
-  const handleSubmit = () =>{
-    if(commentData?.message.trim()){
-      commentMutation.mutate()
+  const handleClickUploadImageIcon = () =>{
+    inputFileRef.current.click();
+  }
+
+  const cancelImage = () =>{
+    setFileUrl("");
+    inputFileRef.current.value = ""
+  }
+
+  const handleSubmit = async () =>{
+    let data = {...commentData};
+
+    if(inputFileRef.current.files.length){
+      console.log(inputFileRef.current?.files)
+      const file = inputFileRef.current.files[0];
+      setIsSendingFile(true)
+      const fileUrl = await postFile(file.name, file)
+      data.message = fileUrl;
+      setIsSendingFile(false);
+      cancelImage()
+    }
+
+    if(data?.message.trim()){
+      commentMutation.mutate(data)
+    }else{
+      dispatchMessage({ severity: "error", message: "Message content is empty" })
     }
   }
+
+  const postFile = async (filename, file) =>{
+    const response = await fetch(
+      `/api/v1/uploadFiles?filename=${filename}`,
+      {
+        method: 'POST',
+        body: file,
+      },
+    );
+    const newBlob = await response.json();
+    console.log(newBlob.url);
+    return newBlob.url
+  }
+
 
   const handleSentCode = () =>{
     setIsLoading(true);
@@ -106,6 +170,36 @@ const MessageOffCanvas = ({trade, resourceId, userId, receiverId, receiverName})
       resourceUrl: pathName
     }))
   },[pathName, receiverId, resourceId, userId])
+
+  const listCarouselImages = () =>{
+    if(data?.images){
+      return data?.images.map ((image, index) =>{
+        return (
+          <div key={image} className={`carousel-item ${index === 0 && "active"}`}>
+            <img src={image} className="d-block w-100" alt="carousel image" />
+          </div>
+        )
+      })
+    }
+  }
+
+  const listCarouselButtons = () =>{
+    if(data?.images){
+      return data?.images.map ((image, index) =>{
+        return(
+          <button
+            key={image}
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to={index}
+            className={`${index === 0 && "active"}`}
+            aria-current={`${index === 0 && "true"}`}
+            aria-label={`Slide ${index}`}
+          />
+        )
+      })
+    }
+  }
 
 
   return (
@@ -141,18 +235,78 @@ const MessageOffCanvas = ({trade, resourceId, userId, receiverId, receiverName})
       </div>
       <div className="offcanvas-body px-0 d-flex flex-column">
         <ul className='list-unstyled h-100 d-flex flex-column px-2' style={{overflowY: "scroll"}}>
-          {listMessages()}
+          {listMessages(handleOpen)}
         </ul>
 
         <div className="d-flex align-items-center gap-2 mt-auto pt-3 px-2 border-top">
-          <textarea rows={3} value={commentData.message} onChange={handleChangeComment} className='form-control w-100 small' placeholder='Write message.......'></textarea>
-          <div className="d-flex align-items-center">
-            <IconButton disabled={commentMutation.isLoading} onClick={handleSubmit}>
+          {fileUrl ?
+            <div className='w-100 d-flex flex-column'>
+              <h6 className='small fw-bold mt-3'>File Preview</h6>
+              <IconButton className='ms-auto' style={{background: "rgb(0, 0, 0, .7)"}} onClick={cancelImage}>
+                <i class="fa-solid fa-xmark" style={{fontSize: "12px", color: "white"}}></i>
+              </IconButton>
+              <img src={fileUrl} alt="File Preview"  className='border rounded img img-fluid' />
+            </div> :
+            <div className='w-100'> 
+              <textarea rows={5} value={commentData.message} onChange={handleChangeComment} className='form-control w-100 small' placeholder='Write message.......'></textarea>
+            </div>
+          }
+
+          <div className="d-flex flex-column align-items-center">
+            <IconButton onClick={handleClickUploadImageIcon}>
+              <i className="fa-regular fa-image"></i>
+            </IconButton>
+            <input accept="image/*" className='d-none' onChange={createFileUrl} ref={inputFileRef} type="file" id="imageUpload" name="imageUpload"></input>
+            <IconButton disabled={commentMutation.isLoading || isSendingFile} onClick={handleSubmit}>
               <img className="img img-fluid" width={35} src="/images/send_message.svg" alt="" />
             </IconButton>
           </div>
         </div>
       </div>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <div className="row d-flex h-100">
+          <ClickAwayListener onClickAway={handleClose}>
+            <div className="col-12 col-md-8 col-lg-6 m-auto">
+              <div id="carouselExampleIndicators" className="carousel slide">
+                <div className="carousel-indicators">
+                  {/* {listCarouselButtons()} */}
+                </div>
+                <div className="carousel-inner">
+                  <div key={modalImage} className="carousel-item active">
+                    <img src={modalImage} className="d-block w-100" alt="carousel image" />
+                  </div>
+                </div>
+                {/* <button
+                  className="carousel-control-prev"
+                  type="button"
+                  data-bs-target="#carouselExampleIndicators"
+                  data-bs-slide="prev"
+                >
+                  <span className="carousel-control-prev-icon" aria-hidden="true" />
+                  <span className="visually-hidden">Previous</span>
+                </button>
+                <button
+                  className="carousel-control-next"
+                  type="button"
+                  data-bs-target="#carouselExampleIndicators"
+                  data-bs-slide="next"
+                >
+                  <span className="carousel-control-next-icon" aria-hidden="true" />
+                  <span className="visually-hidden">Next</span>
+                </button> */}
+              </div>
+
+            </div>
+          </ClickAwayListener>
+          
+        </div>
+      </Modal>
     </div>
   )
 }

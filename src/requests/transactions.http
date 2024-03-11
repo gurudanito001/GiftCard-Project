@@ -1,8 +1,8 @@
 
-@baseUrl = http://localhost:3000/api/v1/
+@baseUrl = http://localhost:3000/api/v1
 
 # @name getAllTransactions
-GET {{baseUrl}}/transactions?userId=67dec8ce-0021-4d54-aedf-186c31a9d66c HTTP/1.1
+GET {{baseUrl}}/bankAccounts HTTP/1.1
 
 ###
 

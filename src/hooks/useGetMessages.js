@@ -24,7 +24,23 @@ const getMessageStyles = (senderId, userId, appMessage) =>{
   }
 }
 
-const MessageItem = ({message, sender, date, userId, appMessage}) =>{
+const MessageItem = ({message, sender, date, userId, appMessage, showImageModal}) =>{
+  return (
+    <li style={styles.item} className={`${getMessageStyles(sender?.id, userId, appMessage)} p-2 my-2`}>
+      <span className="d-flex align-items-center"> 
+        { appMessage && <i className="fa-solid fa-circle-check me-1 fs-6" style={{ color: "#136c25" }}></i>} 
+        {message.includes("blob.vercel-storage.com") ?
+        <img src={message} className="img img-fluid" style={{cursor: "pointer"}} onClick={()=>showImageModal(message)} /> : 
+        message}
+      </span>
+      <span className="d-flex">
+        <span className='ms-auto' style={{fontSize: '9px'}}>{moment(date).format('lll')}</span>
+      </span>
+    </li>
+  )
+}
+/* 
+const ImageItem = ({message, sender, date, userId, appMessage}) =>{
   return (
     <li style={styles.item} className={`${getMessageStyles(sender?.id, userId, appMessage)} p-2 my-2`}>
       <span className="d-flex align-items-center"> { appMessage && <i className="fa-solid fa-circle-check me-1 fs-6" style={{ color: "#136c25" }}></i>} {message}</span>
@@ -33,7 +49,7 @@ const MessageItem = ({message, sender, date, userId, appMessage}) =>{
       </span>
     </li>
   )
-}
+} */
 
 
 const useGetMessages = (id, userId) =>{
@@ -52,12 +68,10 @@ const useGetMessages = (id, userId) =>{
       refetchIntervalInBackground: true
   })
 
-  const listMessages = ()=>{
+  const listMessages = (showImageModal)=>{
     if(messageQuery?.data){
       return messageQuery.data.map( item =>{
-        return (
-          <MessageItem key={item.id} message={item.message} sender={item.sender} date={item.createdAt} userId={userId} appMessage={item?.appMessage} />
-        )
+        return <MessageItem key={item.id} message={item.message} sender={item.sender} date={item.createdAt} userId={userId} appMessage={item?.appMessage} showImageModal={showImageModal} />
       })
     }
   }
