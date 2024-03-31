@@ -27,10 +27,10 @@ const CreateOffer = ({userId}) => {
   const [formData, setFormData] = useState({
     userId: "",
     cardName: "",
-    valueInUSD: null,
-    rate: null,
-    minRange: null,
-    maxRange: null,
+    valueInUSD: "",
+    rate: "",
+    minRange: "",
+    maxRange: "",
     cardType: "",
     offerCategory: ""
   })

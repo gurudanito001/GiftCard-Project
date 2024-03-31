@@ -222,12 +222,21 @@ const MessageOffCanvas = ({trade, resourceId, userId, receiverId, receiverName})
             <ul className="dropdown-menu py-0">
               {trade?.sellerId === userId &&
                 <li className='bg-success-subtle text-dark'>
-                  <a className="dropdown-item p-3" onClick={handleSentCode}>
+                  <a className="dropdown-item p-3 d-flex align-items-center" onClick={handleSentCode}>
                     I have sent GiftCard
                     <i className="fa-solid fa-circle-check ms-3" style={{ color: "#136c25" }}></i>
                   </a>
                 </li>
               }
+              <li className='bg-danger-subtle text-dark'>
+                <a className="dropdown-item p-3 d-flex align-items-center" data-bs-toggle="offcanvas" data-bs-target={`#dispute-${trade?.id}`}>
+                  Raise Dispute
+                  <i className="fa-solid fa-circle-check ms-auto" style={{ color: "red" }}></i>
+                </a>
+                {/* <button type="button" className="btn btn-link px-0 secondary-text fw-bold text-decoration-none d-flex align-items-center gap-1 ms-auto" data-bs-toggle="offcanvas" data-bs-target={`#dispute-${trade?.id}`}>
+                  Open Dispute
+                </button> */}
+              </li>
             </ul>
           </div>
           <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -243,7 +252,7 @@ const MessageOffCanvas = ({trade, resourceId, userId, receiverId, receiverName})
             <div className='w-100 d-flex flex-column'>
               <h6 className='small fw-bold mt-3'>File Preview</h6>
               <IconButton className='ms-auto' style={{background: "rgb(0, 0, 0, .7)"}} onClick={cancelImage}>
-                <i class="fa-solid fa-xmark" style={{fontSize: "12px", color: "white"}}></i>
+                <i className="fa-solid fa-xmark" style={{fontSize: "12px", color: "white"}}></i>
               </IconButton>
               <img src={fileUrl} alt="File Preview"  className='border rounded img img-fluid' />
             </div> :

@@ -1,7 +1,7 @@
 
 import * as React from 'react';
 import { Avatar } from '@mui/material';
-import { getTrades } from '@/lib/prisma/trades';
+import { getAllTrades } from '@/lib/prisma/trades';
 import { getUserById } from '@/lib/prisma/users';
 import InsideLayout from "@/components/insideLayout";
 import AvatarClient from '@/components/avater';
@@ -16,10 +16,10 @@ const styles = {
 
 
 
-const TradeItem = ({id, buyer, seller, userId, valueInUSD, rate, offer, status, date}) => {
+const TradeItem = ({id, index, buyer, seller, userId, valueInUSD, rate, offer, status, date}) => {
   return (
     <tr style={styles.tableRow}>
-      <th scope="row" className='py-3 text-start'>1</th>
+      <th scope="row" className='py-3 text-start'>{index}</th>
       <td className='text-start primary-text py-3'>
         <div className='d-flex m-0 p-0'>
           <article className='d-flex flex-column justify-content-center'>
@@ -51,7 +51,7 @@ const TradeItem = ({id, buyer, seller, userId, valueInUSD, rate, offer, status, 
       <td className='py-3 text-uppercase primary-text text-start'>{status}</td>
       <td className='py-3 primary-text text-start'>{new Date(date).toDateString()}</td>
       <td className='py-3 text-start'>
-        <Link className='text-decoration-none small secondary-text w-100 text-start' href={`/trades/${id}?userId=${userId}`}> View 
+        <Link className='text-decoration-none small secondary-text w-100 text-start' href={`/allTrades/${id}?userId=${userId}`}> View 
           <i className="fa-solid fa-angle-right ms-1" style={{fontSize: "11px"}}></i> 
         </Link> 
       </td>
@@ -63,13 +63,13 @@ export const dynamic='force-dynamic';
 export default async function Trades({ searchParams }) {
   const userId = searchParams?.userId;
   const { user: userData } = await getUserById({id: userId});
-  const { trades } = await getTrades({userId})
+  const { trades } = await getAllTrades();
 
   return (
-    <InsideLayout activeLink={`trades`} userData={userData} userId={userId}>
+    <InsideLayout activeLink={`allTrades`} userData={userData} userId={userId}>
       <div className='py-5 px-3 px-lg-5'>
         <header className='d-flex align-items-center mb-5'>
-          <h2 className=''>Your Trades</h2>
+          <h2 className=''>All Trades</h2>
         </header>
 
 
@@ -91,7 +91,8 @@ export default async function Trades({ searchParams }) {
               {trades?.map((item, index) => {
                 return <TradeItem 
                   key={item.id} 
-                  id={item.id} 
+                  id={item.id}
+                  index={index + 1} 
                   buyer={item.buyer} 
                   seller={item.seller} 
                   userId={userId} 

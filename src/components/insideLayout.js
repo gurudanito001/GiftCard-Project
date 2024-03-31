@@ -14,15 +14,59 @@ const InsideLayout = ({ children, userData, activeLink, userId }) => {
         </div>
         <div className="d-flex flex-column h-100 overflow-auto">
           <ul className="navbar-nav link-wrapper w-100 h-100 pb-3 overflow-auto">
+
+
             <li className="mb-4">
               <Link className="d-flex align-items-center gap-2 px-4 ps-lg-5 text-decoration-none py-2" href={`/profile?userId=${userId}`}>
-                {/* <AvatarClient /> */}
                 <div className="d-flex flex-column align-items-center small">
                   <span className="primary-text">Hello {userData?.firstName} 👋</span>
                 </div>
               </Link>
             </li>
+
             <li className="nav-item">
+              <Link className={`d-flex align-items-center gap-2 px-4 px-lg-5 nav-link link py-3 ${activeLink === "allUsers" && "active"}`} href={`/allUsers?userId=${userId}`}>
+                <i className="fa-solid fa-users-gear fs-5"></i>
+                <span>All Users</span>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className={`d-flex align-items-center gap-2 px-4 px-lg-5 nav-link link py-3 ${activeLink === "allTrades" && "active"}`} href={`/allTrades?userId=${userId}`}>
+                <i className="fa fa-people-arrows fs-5"></i>
+                <span>All Trades</span>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className={`d-flex align-items-center gap-2 px-4 px-lg-5 nav-link link py-3 ${activeLink === "allTransactions" && "active"}`} href={`/allTransactions?userId=${userId}`}>
+                <i className="fa fa-arrow-down-up-across-line fs-5"></i>
+                <span>All Transactions</span>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className={`d-flex align-items-center gap-2 px-4 px-lg-5 nav-link link py-3 ${activeLink === "allBankAccounts" && "active"}`} href={`/allBankAccounts?userId=${userId}`}>
+                <i className="fa fa-building-columns fs-5"></i>
+                <span>All Bank Accounts</span>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className={`d-flex align-items-center gap-2 px-4 px-lg-5 nav-link link py-3 ${activeLink === "allEscrows" && "active"}`} href={`/allEscrows?userId=${userId}`}>
+                <i className="fa fa-folder-tree fs-5"></i>
+                <span>All Escrows</span>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className={`d-flex align-items-center gap-2 px-4 px-lg-5 nav-link link py-3 ${activeLink === "allDisputes" && "active"}`} href={`/allDisputes?userId=${userId}`}>
+                <i className="fa-solid fa-face-angry fs-5"></i>
+                <span>All Disputes</span>
+              </Link>
+            </li>
+
+
+
+
+
+
+            <li className="nav-item mt-5">
               <Link className={`d-flex align-items-center gap-2 px-4 px-lg-5 nav-link link py-3 ${activeLink === "dashboard" && "active"}`} href={`/dashboard?userId=${userId}`}>
                 <i className="fa fa-arrow-trend-up fs-5"></i>
                 <span>Dashboard</span>

@@ -7,6 +7,7 @@ import Testimonials from '../views/landing/testimonials';
 import GetStarted from '../views/landing/getStarted';
 import PublicLayout from '../components/publicLayout';
 
+export const dynamic='force-dynamic';
 export default function Home() {
   return (
     <PublicLayout>

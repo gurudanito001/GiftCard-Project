@@ -1,10 +1,11 @@
 import Image from "next/image";
 
+export const dynamic='force-dynamic';
 const HeroSection = () => {
 
   return (
-    <>
-      <section id="home" className="hero-section" style={{ background: "#531eba !important" }}>
+    <div>
+      <section id="home" className="hero-section" >
         <div className="container">
           <div className="d-flex flex-column flex-lg-row text-white text-start gap-2">
             <section className="col-12 col-lg pe-lg-5 d-flex flex-column py-5">
@@ -31,7 +32,7 @@ const HeroSection = () => {
         </svg>
       </div>
 
-    </>
+    </div>
 
   )
 }

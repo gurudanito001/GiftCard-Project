@@ -1,6 +1,6 @@
 import {prisma} from "@/lib/prisma";
 
-export async function getAllTrades ({userId}: {userId: string}){
+export async function getTrades ({userId}: {userId: string}){
   try {
     const trades = await prisma.trade.findMany({
       where: {
@@ -23,6 +23,63 @@ export async function getAllTrades ({userId}: {userId: string}){
     return {error}
   }
 }
+
+export async function getAllTrades (){
+  try {
+    const trades = await prisma.trade.findMany({
+      include: {
+        buyer: true,
+        seller: true,
+        offer: true
+      },
+      orderBy: {
+        createdAt: "desc"
+      }
+    });
+    return { trades }
+  } catch (error) {
+    return {error}
+  }
+}
+
+export async function getActiveTrades ({userId}: {userId: string}){
+  try {
+    const trades = await prisma.trade.findMany({
+      where: {
+        OR: [
+          {
+            status: {
+              equals: "ACCEPTED"
+            }
+          },
+          {
+            status: {
+              equals: "DISPUTED"
+            }
+          },
+          {
+            status: {
+              equals: "PENDING"
+            }
+          },
+        ]
+      },
+      include: {
+        buyer: true,
+        seller: true,
+        offer: true
+      },
+      orderBy: {
+        createdAt: "desc"
+      }
+    });
+    return { trades }
+  } catch (error) {
+    return {error}
+  }
+}
+
+
 
 export async function getTradeById ({id}: {id: string}){
   try {

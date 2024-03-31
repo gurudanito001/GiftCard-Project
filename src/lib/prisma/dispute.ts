@@ -1,15 +1,22 @@
 import {prisma} from "@/lib/prisma";
 
-export async function getAllEscrows ({userId}: {userId: string}){
+export async function getAllDisputes (){
   try {
-    const escrows = await prisma.escrow.findMany({
-      where: {userId},
+    const disputes = await prisma.dispute.findMany({
       include: {
         user: true,
         trade: {
           select: {
+            user: true,
+            buyerId: true,
             buyer: true,
-            seller: true
+            sellerId: true,
+            seller: true,
+            cardName: true,
+            valueInUSD: true,
+            rate: true,
+            cardType: true,
+            timeSent: true
           }
         },
       },
@@ -17,34 +24,33 @@ export async function getAllEscrows ({userId}: {userId: string}){
         createdAt: "desc"
       }
     });
-    return { escrows }
+    return { disputes }
   } catch (error) {
     return {error}
   }
 }
 
-export async function getEscrowById ({id}: {id: string}){
+export async function getDisputeById ({id}: {id: string}){
   try {
-    const escrow = await prisma.escrow.findUnique({ 
+    const dispute = await prisma.dispute.findUnique({ 
       where: {id},
       include: {
         user: true,
         trade: {
           select: {
+            user: true,
             buyer: true,
             seller: true,
             cardName: true,
             valueInUSD: true,
             rate: true,
             cardType: true,
-            status: true,
-            createdAt: true,
-            updatedAt: true
+            timeSent: true
           }
         },
-      },
+      }
     });
-    return { escrow }
+    return { dispute }
   } catch (error) {
     return {error}
   }

@@ -26,6 +26,7 @@ const CreateDispute = ({userId, tradeId}) => {
   const [fileUrl, setFileUrl] = useState("");
   const [isSendingFile, setIsSendingFile] = useState(false);
   const inputFileRef = useRef(null);
+  const closeModalRef = useRef(null);
 
   const createFileUrl = () => {
       const file = inputFileRef.current.files[0];
@@ -58,7 +59,8 @@ const CreateDispute = ({userId, tradeId}) => {
     .then(res => {
       dispatchMessage({ message: res.message })
       queryClient.invalidateQueries(["allDisputes"]);
-      router.refresh()
+      router.refresh();
+      closeModalRef.current.click();
     }).catch(error =>{
       console.log(error)
       dispatchMessage({severity: "error", message: error.message })
@@ -101,8 +103,9 @@ const CreateDispute = ({userId, tradeId}) => {
     <>
       <div className="offcanvas-header py-5 px-4">
         <h4 className="mb-0">Create Dispute</h4>
-        <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close">
+        <button type="button" ref={closeModalRef} className="btn-close"  data-bs-toggle="offcanvas" data-bs-target="#messaging" aria-controls="offcanvasRight">
         </button>
+        {/* <button className="btn app-primary-btn py-2 ms-4 mt-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#messaging" aria-controls="offcanvasRight">Start Messaging</button> */}
       </div>
 
       <form className="d-flex flex-column gap-3 px-4">

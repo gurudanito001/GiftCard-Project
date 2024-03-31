@@ -23,6 +23,23 @@ export async function getTransactions ({userId}: {userId: string}){
   }
 }
 
+export async function getAllTransactions (){
+  try {
+    const transactions = await prisma.transaction.findMany({
+      include: {
+        benefactor: true,
+        beneficiary: true
+      },
+      orderBy: {
+        createdAt: "desc"
+      }
+    });
+    return { transactions }
+  } catch (error) {
+    return {error}
+  }
+}
+
 export async function getTransactionById ({id}: {id: string}){
   try {
     const transaction = await prisma.transaction.findUnique({ 

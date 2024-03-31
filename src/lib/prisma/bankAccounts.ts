@@ -13,3 +13,17 @@ export async function getBankAccounts ({userId}: {userId: string}){
     return {error}
   }
 }
+
+
+export async function getAllBankAccounts (){
+  try {
+    const bankAccounts = await prisma.bankAccount.findMany({
+      include: {
+        user: true
+      }
+    });
+    return { bankAccounts }
+  } catch (error) {
+    return {error}
+  }
+}
