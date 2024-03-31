@@ -1,7 +1,7 @@
 
 import Image from 'next/image';
 import formatAsCurrency from "@/services/formatAsCurrency";
-import { getUserById } from '@/lib/prisma/';
+import { getUserById } from '@/lib/prisma/users';
 import InsideLayout from "@/components/insideLayout";
 
 const styles = {
