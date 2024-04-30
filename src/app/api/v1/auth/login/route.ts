@@ -19,12 +19,12 @@ export async function POST(request: Request) {
       }
     });
     if (user && (await bcrypt.compare(data.password as string, user.password as string))) {
-      if(!user.email_confirmed){
+     /*  if(!user.email_confirmed){
         return new NextResponse(JSON.stringify({message: "Email Not Verified"}), {
           status: 400,
           headers: { "Content-Type": "application/json" },
         }); 
-      }
+      } */
       // Create token
       const token = jwt.sign(
         { user_id: user.id, email: user.email },
